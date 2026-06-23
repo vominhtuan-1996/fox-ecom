@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git commit -m ' *)",
+      "Bash(mv src/components/* src/presentation/components/)",
+      "Bash(mv src/hooks/* src/presentation/hooks/)",
+      "Bash(mv src/utils/* src/common/utils/ 2>/dev/null; mv src/types src/common/types 2>/dev/null; rmdir src/utils 2>/dev/null; true)",
+      "Bash(git reset *)"
+    ],
+    "additionalDirectories": [
+      "/Users/tuanvm37/fox-ecom/src/utils"
+    ]
+  }
+}

@@ -3,7 +3,14 @@
  * React Native SDK for e-commerce
  */
 
-export * from './components';
-export * from './hooks';
-export * from './utils';
-export * from './types';
+// Presentation layer (Components, Hooks, Styles)
+export * from './presentation';
+
+// Domain layer (Entities, Use cases, Repositories)
+export * from './domain';
+
+// Common utilities, constants, errors, types
+export * from './common';
+
+// Dependency Injection
+export { setupDependencies, ServiceLocator } from './di';
