@@ -2,6 +2,42 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Documentation First - Required Reading
+
+⚠️ **MANDATORY**: Before processing ANY request or prompt in this repository, **MUST read through all 5 documentation layers** in order:
+
+1. **[docs/01_convention.md](docs/01_convention.md)** - Naming & code conventions
+   - File naming, function naming, class naming, type naming
+   - When to use camelCase, snake_case, PascalCase, UPPER_SNAKE_CASE
+
+2. **[docs/02_structure.md](docs/02_structure.md)** - Project structure & organization
+   - Where code goes (presentation, domain, data, common, di layers)
+   - What can import what (dependency rule)
+   - How to organize files
+
+3. **[docs/03_tech.md](docs/03_tech.md)** - Technology stack & setup
+   - Tools, versions, and configuration
+   - How to build, test, lint
+   - Development commands
+
+4. **[docs/04_rule.md](docs/04_rule.md)** - Development rules & guidelines
+   - 32 must-follow rules for code quality
+   - Architecture rules (dependency rule, business logic placement)
+   - Testing requirements (80%+ coverage)
+   - Security guidelines
+
+5. **[docs/05_csoc.md](docs/05_csoc.md)** - Code style & organization convention
+   - Prettier formatting rules
+   - TypeScript patterns and best practices
+   - Component structure and organization
+   - Error handling patterns
+
+**How to use**: Read sequentially whenever you receive a prompt. Use Ctrl+F to search within documents for specific topics. Reference document sections in your responses using links.
+
+**Quick reference**: See [docs/README.md](docs/README.md) for navigation by task.
+
+---
+
 ## Project Overview
 
 This is a **React Native SDK** designed to be distributed as an npm package (tarball/tgz format) for use in other projects. The SDK is published to npm and installed by consumers via `npm install`.
