@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build
+build/
+dist/
+*.jsbundle
+
+# iOS
+ios/Pods
+ios/Podfile.lock
+
+# Android
+android/.gradle
+android/build
+android/local.properties
+
+# Logs
+logs/
+npm-debug.log*
+yarn-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Metro
+.haste_cache/
+.metro_cache/
+
+# Environment
+.env
+.env.local
