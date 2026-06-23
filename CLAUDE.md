@@ -36,6 +36,25 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Quick reference**: See [docs/README.md](docs/README.md) for navigation by task.
 
+## Response Language - Vietnamese Only
+
+🇻🇳 **MANDATORY**: All responses must be in **Vietnamese (Tiếng Việt)**.
+
+- Code comments can remain in English (code conventions)
+- Code variable/function names in English (standard practice)
+- **ALL explanations, descriptions, commit messages, and guidance = Vietnamese**
+- File names, paths, technical terms can be English
+- Error messages, documentation follow Vietnamese
+
+**Example**:
+```
+❌ Wrong: "Added new component for product display"
+✅ Right: "Thêm component mới để hiển thị sản phẩm"
+
+❌ Wrong: "This function calculates the total price"
+✅ Right: "Function này tính tổng giá tiền"
+```
+
 ---
 
 ## Project Overview
