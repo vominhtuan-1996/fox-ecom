@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import type { Product } from '../../domain/entities';
-import { colors, spacing, typography } from '../styles';
+import { colors, spacing, typography, borderRadius, shadows } from '../../common/theme';
 
 interface ProductCardProps {
   product: Product;
@@ -29,28 +29,23 @@ const styles = StyleSheet.create({
   container: {
     padding: spacing.md,
     backgroundColor: colors.white,
-    borderRadius: 8,
+    borderRadius: borderRadius.lg,
     marginBottom: spacing.sm,
-    shadowColor: colors.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
+    ...shadows.md,
   },
   name: {
-    fontSize: typography.body1.fontSize,
-    fontWeight: '600',
+    ...typography.bodyMedium,
     marginBottom: spacing.sm,
     color: colors.gray900,
   },
   price: {
-    fontSize: typography.body2.fontSize,
-    fontWeight: '700',
+    ...typography.bodySm,
+    fontWeight: '700' as const,
     color: colors.primary,
     marginBottom: spacing.sm,
   },
   description: {
-    fontSize: typography.caption.fontSize,
-    color: colors.gray500,
+    ...typography.caption,
+    color: colors.textTertiary,
   },
 });

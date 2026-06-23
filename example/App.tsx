@@ -16,6 +16,7 @@ import {
   colors,
   spacing,
   typography,
+  fontWeight,
   HttpClient,
 } from 'fox-ecom';
 
@@ -120,14 +121,13 @@ const styles = StyleSheet.create({
     paddingTop: spacing.xl,
   },
   title: {
-    fontSize: typography.h1.fontSize,
-    fontWeight: '700',
+    ...typography.h1,
     marginBottom: spacing.sm,
     paddingHorizontal: spacing.md,
-    color: colors.gray900,
+    color: colors.primary,
   },
   subtitle: {
-    fontSize: typography.body2.fontSize,
+    ...typography.bodySm,
     color: colors.gray500,
     paddingHorizontal: spacing.md,
     marginBottom: spacing.lg,
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.xl,
   },
   loading: {
-    fontSize: typography.body1.fontSize,
+    ...typography.body,
     textAlign: 'center',
     marginVertical: spacing.md,
     color: colors.gray500,
@@ -147,11 +147,11 @@ const styles = StyleSheet.create({
     marginHorizontal: spacing.md,
     marginVertical: spacing.md,
     padding: spacing.md,
-    backgroundColor: colors.danger,
-    borderRadius: 8,
+    backgroundColor: colors.error,
+    borderRadius: spacing.md,
   },
   error: {
-    fontSize: typography.body1.fontSize,
+    ...typography.body,
     color: colors.white,
   },
   emptyBox: {
@@ -159,11 +159,11 @@ const styles = StyleSheet.create({
     marginVertical: spacing.md,
     padding: spacing.lg,
     backgroundColor: colors.white,
-    borderRadius: 8,
+    borderRadius: spacing.md,
     alignItems: 'center',
   },
   emptyText: {
-    fontSize: typography.body1.fontSize,
+    ...typography.body,
     color: colors.gray500,
   },
   section: {
@@ -182,9 +182,9 @@ const styles = StyleSheet.create({
     color: colors.gray900,
   },
   clearButton: {
-    fontSize: typography.body2.fontSize,
-    color: colors.danger,
-    fontWeight: '600',
+    ...typography.bodySm,
+    color: colors.error,
+    fontWeight: fontWeight.semibold,
   },
   footer: {
     alignItems: 'center',
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     borderTopColor: colors.gray200,
   },
   footerText: {
-    fontSize: typography.caption.fontSize,
+    ...typography.caption,
     color: colors.gray500,
   },
 });

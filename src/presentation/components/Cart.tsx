@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import type { Cart as CartType } from '../../domain/entities';
-import { colors, spacing, typography } from '../styles';
+import { colors, spacing, typography, fontWeight } from '../../common/theme';
 import { ProductCard } from './ProductCard';
 
 interface CartProps {
@@ -38,14 +38,13 @@ const styles = StyleSheet.create({
     padding: spacing.md,
   },
   title: {
-    fontSize: typography.h2.fontSize,
-    fontWeight: '700',
+    ...typography.h2,
     marginBottom: spacing.md,
     color: colors.gray900,
   },
   emptyText: {
-    fontSize: typography.body1.fontSize,
-    color: colors.gray500,
+    ...typography.body,
+    color: colors.textSecondary,
     textAlign: 'center',
     marginTop: spacing.lg,
   },
@@ -56,16 +55,15 @@ const styles = StyleSheet.create({
     marginTop: spacing.md,
     paddingTop: spacing.md,
     borderTopWidth: 1,
-    borderTopColor: colors.gray200,
+    borderTopColor: colors.border,
   },
   totalLabel: {
-    fontSize: typography.body1.fontSize,
-    fontWeight: '600',
+    ...typography.bodyMedium,
     color: colors.gray900,
   },
   totalAmount: {
-    fontSize: typography.h3.fontSize,
-    fontWeight: 'bold',
+    ...typography.h3,
+    fontWeight: fontWeight.bold,
     color: colors.primary,
   },
 });

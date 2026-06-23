@@ -33,7 +33,20 @@
       "Bash(\ncd /Users/tuanvm37/fox-ecom/example\nrm -rf node_modules package-lock.json\nrm -rf ios/Pods ios/Podfile.lock\nrm -rf ~/Library/Developer/Xcode/DerivedData/FoxEcomExample*\nnpm install 2>&1 | tail -20\n)",
       "Bash(rm Podfile)",
       "Bash(npx react-native *)",
-      "Bash(tee /tmp/final_build.log)"
+      "Bash(tee /tmp/final_build.log)",
+      "Bash(rm -rf ios)",
+      "Bash(npx @react-native-community/cli init --template bare FoxEcomExample --skip-git)",
+      "Bash(git checkout *)",
+      "Bash(git commit -m 'Fix Podfile: Remove use_native_modules! for compatibility *)",
+      "Bash(git commit -m 'Fix Podfile: Remove use_native_modules! incompatibility *)",
+      "Bash(rm -rf node_modules package-lock.json)",
+      "Bash(rm -rf node_modules package-lock.json ios/Pods ios/Podfile.lock)",
+      "Bash(rm -rf ~/Library/Developer/Xcode/DerivedData/*)",
+      "Bash(tee /tmp/run_ios_final.log)",
+      "Bash(npm start *)",
+      "Bash(pkill -f \"npm start\")",
+      "Bash(pkill -f \"npm run ios\\\\|npm start\\\\|react-native start\")",
+      "Bash(git commit -m 'Tạo bộ theme hoàn chỉnh: colors + typography + spacing *)"
     ],
     "additionalDirectories": [
       "/Users/tuanvm37/fox-ecom/src/utils",
