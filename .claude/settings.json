@@ -46,7 +46,10 @@
       "Bash(npm start *)",
       "Bash(pkill -f \"npm start\")",
       "Bash(pkill -f \"npm run ios\\\\|npm start\\\\|react-native start\")",
-      "Bash(git commit -m 'Tạo bộ theme hoàn chỉnh: colors + typography + spacing *)"
+      "Bash(git commit -m 'Tạo bộ theme hoàn chỉnh: colors + typography + spacing *)",
+      "Bash(git commit -m 'Thêm Rule #34: Mandatory Theme Usage *)",
+      "Bash(pkill -9 -f \"npm run ios\\\\|npm start\\\\|react-native start\\\\|node.*metro\")",
+      "Bash(killall -9 node)"
     ],
     "additionalDirectories": [
       "/Users/tuanvm37/fox-ecom/src/utils",
