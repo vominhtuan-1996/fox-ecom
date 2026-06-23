@@ -1,11 +1,11 @@
 {
     "schema_version": 1,
-    "commit": "7b0a5348633a177a248b86c55dcb3ba75ad99859",
-    "indexed_at": "2026-06-23T15:21:31Z",
+    "commit": "2b9db9a14aed4b62f463c467dc241b914d9fffc0",
+    "indexed_at": "2026-06-23T15:30:50Z",
     "project": "Users-tuanvm37-fox-ecom",
-    "nodes": 804,
-    "edges": 1205,
-    "original_size": 2686976,
-    "compressed_size": 308979,
+    "nodes": 816,
+    "edges": 1216,
+    "original_size": 2818048,
+    "compressed_size": 310842,
     "compression_level": 3
 }
