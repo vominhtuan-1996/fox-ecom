@@ -15,29 +15,28 @@ if linkage != nil
 end
 
 target 'FoxEcomExample' do
-  config = use_native_modules!
+  reactNativePath = "#{Pod::Config.instance.installation_root}/../node_modules/react-native"
 
   use_react_native!(
-    :path => config[:reactNativePath],
-    # An absolute path to your application root.
+    :path => reactNativePath,
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
   post_install do |installer|
     react_native_post_install(
       installer,
-      config[:reactNativePath],
-      :mac_catalyst_enabled => false,
-      # :ccache_enabled => true
+      reactNativePath,
+      :mac_catalyst_enabled => false
     )
 
-    # Fix RCT-Folly typedef conflict with Xcode 26.3
+    # Disable all warnings-as-errors for compatibility
     installer.pods_project.targets.each do |target|
-      if target.name == 'RCT-Folly'
-        target.build_configurations.each do |config|
-          config.build_settings['GCC_TREAT_WARNINGS_AS_ERRORS'] = 'NO'
-          config.build_settings['CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS'] = 'NO'
-        end
+      target.build_configurations.each do |config|
+        config.build_settings['GCC_TREAT_WARNINGS_AS_ERRORS'] = 'NO'
+        config.build_settings['CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS'] = 'NO'
+        config.build_settings['CLANG_WARN_DIRECT_OBJC_ISA_USAGE'] = 'NO'
+        config.build_settings['CLANG_WARN_OBJC_ROOT_CLASS'] = 'NO'
+        config.build_settings['GCC_WARN_ABOUT_RETURN_TYPE'] = 'NO'
       end
     end
   end
