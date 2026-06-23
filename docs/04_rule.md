@@ -524,11 +524,93 @@ export class CartUsecase {
 }
 ```
 
+### 21. All API Calls Must Use Core HttpClient
+
+**Rule**: Tất cả API calls bắt buộc phải sử dụng `HttpClient` từ `src/data/sources/`.
+
+**Why**: Centralized HTTP handling, consistent error handling, retry logic, auth token management, logging.
+
+✅ **Good**:
+```typescript
+// Data source
+export class ProductRemoteDataSource {
+  constructor(private httpClient: HttpClient) {}
+
+  async getProducts(): Promise<ProductModel[]> {
+    try {
+      const response = await this.httpClient.get<any>('/products');
+      return response.data.map((item: any) => ProductModel.fromJson(item));
+    } catch (error) {
+      throw new NetworkFailure('Failed to fetch products');
+    }
+  }
+}
+
+// Repository
+export class ProductRepositoryImpl implements ProductRepository {
+  constructor(private datasource: ProductRemoteDataSource) {}
+
+  async getProducts(): Promise<Product[]> {
+    const models = await this.datasource.getProducts();
+    return models.map((m) => m.toDomain());
+  }
+}
+```
+
+❌ **Bad**:
+```typescript
+// ❌ Direct fetch call
+export class ProductRemoteDataSource {
+  async getProducts(): Promise<ProductModel[]> {
+    const response = await fetch('/products');  // ❌ No retry, no auth, no error mapping
+    return response.json();
+  }
+}
+
+// ❌ Using axios without core wrapper
+import axios from 'axios';
+export class ProductRemoteDataSource {
+  async getProducts(): Promise<ProductModel[]> {
+    const response = await axios.get('/products');  // ❌ Different error handling
+  }
+}
+
+// ❌ HTTP calls in use case (should be in datasource)
+export class GetProductsUsecase {
+  async execute(): Promise<Product[]> {
+    const response = await fetch('/products');  // ❌ Wrong layer
+  }
+}
+```
+
+**HttpClient Features**:
+- ✅ Retry logic with exponential backoff
+- ✅ Automatic token refresh on 401
+- ✅ Timeout handling
+- ✅ Consistent error mapping to domain exceptions
+- ✅ Curl logging in dev mode
+- ✅ Auth token management
+
+**Setup**:
+```typescript
+// In DI setup
+import { HttpClient } from '@/data/sources';
+
+const httpClient = new HttpClient({
+  baseURL: 'https://api.example.com',
+  timeout: 10000,
+  retryAttempts: 3,
+});
+
+httpClient.setAuthToken(token);
+httpClient['retryAuth'].setRefreshHandler(refreshTokenFn);
+```
+
 ---
 
 ## Documentation Rules
 
-### 21. JSDoc for Public APIs
+### 22. JSDoc for Public APIs
 
 **Rule**: All public functions/classes in domain must have JSDoc.
 
@@ -545,7 +627,7 @@ export class GetProductsUsecase {
 }
 ```
 
-### 22. README in Each Layer
+### 23. README in Each Layer
 
 **Rule**: Each major layer should have a README explaining its purpose.
 
@@ -558,7 +640,7 @@ src/domain/
   └── repositories/
 ```
 
-### 23. No Commented Code
+### 24. No Commented Code
 
 **Rule**: Delete dead code, don't comment it out.
 
@@ -577,7 +659,7 @@ const calculateTax = (price: number): number => price * (1 + TAX_RATE);
 
 ## Security Rules
 
-### 24. No Secrets in Code
+### 25. No Secrets in Code
 
 **Rule**: Never hardcode API keys, passwords, or tokens.
 
@@ -595,7 +677,7 @@ export const API_KEY = process.env.API_KEY;
 const API_KEY = 'hardcoded_secret_key'; // ❌ SECURITY RISK
 ```
 
-### 25. Validate All Inputs
+### 26. Validate All Inputs
 
 **Rule**: Never trust external input (API, user, storage).
 
@@ -611,7 +693,7 @@ if (!validatePrice(price)) {
 }
 ```
 
-### 26. Sanitize User Input
+### 27. Sanitize User Input
 
 **Rule**: Clean user input before using in business logic.
 
@@ -627,7 +709,7 @@ if (!productId) {
 
 ## Git & Commit Rules
 
-### 27. Atomic Commits
+### 28. Atomic Commits
 
 **Rule**: One logical change per commit.
 
@@ -643,7 +725,7 @@ commit 3: Add ProductRepository interface
 commit 1: Add everything - entity, usecase, repo, component, test
 ```
 
-### 28. Meaningful Commit Messages
+### 29. Meaningful Commit Messages
 
 **Rule**: Use present tense, describe what change does.
 
@@ -662,7 +744,7 @@ changes
 wip
 ```
 
-### 29. No Direct Commits to Main
+### 30. No Direct Commits to Main
 
 **Rule**: Always use feature branches, require PR review.
 
@@ -679,7 +761,7 @@ git merge to main
 
 ## Performance Rules
 
-### 30. Lazy Loading & Code Splitting
+### 31. Lazy Loading & Code Splitting
 
 **Rule**: Use lazy loading for large feature sets.
 
@@ -688,7 +770,7 @@ git merge to main
 const CartScreen = React.lazy(() => import('@/presentation/screens/CartScreen'));
 ```
 
-### 31. Memoization for Expensive Computations
+### 32. Memoization for Expensive Computations
 
 **Rule**: Use `useMemo` and `useCallback` appropriately.
 
@@ -700,7 +782,7 @@ const discountedPrice = useMemo(
 );
 ```
 
-### 32. Avoid N+1 Queries
+### 33. Avoid N+1 Queries
 
 **Rule**: Batch requests, don't loop and fetch.
 
@@ -725,10 +807,11 @@ for (const id of productIds) {
 | 7-10 | Code Quality | All | 🔴 CRITICAL |
 | 11-14 | Testing | Domain/Data | 🟡 HIGH |
 | 15-20 | Modules & APIs | All | 🟡 HIGH |
-| 21-23 | Documentation | All | 🟢 MEDIUM |
-| 24-26 | Security | All | 🔴 CRITICAL |
-| 27-29 | Git Workflow | All | 🟡 HIGH |
-| 30-32 | Performance | All | 🟢 MEDIUM |
+| 21 | Core HttpClient | Data | 🔴 CRITICAL |
+| 22-24 | Documentation | All | 🟢 MEDIUM |
+| 25-27 | Security | All | 🔴 CRITICAL |
+| 28-30 | Git Workflow | All | 🟡 HIGH |
+| 31-33 | Performance | All | 🟢 MEDIUM |
 
 ---
 
