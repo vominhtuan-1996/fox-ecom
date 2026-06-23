@@ -22,7 +22,12 @@
       "Bash(export LANG=en_US.UTF-8)",
       "Bash(git commit -m 'Add CocoaPods Podfile & lock *)",
       "Bash(rm -rf ~/Library/Developer/Xcode/DerivedData/FoxEcomExample* && echo \"✅ Xóa Xcode cache\")",
-      "Bash(echo \"Exit code: $?\")"
+      "Bash(echo \"Exit code: $?\")",
+      "Bash(tee /tmp/full_ios_output.log)",
+      "Bash(xcrun simctl *)",
+      "Bash(xcodebuild -workspace FoxEcomExample.xcworkspace -configuration Debug -scheme FoxEcomExample -destination id=0C546B4C-134B-464D-BC8E-B408802D8EFC)",
+      "Bash(tee /tmp/xcodebuild_full.log)",
+      "Bash(git commit -m 'Fix RCT-Folly Xcode 26.3 typedef conflict *)"
     ],
     "additionalDirectories": [
       "/Users/tuanvm37/fox-ecom/src/utils",
