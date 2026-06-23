@@ -797,6 +797,56 @@ for (const id of productIds) {
 }
 ```
 
+### 34. Mandatory Theme Usage for UI Values
+
+**Rule**: All colors, text styles, and spacing values must come from `theme` system. Never hardcode them.
+
+**Why**: Centralized styling enables:
+- Brand consistency across app
+- Easy theme switching (dark mode, white-label, etc.)
+- Single source of truth for design tokens
+
+✅ **Good**:
+```typescript
+import { colors, spacing, typography } from 'fox-ecom';
+
+const styles = StyleSheet.create({
+  button: {
+    ...typography.bodyMedium,
+    color: colors.white,
+    backgroundColor: colors.primary,
+    paddingHorizontal: spacing.md,
+    borderRadius: borderRadius.lg,
+  },
+});
+```
+
+❌ **Bad**:
+```typescript
+const styles = StyleSheet.create({
+  button: {
+    fontSize: 16,
+    color: '#FFF',
+    backgroundColor: '#FF6B35',  // Hardcoded color
+    paddingHorizontal: 12,        // Hardcoded spacing
+  },
+});
+```
+
+**Report When Missing**: If a design value isn't in the theme:
+1. Add to appropriate theme file (colors.ts, typography.ts, spacing.ts)
+2. Report in commit message that it was added
+3. Never use hardcoded values as temporary workaround
+
+**Available Theme Values**:
+- `colors`: 25+ semantic colors (primary, secondary, neutral, success/warning/error, text variants)
+- `typography`: display, h1-h3, body, label, caption with font sizes 12-36px
+- `spacing`: xs-5xl (4px-48px), borderRadius, shadows (sm/md/lg/xl)
+- `fontWeight`: light, normal, medium, semibold, bold, extrabold
+- `lineHeight`: tight, normal, relaxed, loose
+
+**Exception**: Data visualization (charts, custom algorithms) may use computed colors if theme doesn't provide that variant. Document the exception.
+
 ---
 
 ## Summary Table
@@ -812,6 +862,7 @@ for (const id of productIds) {
 | 25-27 | Security | All | 🔴 CRITICAL |
 | 28-30 | Git Workflow | All | 🟡 HIGH |
 | 31-33 | Performance | All | 🟢 MEDIUM |
+| 34 | Theme Usage | Presentation | 🟡 HIGH |
 
 ---
 
