@@ -1,0 +1,24 @@
+{
+  "name": "fox-ecom",
+  "displayName": "Fox eCommerce SDK",
+  "expo": {
+    "name": "fox-ecom",
+    "slug": "fox-ecom",
+    "version": "0.1.0",
+    "scheme": "fox-ecom",
+    "platforms": ["ios", "android"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#007AFF"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "description": "React Native SDK for e-commerce"
+  }
+}
