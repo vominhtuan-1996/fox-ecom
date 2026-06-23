@@ -11,6 +11,8 @@ dist/
 # iOS
 ios/Pods
 ios/Podfile.lock
+ios/Pods/
+ios/*.xcworkspace
 
 # Android
 android/.gradle

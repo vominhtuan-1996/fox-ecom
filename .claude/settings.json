@@ -5,10 +5,31 @@
       "Bash(mv src/components/* src/presentation/components/)",
       "Bash(mv src/hooks/* src/presentation/hooks/)",
       "Bash(mv src/utils/* src/common/utils/ 2>/dev/null; mv src/types src/common/types 2>/dev/null; rmdir src/utils 2>/dev/null; true)",
-      "Bash(git reset *)"
+      "Bash(git reset *)",
+      "mcp__codebase-memory-mcp__index_repository",
+      "Bash(git commit -m 'Add mandatory docs-first rule to CLAUDE.md *)",
+      "Bash(git commit -m 'Add Vietnamese-only response requirement to CLAUDE.md *)",
+      "Bash(git commit -m 'Thêm app.json để fix React Native workspace detection *)",
+      "Bash(git commit -m 'Thêm rule #21: Bắt buộc sử dụng Core HttpClient cho tất cả API calls *)",
+      "Bash(git commit -m 'Fix React Native workspace detection \\(error 710\\) *)",
+      "Bash(npx react-native@latest init FoxEcomTest --verbose)",
+      "Bash(npx @react-native-community/cli init FoxEcomTest)",
+      "Bash(npx @react-native-community/cli init . --skip-install)",
+      "Bash(npx @react-native-community/cli init FoxEcomExample --skip-install)",
+      "Bash(cp -r /tmp/FoxEcomExample/ios /Users/tuanvm37/fox-ecom/example/)",
+      "Bash(cp -r /tmp/FoxEcomExample/android /Users/tuanvm37/fox-ecom/example/)",
+      "Bash(pod install *)",
+      "Bash(export LANG=en_US.UTF-8)",
+      "Bash(git commit -m 'Add CocoaPods Podfile & lock *)",
+      "Bash(rm -rf ~/Library/Developer/Xcode/DerivedData/FoxEcomExample* && echo \"✅ Xóa Xcode cache\")",
+      "Bash(echo \"Exit code: $?\")"
     ],
     "additionalDirectories": [
-      "/Users/tuanvm37/fox-ecom/src/utils"
+      "/Users/tuanvm37/fox-ecom/src/utils",
+      "/Users/tuanvm37/Library/Developer/Xcode/DerivedData"
     ]
+  },
+  "enabledPlugins": {
+    "ponytail@ponytail": true
   }
 }
