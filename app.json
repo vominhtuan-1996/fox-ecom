@@ -1,6 +1,10 @@
 {
   "name": "fox-ecom",
   "displayName": "Fox eCommerce SDK",
+  "project": {
+    "ios": {},
+    "android": {}
+  },
   "expo": {
     "name": "fox-ecom",
     "slug": "fox-ecom",
@@ -8,9 +12,11 @@
     "scheme": "fox-ecom",
     "platforms": ["ios", "android"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.foxtechnologies.ecommerce"
     },
     "android": {
+      "package": "com.foxtechnologies.ecommerce",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#007AFF"
@@ -19,6 +25,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": "React Native SDK for e-commerce"
+    "description": "React Native SDK for e-commerce",
+    "plugins": []
   }
 }
