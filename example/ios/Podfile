@@ -13,5 +13,18 @@ target 'FoxEcomExample' do
 
   post_install do |installer|
     react_native_post_install(installer)
+
+    # Skip FBReactNativeSpec codegen build phase (incompatible with Xcode 26+)
+    installer.pods_project.targets.each do |target|
+      if target.name == 'FBReactNativeSpec'
+        target.build_phases.each do |phase|
+          if phase.is_a?(Xcodeproj::Project::Object::PBXShellScriptBuildPhase)
+            if phase.shell_script.include?('react-native-codegen') || phase.name.include?('Generate')
+              target.build_phases.delete(phase)
+            end
+          end
+        end
+      end
+    end
   end
 end
