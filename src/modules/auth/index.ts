@@ -1,14 +1,18 @@
 /**
  * Auth Module
- * Authentication feature module
+ * Authentication feature module (replaces Flutter's login module)
  */
 
+export { AuthService, authService } from './services/AuthService';
 export { useAuth } from './hooks/useAuth';
-export { authService } from './services/AuthService';
 export type {
   AuthCredentials,
   AuthToken,
   AuthUser,
   AuthSession,
   AuthExtra,
+  AuthState,
+  AuthConfig,
+  AuthResponse,
+  TokenPayload,
 } from './types/auth.types';

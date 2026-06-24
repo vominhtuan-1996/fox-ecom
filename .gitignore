@@ -47,3 +47,6 @@ example/dist/
 # Temporary files
 *.tmp
 .cache/
+
+*storybook.log
+storybook-static

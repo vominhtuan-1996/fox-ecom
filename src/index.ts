@@ -1,60 +1,63 @@
 /**
  * Fox eCommerce SDK
  * React Native SDK for e-commerce
+ *
+ * Architecture Layers:
+ * - common/      (Shared types, utils, config)
+ * - domain/      (Business logic - services, repositories, entities)
+ * - data/        (Data layer - API, storage, mappers)
+ * - presentation/(UI - components, screens, hooks, contexts)
+ * - modules/     (Feature modules - auth, products, cart, navigation)
+ * - di/          (Dependency Injection container)
+ * - config/      (App configuration & initialization)
  */
 
-// Presentation layer (Components, Hooks)
-export { ProductCard } from './presentation/components';
-export { Cart as CartComponent } from './presentation/components';
-export * from './presentation/hooks';
+// ============================================================
+// CONFIG & INITIALIZATION
+// ============================================================
+export { appConfig } from './config/app.config';
+export { initializeApp, resetApp } from './config/app.init';
+export type { AppInitConfig } from './config/app.init';
 
-// Domain layer (Entities, Use cases, Repositories)
-export * from './domain';
-
-// Common utilities, constants, errors, types
+// ============================================================
+// COMMON (Shared Types, Utils, Config)
+// ============================================================
 export * from './common';
 
-// Dependency Injection
+// ============================================================
+// DOMAIN LAYER (Business Logic)
+// ============================================================
+export * from './domain';
+
+// ============================================================
+// DATA LAYER (API, Storage, Mappers)
+// ============================================================
+export * from './data';
+
+// ============================================================
+// PRESENTATION LAYER (UI Components, Hooks, Contexts)
+// ============================================================
+export { ProductCard } from './presentation/components';
+export { Cart as CartComponent } from './presentation/components';
+
+// ============================================================
+// MODULES (Feature Modules)
+// ============================================================
+// Modules are exported, but we need to be careful about duplicates
+// Auth module exports are available from ./modules/auth
+export { useAuth, authService } from './modules/auth';
+export { useNavigation, sdkRouter } from './modules/navigation';
+
+// ============================================================
+// DI CONTAINER (Dependency Injection)
+// ============================================================
+export { di, DIContainer } from './di';
 export { setupDependencies, ServiceLocator } from './di';
 
-// Auth exports
-export { authService, AuthService } from '@/domain/services/auth.service';
-export { useAuth } from '@/presentation/hooks/useAuth';
-export { AuthInterceptor } from '@/data/sources/interceptors/auth_interceptor';
-export { envConfig, type EnvConfig } from '@/common/config/env.config';
-export type {
-  AuthCredentials,
-  AuthToken,
-  AuthUser,
-  AuthSession,
-  AuthExtra,
-  AuthConfig,
-  AuthResponse,
-  TokenPayload,
-} from '@/common/types/auth.types';
+// ============================================================
+// SDK INFO
+// ============================================================
+export const SDK_VERSION = '0.1.0';
+export const SDK_NAME = 'Fox eCommerce SDK';
 
-
-// Simple SDK Init exports
-export { 
-  initSDK, 
-  getSDK, 
-  getToken, 
-  getEnvironment, 
-  getAPIBaseUrl, 
-  getExtra, 
-  setExtra, 
-  isInitialized, 
-  resetSDK 
-} from '@/sdk/simple-init';
-export type { SDKInitConfig, SDKInitResult } from '@/sdk/simple-init';
-
-// Routing exports
-export { sdkRouter, useNavigation } from '@/sdk/routing';
-export {
-  parseDeepLink,
-  handleDeepLink,
-  createDeepLink,
-  listenToDeepLinks,
-  navigateToUrl,
-} from '@/sdk/routing/deep-linking';
-export type { Route, RouteConfig, ScreenName, RouteParams, NavigationState, RouterConfig } from '@/sdk/routing/types';
+console.log(`🚀 ${SDK_NAME} v${SDK_VERSION}`);

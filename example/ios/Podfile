@@ -1,43 +1,18 @@
-# Resolve react_native_pods.rb with node to allow for hoisting
-require Pod::Executable.execute_command('node', ['-p',
-  'require.resolve(
-    "react-native/scripts/react_native_pods.rb",
-    {paths: [process.argv[1]]},
-  )', __dir__]).strip
+require_relative '../node_modules/react-native/scripts/react_native_pods'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, min_ios_version_supported
-prepare_react_native_project!
-
-linkage = ENV['USE_FRAMEWORKS']
-if linkage != nil
-  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
-  use_frameworks! :linkage => linkage.to_sym
-end
+platform :ios, '13.4'
 
 target 'FoxEcomExample' do
-  reactNativePath = "#{Pod::Config.instance.installation_root}/../node_modules/react-native"
+  config = use_native_modules!
 
   use_react_native!(
-    :path => reactNativePath,
+    :path => config[:reactNativePath],
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
   post_install do |installer|
-    react_native_post_install(
-      installer,
-      reactNativePath,
-      :mac_catalyst_enabled => false
-    )
-
-    # Disable all warnings-as-errors for compatibility
-    installer.pods_project.targets.each do |target|
-      target.build_configurations.each do |config|
-        config.build_settings['GCC_TREAT_WARNINGS_AS_ERRORS'] = 'NO'
-        config.build_settings['CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS'] = 'NO'
-        config.build_settings['CLANG_WARN_DIRECT_OBJC_ISA_USAGE'] = 'NO'
-        config.build_settings['CLANG_WARN_OBJC_ROOT_CLASS'] = 'NO'
-        config.build_settings['GCC_WARN_ABOUT_RETURN_TYPE'] = 'NO'
-      end
-    end
+    react_native_post_install(installer)
+    __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
 end

@@ -4,4 +4,5 @@
  */
 
 export { DIContainer, di } from './container';
-export type { DIContainer as DIContainerType };
+export { ServiceLocator } from './service_locator';
+export { setupDependencies } from './injection';

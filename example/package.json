@@ -3,13 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start"
+    "start": "react-native start",
+    "ios": "react-native run-ios --simulator='iPhone 17 Pro'",
+    "android": "react-native run-android"
   },
   "dependencies": {
+    "@babel/runtime": "^8.0.0",
     "fox-ecom": "file:..",
+    "hermes-engine": "^0.11.0",
+    "invariant": "^2.2.4",
     "react": "^18.2.0",
-    "react-native": "^0.72.0"
+    "react-native": "^0.65.3"
   }
 }

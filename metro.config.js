@@ -1,6 +1,10 @@
+const {
+  withStorybook,
+} = require('@storybook/react-native/withStorybook');
+
 const { getDefaultConfig } = require('metro-config');
 
-module.exports = (async () => {
+module.exports = withStorybook((async () => {
   const {
     resolver: { sourceExts, assetExts },
   } = await getDefaultConfig();
@@ -18,4 +22,4 @@ module.exports = (async () => {
       babelTransformerPath: require.resolve('metro-react-native-babel-transformer'),
     },
   };
-})();
+})());

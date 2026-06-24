@@ -751,6 +751,164 @@ const isValid = () => a && b && c && d;
 
 ---
 
+---
+
+## 🔒 SECURITY CHECKS (Required after code generation)
+
+### Critical Security Issues to Check
+
+**1. Password/Token Exposure**
+```typescript
+// ❌ SECURITY RISK - Hardcoded credentials
+const API_KEY = 'sk_live_51234567890';
+const PASSWORD = 'admin123';
+const TOKEN = 'eyJhbGc...';
+
+// ✅ SAFE - Use environment variables
+const API_KEY = process.env.API_KEY;
+const PASSWORD = process.env.DB_PASSWORD;
+const TOKEN = process.env.AUTH_TOKEN;
+```
+
+**2. SQL/Code Injection**
+```typescript
+// ❌ SECURITY RISK - String concatenation
+const query = `SELECT * FROM users WHERE id = ${userId}`;
+const command = `eval(userInput)`;
+
+// ✅ SAFE - Parameterized queries
+const query = `SELECT * FROM users WHERE id = ?`;
+db.run(query, [userId]);
+```
+
+**3. XXS (Cross-Site Scripting)**
+```typescript
+// ❌ SECURITY RISK - Unescaped user input
+const html = `<div>${userInput}</div>`;
+const dangerousHTML = `<img src="x" onerror="${userCode}">`;
+
+// ✅ SAFE - Escape or sanitize
+import DOMPurify from 'dompurify';
+const safeHTML = DOMPurify.sanitize(userInput);
+```
+
+**4. CSRF Protection**
+```typescript
+// ❌ SECURITY RISK - No CSRF token
+form.post('/api/transfer', { amount: 1000 });
+
+// ✅ SAFE - Include CSRF token
+const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+form.post('/api/transfer', {
+  amount: 1000,
+  csrfToken,
+});
+```
+
+**5. Authentication/Authorization**
+```typescript
+// ❌ SECURITY RISK - No auth check
+function deleteUser(userId: string) {
+  db.delete('users', { id: userId });
+}
+
+// ✅ SAFE - Check permissions
+function deleteUser(userId: string, currentUser: User) {
+  if (!currentUser.isAdmin) {
+    throw new AuthorizationFailure('Not authorized');
+  }
+  db.delete('users', { id: userId });
+}
+```
+
+**6. Sensitive Data in Logs**
+```typescript
+// ❌ SECURITY RISK - Log sensitive data
+console.log('User logged in:', user);  // Contains password
+logger.info('Payment:', { cardNumber, cvv });
+
+// ✅ SAFE - Exclude sensitive fields
+console.log('User logged in:', { id: user.id, email: user.email });
+logger.info('Payment:', { amount, lastFour: card.lastFour });
+```
+
+**7. Dependency Vulnerabilities**
+```bash
+# Check for vulnerable packages
+npm audit
+
+# Fix vulnerabilities
+npm audit fix
+```
+
+**8. TLS/HTTPS**
+```typescript
+// ❌ SECURITY RISK - Unencrypted
+const url = 'http://api.example.com/data';
+
+// ✅ SAFE - Always HTTPS
+const url = 'https://api.example.com/data';
+```
+
+**9. Rate Limiting**
+```typescript
+// ❌ SECURITY RISK - No rate limiting
+app.post('/api/login', handleLogin);
+
+// ✅ SAFE - Add rate limiting
+app.post('/api/login', rateLimit(), handleLogin);
+```
+
+**10. CORS Configuration**
+```typescript
+// ❌ SECURITY RISK - Allow all origins
+app.use(cors({ origin: '*' }));
+
+// ✅ SAFE - Whitelist specific origins
+app.use(cors({
+  origin: ['https://example.com', 'https://app.example.com'],
+  credentials: true,
+}));
+```
+
+### Security Checklist
+
+Run after code generation:
+
+```bash
+# 1. Check for hardcoded secrets
+npm run security:secrets
+
+# 2. Audit dependencies
+npm audit
+
+# 3. Lint security issues
+npm run lint
+
+# 4. TypeScript strict check
+npm run type-check
+
+# 5. All security checks
+npm run security:check
+```
+
+### Security Warnings Signs
+
+| Pattern | Risk | Fix |
+|---------|------|-----|
+| `process.env` used without default | Env not set | Provide defaults or validate |
+| Unescaped user input in HTML | XSS | Use `DOMPurify` or React escape |
+| String concatenation in queries | SQL injection | Use parameterized queries |
+| `eval()` or `Function()` | Code injection | Never use with user input |
+| Hardcoded API keys | Credential leak | Use environment variables |
+| HTTP instead of HTTPS | Man-in-the-middle | Always use HTTPS |
+| `any` type | Type bypass | Use strict TypeScript |
+| Try-catch eating errors | Silent failures | Log errors properly |
+| No input validation | Malformed data | Validate at boundaries |
+| Async without await | Race condition | Always await promises |
+
+---
+
 ## Linting Commands
 
 ```bash
@@ -766,8 +924,12 @@ npx prettier --write src/
 # Check TypeScript
 npm run type-check
 
+# Security checks
+npm run security:check
+npm audit
+
 # All at once
-npm run lint:fix && npm run type-check && npm test
+npm run lint:fix && npm run type-check && npm audit && npm test
 ```
 
 ---

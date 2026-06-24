@@ -1,9 +1,9 @@
 /**
  * Navigation Module
- * Routing and navigation (similar to Flutter routes/)
+ * Routing and navigation (replaces Flutter's routes/)
  */
 
 export { sdkRouter } from './router';
 export { useNavigation } from './hooks/useNavigation';
-export { handleDeepLink, createDeepLink, parseDeepLink } from './deep-linking';
+export { handleDeepLink, parseDeepLink, createDeepLink } from './deep-linking';
 export type { Route, ScreenName, RouteParams, NavigationState } from './types/navigation.types';

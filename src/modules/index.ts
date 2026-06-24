@@ -1,8 +1,17 @@
 /**
  * Modules Exports
+ * All feature modules
+ * (Similar to Flutter's modules/)
  */
 
+// Auth Module
 export * from './auth';
+
+// Navigation Module
 export * from './navigation';
-// export * from './products';  // TODO
-// export * from './cart';      // TODO
+
+// Products Module (TODO)
+// export * from './products';
+
+// Cart Module (TODO)
+// export * from './cart';
