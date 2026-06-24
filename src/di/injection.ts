@@ -50,27 +50,27 @@ export function setupDependencies(): void {
 
   // Use cases
   ServiceLocator.register('GetProductsUsecase', () => {
-    const repo = ServiceLocator.get('ProductRepository');
+    const repo = ServiceLocator.get<ProductRepositoryImpl>('ProductRepository');
     return new GetProductsUsecase(repo);
   });
 
   ServiceLocator.register('GetProductByIdUsecase', () => {
-    const repo = ServiceLocator.get('ProductRepository');
+    const repo = ServiceLocator.get<ProductRepositoryImpl>('ProductRepository');
     return new GetProductByIdUsecase(repo);
   });
 
   ServiceLocator.register('AddToCartUsecase', () => {
-    const repo = ServiceLocator.get('CartRepository');
+    const repo = ServiceLocator.get<CartRepositoryImpl>('CartRepository');
     return new AddToCartUsecase(repo);
   });
 
   ServiceLocator.register('RemoveFromCartUsecase', () => {
-    const repo = ServiceLocator.get('CartRepository');
+    const repo = ServiceLocator.get<CartRepositoryImpl>('CartRepository');
     return new RemoveFromCartUsecase(repo);
   });
 
   ServiceLocator.register('ClearCartUsecase', () => {
-    const repo = ServiceLocator.get('CartRepository');
+    const repo = ServiceLocator.get<CartRepositoryImpl>('CartRepository');
     return new ClearCartUsecase(repo);
   });
 }

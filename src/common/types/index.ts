@@ -1,12 +1,39 @@
-export type Result<T, E = Error> =
-  | { ok: true; value: T }
-  | { ok: false; error: E };
+/**
+ * Common Types
+ * Shared types across the SDK
+ */
 
-export interface AsyncResult<T> {
-  isLoading: boolean;
-  data: T | null;
-  error: Error | null;
+// Re-export auth types
+export * from '@/common/types/auth.types';
+
+// API Response types
+export interface ApiResponse<T> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  message?: string;
 }
 
-export type Nullable<T> = T | null;
-export type Optional<T> = T | undefined;
+export interface ApiError {
+  code: string;
+  message: string;
+  status: number;
+}
+
+// Pagination
+export interface PaginatedResponse<T> {
+  items: T[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
+// Status
+export type AsyncStatus = 'idle' | 'loading' | 'success' | 'error';
+
+export interface AsyncState<T> {
+  status: AsyncStatus;
+  data?: T;
+  error?: string;
+}

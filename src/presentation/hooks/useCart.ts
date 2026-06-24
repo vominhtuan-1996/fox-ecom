@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import type { Cart, Product } from '../../domain/entities';
+import { Cart, type Product } from '../../domain/entities';
 import {
   AddToCartUsecase,
   RemoveFromCartUsecase,

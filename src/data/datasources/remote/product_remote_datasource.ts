@@ -10,7 +10,7 @@ export class ProductRemoteDataSource implements IProductRemoteDataSource {
   async getProducts(): Promise<ProductModel[]> {
     try {
       // Placeholder: Replace with actual API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(() => resolve(null), 1000));
       const mockData = [
         {
           id: '1',
@@ -33,7 +33,7 @@ export class ProductRemoteDataSource implements IProductRemoteDataSource {
 
   async getProductById(id: string): Promise<ProductModel> {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(() => resolve(null), 500));
       const mockData = {
         id,
         name: 'Product ' + id,

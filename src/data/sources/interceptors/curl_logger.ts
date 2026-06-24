@@ -22,12 +22,12 @@ export class CurlLogger {
   private buildCurl(request: Request, body?: any): string {
     const method = request.method;
     const url = request.url;
-    const headers = Array.from(request.headers.entries());
+    const headers = (request.headers as any).entries ? Array.from((request.headers as any).entries()) : Object.entries(request.headers || {});
 
     let curl = `curl -X ${method}`;
 
     // Add headers
-    headers.forEach(([key, value]) => {
+    headers.forEach(([key, value]: any) => {
       curl += ` -H "${key}: ${value}"`;
     });
 

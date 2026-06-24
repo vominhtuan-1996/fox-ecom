@@ -4,7 +4,9 @@ import {
   NetworkException,
   TimeoutException,
   UnauthorizedException,
+  ForbiddenException,
   NotFoundException,
+  ConflictException,
   ServerException,
 } from './http_error';
 import { CurlLogger } from './interceptors/curl_logger';
@@ -147,7 +149,7 @@ export class HttpClient {
         ) {
           if (attempt < this.config.retryAttempts - 1) {
             await new Promise((resolve) =>
-              setTimeout(resolve, this.config.retryDelay * (attempt + 1)),
+              setTimeout(() => resolve(null), this.config.retryDelay * (attempt + 1)),
             );
             continue;
           }
