@@ -33,6 +33,17 @@ export type {
   TokenPayload,
 } from '@/common/types/auth.types';
 
-// SDK Factory exports
-export { initSDK, getSDK, resetSDK } from '@/sdk/factory/sdk.factory';
-export type { SDKConfig, SDKInitOptions, SDKState, SDKInstance } from '@/sdk/types/sdk.types';
+
+// Simple SDK Init exports
+export { 
+  initSDK, 
+  getSDK, 
+  getToken, 
+  getEnvironment, 
+  getAPIBaseUrl, 
+  getExtra, 
+  setExtra, 
+  isInitialized, 
+  resetSDK 
+} from '@/sdk/simple-init';
+export type { SDKInitConfig, SDKInitResult } from '@/sdk/simple-init';
