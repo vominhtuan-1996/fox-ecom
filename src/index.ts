@@ -47,6 +47,8 @@ export { Cart as CartComponent } from './presentation/components';
 // Auth module exports are available from ./modules/auth
 export { useAuth, authService } from './modules/auth';
 export { useNavigation, sdkRouter } from './modules/navigation';
+export { useProducts, productService } from './modules/products';
+export { useCart, cartService } from './modules/cart';
 
 // ============================================================
 // DI CONTAINER (Dependency Injection)

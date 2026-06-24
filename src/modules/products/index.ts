@@ -1,6 +1,13 @@
 /**
  * Products Module
- * TODO: Implement products feature
+ * Product feature module
  */
 
-export {};
+export { productService, ProductService } from './services/ProductService';
+export { useProducts } from './hooks/useProducts';
+export type {
+  Product,
+  ProductFilter,
+  ProductListResponse,
+  ProductState,
+} from './types/product.types';

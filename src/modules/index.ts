@@ -10,8 +10,8 @@ export * from './auth';
 // Navigation Module
 export * from './navigation';
 
-// Products Module (TODO)
-// export * from './products';
+// Products Module
+export * from './products';
 
-// Cart Module (TODO)
-// export * from './cart';
+// Cart Module
+export * from './cart';

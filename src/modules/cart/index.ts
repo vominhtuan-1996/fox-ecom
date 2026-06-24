@@ -1,6 +1,8 @@
 /**
  * Cart Module
- * TODO: Implement cart feature
+ * Shopping cart feature module
  */
 
-export {};
+export { cartService, CartService } from './services/CartService';
+export { useCart } from './hooks/useCart';
+export type { Cart, CartItem, AddToCartRequest, CartState } from './types/cart.types';
