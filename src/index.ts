@@ -32,3 +32,7 @@ export type {
   AuthResponse,
   TokenPayload,
 } from '@/common/types/auth.types';
+
+// SDK Factory exports
+export { initSDK, getSDK, resetSDK } from '@/sdk/factory/sdk.factory';
+export type { SDKConfig, SDKInitOptions, SDKState, SDKInstance } from '@/sdk/types/sdk.types';
