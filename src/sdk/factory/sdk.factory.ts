@@ -11,7 +11,7 @@ import { SDKConfig, SDKInitOptions, SDKState, SDKInstance } from '@/sdk/types/sd
 class SDKFactoryImpl implements SDKInstance {
   private static instance: SDKFactoryImpl;
   private config: SDKConfig | null = null;
-  private isInitialized: boolean = false;
+  private _isInitialized: boolean = false;
   private error: string | null = null;
 
   private constructor() {}
@@ -54,7 +54,7 @@ class SDKFactoryImpl implements SDKInstance {
         },
       };
 
-      this.isInitialized = true;
+      this._isInitialized = true;
       this.error = null;
 
       console.log('✅ SDK initialized successfully', {
@@ -63,7 +63,7 @@ class SDKFactoryImpl implements SDKInstance {
       });
     } catch (err: any) {
       this.error = err.message;
-      this.isInitialized = false;
+      this._isInitialized = false;
       console.error('❌ SDK initialization failed:', err.message);
       throw new Error(`SDK Initialization Error: ${err.message}`);
     }
@@ -74,7 +74,7 @@ class SDKFactoryImpl implements SDKInstance {
    */
   reset(): void {
     this.config = null;
-    this.isInitialized = false;
+    this._isInitialized = false;
     this.error = null;
     authService.logout();
   }
@@ -82,12 +82,12 @@ class SDKFactoryImpl implements SDKInstance {
   /**
    * State methods
    */
-  isInitializedFn(): boolean {
-    return this.isInitialized;
+  isInitialized(): boolean {
+    return this._isInitialized;
   }
 
   isAuthenticated(): boolean {
-    return this.isInitialized && authService.isAuthenticated();
+    return this._isInitialized && authService.isAuthenticated();
   }
 
   getConfig(): SDKConfig | null {
@@ -96,7 +96,7 @@ class SDKFactoryImpl implements SDKInstance {
 
   getState(): SDKState {
     return {
-      isInitialized: this.isInitialized,
+      isInitialized: this._isInitialized,
       isAuthenticated: this.isAuthenticated(),
       config: this.config,
       error: this.error,
@@ -107,7 +107,7 @@ class SDKFactoryImpl implements SDKInstance {
    * Auth methods
    */
   getToken(): string | null {
-    if (!this.isInitialized) {
+    if (!this._isInitialized) {
       throw new Error('SDK not initialized');
     }
     const token = authService.getToken();
@@ -115,14 +115,14 @@ class SDKFactoryImpl implements SDKInstance {
   }
 
   getAccessToken(): string | null {
-    if (!this.isInitialized) {
+    if (!this._isInitialized) {
       throw new Error('SDK not initialized');
     }
     return authService.getAccessToken();
   }
 
   setExtra(key: string, value: any): void {
-    if (!this.isInitialized) {
+    if (!this._isInitialized) {
       throw new Error('SDK not initialized');
     }
     authService.setExtra(key, value);
@@ -132,7 +132,7 @@ class SDKFactoryImpl implements SDKInstance {
   }
 
   getExtra(key?: string): any {
-    if (!this.isInitialized) {
+    if (!this._isInitialized) {
       throw new Error('SDK not initialized');
     }
     return authService.getExtra(key);
@@ -142,7 +142,7 @@ class SDKFactoryImpl implements SDKInstance {
    * Refresh auth
    */
   async refreshAuth(): Promise<boolean> {
-    if (!this.isInitialized) {
+    if (!this._isInitialized) {
       throw new Error('SDK not initialized');
     }
     return authService.refreshToken();
@@ -152,7 +152,7 @@ class SDKFactoryImpl implements SDKInstance {
    * Logout
    */
   async logout(): Promise<void> {
-    if (!this.isInitialized) {
+    if (!this._isInitialized) {
       throw new Error('SDK not initialized');
     }
     await authService.logout();
@@ -163,7 +163,7 @@ class SDKFactoryImpl implements SDKInstance {
    * Utilities
    */
   getVersion(): string {
-    return envConfig.get('appVersion');
+    return String(envConfig.get('appVersion'));
   }
 
   getEnvironment(): string {
@@ -238,7 +238,7 @@ export async function initSDK(options: SDKInitOptions): Promise<SDKInstance> {
  */
 export function getSDK(): SDKInstance {
   const factory = SDKFactoryImpl.getInstance();
-  if (!factory.isInitializedFn()) {
+  if (!factory.isInitialized()) {
     throw new Error('SDK not initialized. Call initSDK() first.');
   }
   return factory;

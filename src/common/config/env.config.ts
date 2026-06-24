@@ -31,7 +31,7 @@ class EnvironmentConfig {
     return this.config[key];
   }
 
-  set(key: keyof EnvConfig, value: any) {
+  set<K extends keyof EnvConfig>(key: K, value: EnvConfig[K]) {
     this.config[key] = value;
   }
 

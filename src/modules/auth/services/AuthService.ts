@@ -271,7 +271,7 @@ export class AuthService {
     options: RequestInit,
   ): Promise<any> {
     const url = `${envConfig.get('apiBaseUrl')}${endpoint}`;
-    const timeout = envConfig.get('apiTimeout');
+    const timeout = Number(envConfig.get('apiTimeout'));
 
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), timeout);
@@ -282,7 +282,7 @@ export class AuthService {
         signal: controller.signal,
         headers: {
           ...(options.headers || {}),
-          'X-App-Version': envConfig.get('appVersion'),
+          'X-App-Version': String(envConfig.get('appVersion')),
         },
       });
 

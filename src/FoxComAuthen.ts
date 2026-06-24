@@ -55,8 +55,8 @@ export interface FoxComAuthenConfig {
  * - Dependency Injection
  */
 export class FoxComAuthen {
-  private initialized = false;
-  private config: FoxComAuthenConfig;
+  #initialized = false;
+  #config: FoxComAuthenConfig;
 
   constructor(config: FoxComAuthenConfig) {
     if (!config.token) {
@@ -66,7 +66,7 @@ export class FoxComAuthen {
       throw new Error('❌ FoxComAuthen: routing screens are required');
     }
 
-    this.config = config;
+    this.#config = config;
   }
 
   /**
@@ -74,7 +74,7 @@ export class FoxComAuthen {
    * Call this once when app starts
    */
   async initialize(): Promise<void> {
-    if (this.initialized) {
+    if (this.#initialized) {
       console.warn('⚠️  FoxComAuthen already initialized');
       return;
     }
@@ -84,25 +84,25 @@ export class FoxComAuthen {
 
       // 1. Initialize app with auth
       await initializeApp({
-        token: this.config.token,
-        environment: this.config.environment,
-        apiBaseUrl: this.config.apiBaseUrl,
-        enableLogging: this.config.enableLogging ?? true,
-        extra: this.config.extra,
+        token: this.#config.token,
+        environment: this.#config.environment,
+        apiBaseUrl: this.#config.apiBaseUrl,
+        enableLogging: this.#config.enableLogging ?? true,
+        extra: this.#config.extra,
       });
       console.log('✅ Authentication initialized');
 
       // 2. Setup routing with custom screens
-      await setupAppRouting(this.config.routing);
+      await setupAppRouting(this.#config.routing);
       console.log('✅ Routing initialized');
 
       // 3. Log all routes (if logging enabled)
-      if (this.config.enableLogging) {
+      if (this.#config.enableLogging) {
         console.log('📍 Available routes:');
         Routing.logAll();
       }
 
-      this.initialized = true;
+      this.#initialized = true;
       console.log('✅ FoxComAuthen fully initialized!');
     } catch (error: any) {
       console.error('❌ FoxComAuthen initialization failed:', error.message);
@@ -177,14 +177,14 @@ export class FoxComAuthen {
    * Get initialization status
    */
   isInitialized(): boolean {
-    return this.initialized;
+    return this.#initialized;
   }
 
   /**
    * Get config
    */
   getConfig(): Readonly<FoxComAuthenConfig> {
-    return Object.freeze({ ...this.config });
+    return Object.freeze({ ...this.#config });
   }
 }
 

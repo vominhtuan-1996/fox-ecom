@@ -14,7 +14,7 @@ export class AuthInterceptor {
     }
 
     // Add custom headers
-    request.headers.set('X-App-Version', envConfig.get('appVersion'));
+    request.headers.set('X-App-Version', String(envConfig.get('appVersion')));
     request.headers.set('X-Client-Type', 'sdk');
 
     // Add extra data to headers if needed

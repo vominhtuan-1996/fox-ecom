@@ -170,10 +170,10 @@ export class Routing {
    * Get all routes with component mapping
    * Used with sdkRouter.registerRoutes()
    */
-  static getRoutesWithComponents(componentMap: Record<ScreenName, React.ComponentType<any>>): Route[] {
+  static getRoutesWithComponents(componentMap: Record<ScreenName, any>): Route[] {
     return this.getAll().map((route) => ({
       ...route,
-      component: componentMap[route.name] || (() => <div>Component not found</div>),
+      component: componentMap[route.name],
     }));
   }
 

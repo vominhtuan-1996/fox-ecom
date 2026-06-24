@@ -6,14 +6,7 @@
 // Re-export auth types
 export * from '@/common/types/auth.types';
 
-// API Response types
-export interface ApiResponse<T> {
-  success: boolean;
-  data?: T;
-  error?: string;
-  message?: string;
-}
-
+// API Error types
 export interface ApiError {
   code: string;
   message: string;

@@ -43,6 +43,12 @@ export { ProductCard } from './presentation/components';
 export { Cart as CartComponent } from './presentation/components';
 
 // ============================================================
+// ============================================================
+// ASSETS (Static Assets & Configurations)
+// ============================================================
+export * from './assets';
+
+// ============================================================
 // MODULES (Feature Modules)
 // ============================================================
 // Modules are exported, but we need to be careful about duplicates
