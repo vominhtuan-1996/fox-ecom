@@ -47,3 +47,14 @@ export {
   resetSDK 
 } from '@/sdk/simple-init';
 export type { SDKInitConfig, SDKInitResult } from '@/sdk/simple-init';
+
+// Routing exports
+export { sdkRouter, useNavigation } from '@/sdk/routing';
+export {
+  parseDeepLink,
+  handleDeepLink,
+  createDeepLink,
+  listenToDeepLinks,
+  navigateToUrl,
+} from '@/sdk/routing/deep-linking';
+export type { Route, RouteConfig, ScreenName, RouteParams, NavigationState, RouterConfig } from '@/sdk/routing/types';
