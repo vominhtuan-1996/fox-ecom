@@ -18,6 +18,8 @@
 export { appConfig } from './config/app.config';
 export { initializeApp, resetApp } from './config/app.init';
 export type { AppInitConfig } from './config/app.init';
+export { FoxComAuthen } from './FoxComAuthen';
+export type { FoxComAuthenConfig } from './FoxComAuthen';
 
 // ============================================================
 // COMMON (Shared Types, Utils, Config)
