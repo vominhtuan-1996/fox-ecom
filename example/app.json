@@ -1,5 +1,39 @@
 {
   "name": "fox-ecom-example",
-  "displayName": "Fox eCommerce Example",
-  "version": "0.1.0"
+  "displayName": "Fox eCommerce",
+  "version": "0.1.0",
+  "description": "Fox eCommerce SDK Example Application",
+  "author": "TuanVm37",
+  "license": "MIT",
+  "homepage": "https://github.com/tuanvm37/fox-ecom",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tuanvm37/fox-ecom.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "react-native start",
+    "ios": "react-native run-ios",
+    "android": "react-native run-android",
+    "build-ios": "cd ios && xcodebuild -workspace FoxEcomExample.xcworkspace -scheme FoxEcomExample -configuration Release",
+    "build-android": "cd android && ./gradlew assembleRelease"
+  },
+  "platforms": ["ios", "android"],
+  "ios": {
+    "supportsTablet": true,
+    "buildNumber": "1",
+    "deploymentTarget": "12.0"
+  },
+  "android": {
+    "adaptiveIcon": {
+      "foregroundImage": "./assets/adaptive-icon.png",
+      "backgroundColor": "#FFFFFF"
+    },
+    "package": "com.foxecom.example",
+    "versionCode": 1,
+    "targetSdkVersion": 33,
+    "minSdkVersion": 21,
+    "compileSdkVersion": 33
+  },
+  "plugins": []
 }

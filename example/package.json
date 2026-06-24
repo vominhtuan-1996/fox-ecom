@@ -1,11 +1,24 @@
 {
   "name": "fox-ecom-example",
   "version": "0.1.0",
+  "description": "Fox eCommerce SDK Example App - Demonstrates all SDK features",
   "private": true,
+  "main": "index.js",
   "scripts": {
     "start": "react-native start",
-    "ios": "react-native run-ios --simulator='iPhone 17 Pro'",
-    "android": "react-native run-android"
+    "ios": "react-native run-ios --simulator='iPhone 15 Pro'",
+    "ios-build": "cd ios && xcodebuild -workspace FoxEcomExample.xcworkspace -scheme FoxEcomExample -configuration Release -derivedDataPath build",
+    "ios-release": "cd ios && xcodebuild -workspace FoxEcomExample.xcworkspace -scheme FoxEcomExample -configuration Release -derivedDataPath build | xcpretty",
+    "android": "react-native run-android",
+    "android-build": "cd android && ./gradlew assembleRelease",
+    "android-build-apk": "cd android && ./gradlew bundleRelease",
+    "build": "npm run android-build && npm run ios-build",
+    "clean": "rm -rf node_modules && npm install",
+    "clean-android": "cd android && ./gradlew clean",
+    "clean-ios": "cd ios && rm -rf build && rm -rf Pods && rm -rf Podfile.lock",
+    "clean-all": "npm run clean-android && npm run clean-ios && npm run clean",
+    "lint": "eslint src/**/*.ts src/**/*.tsx",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@babel/runtime": "^8.0.0",
@@ -14,5 +27,18 @@
     "invariant": "^2.2.4",
     "react": "^18.2.0",
     "react-native": "^0.65.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@babel/preset-env": "^7.20.0",
+    "@babel/preset-react": "^7.18.0",
+    "@babel/preset-typescript": "^7.18.0",
+    "@types/react": "^18.0.0",
+    "@types/react-native": "^0.69.0",
+    "typescript": "^4.9.0"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
   }
 }
