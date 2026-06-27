@@ -1,49 +1,68 @@
+// FoxPro Design System — Color tokens
+// Source: Fox Pro - Design System.fig (FPT Telecom · UXUI Team)
+
 export const colors = {
-  // Primary
-  primary: '#FF6B35',
-  primaryLight: '#FFB84D',
-  primaryDark: '#D64423',
+  // ── Brand ────────────────────────────────────────────────────
+  primary:       '#FF8500',   // Flush Orange — brand primary
+  primaryLight:  '#FFA800',   // gradient start
+  primaryDark:   '#E67600',
+  secondary:     '#5933EB',   // Royal Blue — brand secondary
+  secondaryLight:'#6E4BFF',   // gradient start
+  secondaryDark: '#2E008E',   // gradient end
 
-  // Secondary
-  secondary: '#004E89',
-  secondaryLight: '#1976D2',
-  secondaryDark: '#003D7A',
+  // ── Accent ───────────────────────────────────────────────────
+  green:         '#0BD78C',   // Harlequin — success / CO₂
+  blue:          '#16ADFF',   // Dodger Blue — info / link
+  focusBlue:     '#284EEB',   // input focus ring
 
-  // Neutral
-  white: '#FFFFFF',
-  black: '#000000',
-  gray50: '#F9FAFB',
-  gray100: '#F3F4F6',
-  gray200: '#E5E7EB',
-  gray300: '#D1D5DB',
-  gray400: '#9CA3AF',
-  gray500: '#6B7280',
-  gray600: '#4B5563',
-  gray700: '#374151',
-  gray800: '#1F2937',
-  gray900: '#111827',
+  // ── Semantic ─────────────────────────────────────────────────
+  success:       '#0BD78C',
+  warning:       '#FF8500',
+  error:         '#F43F4A',   // Red Orange
+  info:          '#16ADFF',
 
-  // Semantic
-  success: '#10B981',
-  warning: '#F59E0B',
-  error: '#EF4444',
-  info: '#3B82F6',
+  // ── Neutrals (light → dark) ───────────────────────────────────
+  white:         '#FFFFFF',
+  athensGray:    '#FAFAFB',   // app background
+  mist:          '#F6F6F6',   // header / hairline
+  fill:          '#ECEDEF',   // dividers / section fill
+  iron:          '#CFD2D7',   // borders
+  grayChateau:   '#A0A4AF',   // muted text / icon
+  paleSky:       '#666D7C',   // secondary text
+  oxfordBlue:    '#3C4459',   // strong text
+  bigStone:      '#111C36',   // primary text
+  black:         '#000000',
 
-  // Background
-  background: '#FFFFFF',
-  surface: '#F9FAFB',
-  surfaceHover: '#F3F4F6',
+  // ── Surfaces ─────────────────────────────────────────────────
+  background:    '#FAFAFB',
+  surface:       '#FFFFFF',
+  surfaceSubtle: '#F6F6F6',
+  surfacePeach:  '#FFF1E6',   // tinted-orange highlight
 
-  // Text
-  text: '#111827',
-  textSecondary: '#6B7280',
-  textTertiary: '#9CA3AF',
-  textInverse: '#FFFFFF',
+  // ── Text aliases ─────────────────────────────────────────────
+  text:          '#111C36',
+  textSecondary: '#666D7C',
+  textTertiary:  '#A0A4AF',
+  textStrong:    '#3C4459',
+  textInverse:   '#FFFFFF',
+  textLink:      '#16ADFF',
 
-  // Border
-  border: '#E5E7EB',
-  borderLight: '#F3F4F6',
-  borderDark: '#D1D5DB',
+  // ── Border aliases ────────────────────────────────────────────
+  border:        '#CFD2D7',
+  borderSubtle:  '#F6F6F6',
+  borderStrong:  '#A0A4AF',
+
+  // ── Legacy aliases (compat cũ, xóa dần) ──────────────────────
+  gray50:  '#FAFAFB',
+  gray100: '#F6F6F6',
+  gray200: '#ECEDEF',
+  gray300: '#CFD2D7',
+  gray400: '#A0A4AF',
+  gray500: '#666D7C',
+  gray600: '#3C4459',
+  gray700: '#3C4459',
+  gray800: '#111C36',
+  gray900: '#111C36',
 } as const;
 
 export type ColorKey = keyof typeof colors;

@@ -13,5 +13,5 @@ export * from './models';
 // Repositories (implementations)
 export * from './repositories';
 
-// HTTP client
-export * from './sources';
+// Network layer (api_client + queue)
+export * from './network';

@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     marginBottom: spacing['2xl'],
   },
   buttonsContainer: {
-    gap: spacing.md,
+    marginBottom: spacing.md,
   },
   button: {
     paddingVertical: spacing.md,
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     ...typography.label,
   },
   labelsContainer: {
-    gap: spacing.md,
+    marginBottom: spacing.md,
   },
   label: {
     paddingVertical: spacing.md,

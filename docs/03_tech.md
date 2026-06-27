@@ -2,49 +2,102 @@
 
 Complete technology stack, dependencies, and development environment setup.
 
+---
+
+## Môi trường thực tế đang chạy
+
+| Công cụ | Version thực tế | Ghi chú |
+|---------|-----------------|---------|
+| **Node.js** | 25.9.0 | Runtime |
+| **npm** | 11.12.1 | Package manager |
+| **React Native** | 0.65.3 | Framework (example app) |
+| **React** | 17.0.2 | UI library (example app) |
+| **Metro** | 0.66.2 | Bundler |
+| **TypeScript** | 4.9.5 | Type system (example); SDK dùng ^5.0.0 |
+| **Babel** | 7.29.7 | Transpiler |
+| **Xcode** | 26.x | iOS build tool |
+| **CocoaPods** | 1.16.2 | iOS dependency manager |
+
+---
+
 ## Technology Stack
 
-### Core Technologies
-
-| Tech | Version | Purpose |
-|------|---------|---------|
-| **React Native** | 0.72+ | Mobile framework |
-| **TypeScript** | 5.0+ | Type safety |
-| **Node.js** | 16+ | Runtime environment |
-| **npm** | 8+ | Package manager |
-
-### Build & Compilation
-
-| Tool | Version | Purpose |
-|------|---------|---------|
-| **Babel** | 7.22+ | JavaScript transpiler |
-| **Metro** | 0.76+ | React Native bundler |
-| **TypeScript Compiler** | 5.0+ | Type checking & compilation |
-
-### Testing
-
-| Tool | Version | Purpose |
-|------|---------|---------|
-| **Jest** | 29.5+ | Unit testing framework |
-| **React Native Testing Library** | 12.0+ | Component testing |
-| **@testing-library/jest-native** | - | Jest matchers for RN |
-
-### Linting & Formatting
-
-| Tool | Version | Purpose |
-|------|---------|---------|
-| **ESLint** | 8.40+ | Code linting |
-| **Prettier** | 2.8+ | Code formatting |
-| **@typescript-eslint** | 6.0+ | TypeScript linting |
-
-### Supporting Libraries
+### Core (SDK — `fox-ecom/`)
 
 | Library | Version | Purpose |
 |---------|---------|---------|
-| **React** | 18.2+ | UI library |
-| **React Navigation** | 6.0+ | Navigation (optional) |
-| **AsyncStorage** | 1.17+ | Local storage |
-| **axios** | 1.4+ | HTTP client (optional) |
+| **React** | >=18.0.0 (peer) | UI library |
+| **React Native** | >=0.72.0 (peer) | Mobile framework |
+| **TypeScript** | ^5.0.0 | Type safety |
+| **react-native-svg** | ^15.15.5 | SVG rendering |
+| **react-native-reanimated** | ^4.5.0 | Animations |
+| **react-native-gesture-handler** | ^3.0.2 | Gesture system |
+| **@gorhom/bottom-sheet** | ^5.2.14 | Bottom sheet UI |
+| **@react-native-async-storage/async-storage** | ^3.1.1 | Local storage |
+| **@react-native-community/datetimepicker** | ^9.1.0 | Date/time picker |
+| **@react-native-community/slider** | ^5.2.0 | Slider component |
+
+### Example App (`example/`)
+
+| Library | Version thực tế | Purpose |
+|---------|-----------------|---------|
+| **React Native** | 0.65.3 | Framework |
+| **React** | 17.0.2 | UI library |
+| **Metro** | 0.66.2 | Bundler |
+| **@react-native-async-storage/async-storage** | 1.17.11 | Local storage |
+| **react-native-svg** | 15.15.5 | SVG rendering |
+| **react-native-svg-transformer** | 1.5.3 | `.svg` → React component |
+| **hermes-engine** | ^0.11.0 | JS engine trên iOS/Android |
+
+### Build & Tooling
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| **Babel** | 7.29.7 | Transpiler |
+| **TypeScript Compiler** | 4.9.5 | Type checking & emit |
+| **Metro** | 0.66.2 | React Native bundler |
+| **react-native-svg-transformer** | 1.5.3 | Chuyển `.svg` thành React component |
+
+### Testing (SDK)
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| **Jest** | ^29.7.0 | Test framework |
+| **@testing-library/react-native** | ^12.9.0 | Component testing |
+| **babel-jest** | ^29.7.0 | Transform JS trong Jest |
+
+### Linting & Formatting (SDK)
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| **ESLint** | ^8.40.0 | Code linting |
+| **Prettier** | ^2.8.0 | Code formatting |
+| **@typescript-eslint** | ^6.0.0 | TypeScript linting rules |
+| **eslint-plugin-react** | ^7.32.0 | React rules |
+| **eslint-plugin-react-native** | ^4.0.0 | RN-specific rules |
+
+---
+
+## API Endpoints
+
+### PMS (Product Management System)
+
+| Environment | Base URL |
+|-------------|----------|
+| **Development** | `https://apis-dev.fpt.vn` |
+| **Staging** | `https://apis-stag.fpt.vn` |
+| **Production** | `https://apis.fpt.vn` |
+
+| Endpoint | Method | Mô tả |
+|----------|--------|-------|
+| `pms/api/m/v1/users/loginInternal` | POST | Login nội bộ (username) |
+| `pms/api/m/v1/users/login` | POST | Login bằng token |
+| `pms/api/m/v1/users/menu` | GET | Lấy danh sách menu |
+
+Environment được set trong `example/index.js`:
+```js
+const ENV = 'staging'; // 'development' | 'staging' | 'production'
+```
 
 ---
 
@@ -53,540 +106,198 @@ Complete technology stack, dependencies, and development environment setup.
 ### Prerequisites
 
 ```bash
-# Check Node.js version
-node --version  # Should be 16.0.0 or higher
-
-# Check npm version
-npm --version   # Should be 8.0.0 or higher
+node --version   # v25.9.0
+npm --version    # 11.12.1
+# iOS: Xcode 26+, CocoaPods 1.16.2
 ```
 
-### Installation
+### Cài đặt
 
 ```bash
-# 1. Clone or enter project directory
-cd fox-ecom
+# SDK
+cd fox-ecom && npm install
 
-# 2. Install dependencies
-npm install
+# Example app
+cd fox-ecom/example && npm install
+cd ios && LANG=en_US.UTF-8 pod install
+```
 
-# 3. Verify installation
+### Verify
+
+```bash
 npm run type-check
-```
-
-### Verify Setup
-
-```bash
-# Run all checks
 npm run lint
-npm run type-check
-npm run test
+npm test
 ```
 
 ---
 
 ## NPM Scripts
 
-### Development Scripts
+### SDK (`fox-ecom/`)
 
 ```bash
-# Type checking
-npm run type-check
-
-# Linting
-npm run lint              # Check for errors
-npm run lint:fix          # Auto-fix issues
-
-# Testing
-npm test                  # Run all tests
-npm test -- --watch       # Watch mode
-npm test -- --coverage    # With coverage report
-npm test -- __tests__/path/to/test.test.ts  # Specific test
+npm run type-check          # Kiểm tra TypeScript
+npm run lint                # ESLint
+npm run lint:fix            # Auto-fix lint
+npm test                    # Jest
+npm test -- --coverage      # Với coverage report
+npm run build               # Compile + pack tgz
+npm run clean               # Xóa dist/ và tgz
 ```
 
-### Build Scripts
+### Example App (`example/`)
 
 ```bash
-# Build SDK
-npm run build             # Transpile TS + create tgz
-npm run build:dev         # With source maps
-npm run clean             # Remove dist/ and tgz files
-
-# Package
-npm pack                  # Create tarball
-npm publish              # Publish to npm registry
+npm run start               # Khởi động Metro (NODE_OPTIONS=--openssl-legacy-provider)
+npm run ios                 # Chạy iPhone 17 Pro simulator
+npm run android             # Chạy Android emulator
 ```
 
-### Example App
-
-```bash
-# From example/ directory
-npm install
-npm run ios               # Run on iOS simulator
-npm run android           # Run on Android emulator
-npm run start             # Start Metro bundler
-```
+> ⚠️ Luôn dùng `NODE_OPTIONS=--openssl-legacy-provider` khi chạy Metro do Node 25 dùng OpenSSL 3.
 
 ---
 
 ## Configuration Files
 
-### tsconfig.json
+### `metro.config.js` (example app — thực tế)
 
-TypeScript configuration for compilation:
+```js
+module.exports = {
+  projectRoot,
+  watchFolders: [sdkRoot],           // Watch toàn bộ SDK src
+  resolver: {
+    platforms: ['ios', 'android'],
+    sourceExts: ['svg', 'ts', 'tsx', 'js', 'jsx', 'json'],  // svg phải đứng trước
+    assetExts: ['png', 'jpg', 'jpeg', 'gif', 'webp', 'ttf', 'otf', 'mp4'],
+    extraNodeModules: {
+      'fox-ecom': path.resolve(sdkRoot, 'src'),
+      'react-native': path.resolve(projectRoot, 'node_modules/react-native'),
+      'react': path.resolve(projectRoot, 'node_modules/react'),
+      'react-native-svg': path.resolve(projectRoot, 'node_modules/react-native-svg'),
+      '@react-native-async-storage/async-storage': '...',
+    },
+    blacklistRE: /* block sdk/node_modules/react-native & react */,
+  },
+  transformer: {
+    babelTransformerPath: require.resolve('react-native-svg-transformer'),
+  },
+};
+```
+
+**Lý do cấu hình phức tạp**:
+- Metro 0.66 không hỗ trợ `resolveRequest` cho relative imports → phải dùng `blacklistRE` + `extraNodeModules`
+- `watchFolders: [sdkRoot]` khiến Metro scan cả `fox-ecom/node_modules` → cần blacklist `react` và `react-native` của SDK để tránh duplicate
+- `inline-plugin.js` cần được patch: thêm guard `opts.platform != null` tránh crash khi pre-scan không có platform context
+
+### `tsconfig.json` (SDK)
 
 ```json
 {
   "compilerOptions": {
-    "target": "ES2020",           // Target JavaScript version
-    "module": "commonjs",          // Module system
-    "lib": ["ES2020"],             // Type definitions
-    "jsx": "react-native",         // JSX for React Native
-    "strict": true,                // Strict type checking
-    "esModuleInterop": true,       // CommonJS interop
-    "moduleResolution": "node",    // Module resolution
-    "baseUrl": ".",                // Base for absolute paths
-    "paths": {
-      "@/*": ["src/*"]             // Path aliases
-    }
+    "target": "ES2020",
+    "module": "commonjs",
+    "jsx": "react-native",
+    "strict": true,
+    "baseUrl": ".",
+    "paths": { "@/*": ["src/*"] }
   }
 }
 ```
 
-**Key Options**:
-- `strict: true` - Enable all strict type checking
-- `jsx: "react-native"` - Parse JSX as React Native
-- `paths` - Enable `@/` imports
+> ⚠️ `@/` alias chỉ hoạt động trong TypeScript. Metro không tự resolve alias này — phải dùng relative path trong runtime code hoặc cấu hình thêm `extraNodeModules`.
 
-### jest.config.js
+### `babel.config.js` (example app)
 
-Jest testing framework configuration:
-
-```javascript
-{
-  "preset": "react-native",
-  "testEnvironment": "node",
-  "moduleFileExtensions": ["ts", "tsx", "js", "jsx"],
-  "transform": {
-    "^.+\\.(ts|tsx)$": "babel-jest"
-  },
-  "collectCoverageFrom": [
-    "src/**/*.{ts,tsx}",
-    "!src/**/*.d.ts"
-  ],
-  "coverageThreshold": {
-    "global": {
-      "branches": 50,
-      "functions": 50,
-      "lines": 50,
-      "statements": 50
-    }
-  }
-}
+```js
+module.exports = { presets: ['module:metro-react-native-babel-preset'] };
 ```
 
-### babel.config.js
+> Không dùng `babel-plugin-module-resolver` — plugin này can thiệp vào Flow `import typeof` stripping, làm Metro crash khi scan `react-native/index.js`.
 
-Babel transpiler configuration:
+### SVG Setup
 
-```javascript
-module.exports = {
-  presets: ['@react-native/babel-preset'],
-  plugins: [
-    '@babel/plugin-proposal-export-default-from',
-    '@babel/plugin-proposal-nullish-coalescing-operator',
-    '@babel/plugin-proposal-optional-chaining'
-  ]
-}
+`.svg` files trong `src/assets/icons/` được transform bởi `react-native-svg-transformer`:
+
+```ts
+// Import trực tiếp như React component
+import HomeIcon from './home.svg';
+<HomeIcon width={24} height={24} color="#1976d2" />
 ```
 
-### metro.config.js
-
-Metro bundler configuration for React Native:
-
-```javascript
-{
-  "resolver": {
-    "sourceExts": ["ts", "tsx", "js", "jsx"],
-    "assetExts": ["png", "jpg", "jpeg", "gif", "svg"]
-  },
-  "transformer": {
-    "babelTransformerPath": "metro-react-native-babel-transformer"
-  }
-}
-```
-
-### .eslintrc.json
-
-ESLint configuration:
-
-```json
-{
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint",
-    "react",
-    "react-native"
-  ]
-}
-```
-
-### .prettierrc
-
-Prettier code formatting:
-
-```json
-{
-  "semi": true,
-  "singleQuote": true,
-  "trailingComma": "all",
-  "printWidth": 100,
-  "tabWidth": 2,
-  "arrowParens": "always"
-}
-```
+Type declaration tại `src/types/svg.d.ts`.
 
 ---
 
 ## Build Process
 
-### Compilation Flow
-
 ```
-TypeScript (.ts)
+src/ (TypeScript)
+    ↓ Babel + metro-react-native-babel-preset
+    ↓ react-native-svg-transformer (cho .svg)
+    ↓ Metro 0.66.2
     ↓
-Babel (transpile)
-    ↓
-JavaScript (.js)
-    ↓
-Metro (bundle for RN)
-    ↓
-dist/ directory
-    ↓
-npm pack (create tgz)
-    ↓
-fox-ecom-x.x.x.tgz
-```
-
-### Build Output
-
-**Files generated in `dist/`**:
-```
-dist/
-├── index.js              # Main entry point
-├── index.d.ts            # TypeScript definitions
-├── presentation/         # Components, hooks, styles
-├── domain/              # Entities, use cases
-├── data/                # Repositories, models
-└── common/              # Utils, constants, types
-```
-
-**Tarball contents**:
-```
+dist/ (JavaScript + .d.ts)
+    ↓ npm pack
 fox-ecom-0.1.0.tgz
-├── dist/                # Compiled code
-├── package.json         # Package metadata
-└── package-lock.json    # Dependency lock
 ```
 
 ---
 
-## Development Workflow
+## iOS Native Setup
 
-### Local Development
+| Thành phần | Version | Ghi chú |
+|------------|---------|---------|
+| **Xcode** | 26.x | Build tool |
+| **CocoaPods** | 1.16.2 | Dependency manager |
+| **iOS Deployment Target** | 13.4 | Minimum iOS version |
+| **RNSVG (CocoaPods pod)** | 15.15.5 | Native SVG renderer |
+| **RNCAsyncStorage** | 1.17.11 | Native AsyncStorage |
+| **Hermes** | ^0.11.0 | JS engine |
 
+Pod install:
 ```bash
-# 1. Start development
-npm install
-
-# 2. Create feature branch
-git checkout -b feature/my-feature
-
-# 3. Make changes
-# - Edit src/ files
-# - Write tests in __tests__/
-
-# 4. Run checks
-npm run lint:fix
-npm run type-check
-npm test
-
-# 5. Commit
-git add .
-git commit -m "Add my feature"
-
-# 6. Push
-git push origin feature/my-feature
-
-# 7. Create pull request
+LANG=en_US.UTF-8 pod install --project-directory=example/ios
 ```
 
-### Testing Changes Locally
-
-```bash
-# Build and pack
-npm run build              # Creates fox-ecom-x.x.x.tgz
-
-# Install in test project
-cd /path/to/test-project
-npm install /path/to/fox-ecom/fox-ecom-0.1.0.tgz
-
-# Use in code
-import { ProductCard, useCart } from 'fox-ecom';
-```
-
-### Publishing
-
-```bash
-# 1. Update version
-# Edit package.json: "version": "0.2.0"
-
-# 2. Update CHANGELOG
-# Document changes
-
-# 3. Run tests
-npm test
-
-# 4. Build
-npm run build
-
-# 5. Publish to npm
-npm publish
-
-# 6. Tag release
-git tag v0.2.0
-git push origin v0.2.0
-```
+> ⚠️ Cần `LANG=en_US.UTF-8` vì CocoaPods 1.16.2 fail trên terminal không UTF-8.
 
 ---
 
-## Environment Configuration
+## Known Issues & Workarounds
 
-### .env (Development)
-
-```env
-# .env
-API_BASE_URL=https://api.dev.example.com
-API_TIMEOUT=10000
-LOG_LEVEL=debug
-```
-
-### .env.production
-
-```env
-API_BASE_URL=https://api.example.com
-API_TIMEOUT=5000
-LOG_LEVEL=error
-```
-
-### Usage in Code
-
-```typescript
-// src/common/constants/api.constants.ts
-export const API_BASE_URL = process.env.API_BASE_URL || 'https://api.example.com';
-```
-
----
-
-## Dependency Management
-
-### Peer Dependencies
-
-```json
-{
-  "peerDependencies": {
-    "react": ">=17.0.0",
-    "react-native": ">=0.72.0"
-  }
-}
-```
-
-Consumer projects must install these themselves.
-
-### Dev Dependencies
-
-```json
-{
-  "devDependencies": {
-    "typescript": "^5.0.0",
-    "eslint": "^8.40.0",
-    "prettier": "^2.8.0",
-    "jest": "^29.5.0"
-  }
-}
-```
-
-Consumed during development and testing, not bundled.
-
-### Production Dependencies
-
-Minimal dependencies for runtime:
-
-```json
-{
-  "dependencies": {}
-}
-```
-
-The SDK should have zero runtime dependencies if possible.
-
----
-
-## Performance Considerations
-
-### Bundle Size
-
-- **Goal**: Keep dist/ < 100KB (gzipped)
-- **Check**: `npm run build` shows size
-- **Optimize**: Tree-shake unused exports, lazy load if needed
-
-### TypeScript Configuration
-
-- **`skipLibCheck: true`** - Faster compilation
-- **`noImplicitAny: true`** - Catch type errors
-- **`strict: true`** - All strict checks enabled
-
-### Jest Configuration
-
-- **Coverage threshold**: 50% minimum
-- **Test timeout**: 5000ms default
-- **Parallel tests**: Jest runs by default
-
----
-
-## CI/CD Integration
-
-### GitHub Actions Example
-
-```yaml
-name: Tests & Lint
-
-on: [push, pull_request]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '18'
-      - run: npm install
-      - run: npm run lint
-      - run: npm run type-check
-      - run: npm test
-      - run: npm run build
-```
+| Issue | Workaround |
+|-------|-----------|
+| Node 25 + OpenSSL 3 | Thêm `NODE_OPTIONS=--openssl-legacy-provider` |
+| Metro 0.66 pre-scan với `platform=null` | Patch `metro-transform-plugins/src/inline-plugin.js`: guard `opts.platform != null` |
+| SDK `react-native` duplicate với example | `blacklistRE` block `fox-ecom/node_modules/react-native` và `react` |
+| CocoaPods UTF-8 | Chạy với `LANG=en_US.UTF-8` |
+| Xcode 26 + FBReactNativeSpec codegen | Skip build phase trong `post_install` của Podfile |
 
 ---
 
 ## Troubleshooting
 
-### Common Issues
-
-| Issue | Solution |
-|-------|----------|
-| `npm install` fails | Clear cache: `npm cache clean --force` |
-| Port 8081 in use | Kill process: `lsof -i :8081` |
-| Module not found | Check path aliases in tsconfig.json |
-| TypeScript errors | Run `npm run type-check` |
-| Jest tests fail | Check jest.config.js and jest.setup.js |
-| Prettier conflicts | Run `npm run lint:fix` |
-
-### Metro Bundler Issues
-
 ```bash
-# Clear Metro cache
+# Reset Metro cache
 npm start -- --reset-cache
 
-# Rebuild node_modules
-rm -rf node_modules
-npm install
+# Watchman reset (nếu có recrawl warnings)
+watchman watch-del '/path/to/fox-ecom'
+watchman watch-project '/path/to/fox-ecom'
+
+# Xóa iOS build
+cd example/ios && rm -rf build Pods Podfile.lock
+LANG=en_US.UTF-8 pod install
+
+# Full clean
+cd example && rm -rf node_modules && npm install
 ```
 
-### Type Definition Issues
-
-```bash
-# Reinstall @types packages
-npm install --save-dev @types/react @types/react-native
-
-# Check TypeScript version
-npm ls typescript
-```
-
----
-
-## Version Management
-
-### Semver Format
-
-```
-0.1.0
-│ │ └─ Patch (bug fixes)
-│ └─── Minor (new features, backwards compatible)
-└───── Major (breaking changes)
-```
-
-### Versioning Strategy
-
-- **0.x.y**: Pre-release, breaking changes allowed
-- **1.x.y**: Stable release
-- **x.y.0**: Minor release with features
-- **x.y.z**: Patch release with fixes
-
----
-
-## Publishing to npm
-
-### Setup
-
-```bash
-# Login to npm
-npm login
-
-# Verify login
-npm whoami
-```
-
-### Publish
-
-```bash
-# Automatic: npm run build includes npm pack
-npm run build
-npm publish
-
-# Or manual
-npm pack
-npm publish ./fox-ecom-0.1.0.tgz
-```
-
-### Verify Published Package
-
-```bash
-# Check npm registry
-npm info fox-ecom
-
-# Install from npm
-npm install fox-ecom
-
-# Verify version
-npm ls fox-ecom
-```
-
----
-
-## Summary
-
-| Component | Version | Purpose |
-|-----------|---------|---------|
-| **React Native** | 0.72+ | Mobile framework |
-| **TypeScript** | 5.0+ | Type safety |
-| **Jest** | 29.5+ | Testing |
-| **ESLint** | 8.40+ | Code quality |
-| **Prettier** | 2.8+ | Formatting |
-| **Babel** | 7.22+ | Transpilation |
-| **Metro** | 0.76+ | Bundling |
+| Triệu chứng | Nguyên nhân | Fix |
+|-------------|-------------|-----|
+| White screen | Metro bundle fail silently | Check Metro log, `--reset-cache` |
+| `dispatcher.useState` null | Hai bản React load song song | Kiểm tra `blacklistRE` trong metro.config.js |
+| Metro hang khi build bundle | `inline-plugin` crash với `platform=null` | Đã patch — xem Known Issues |
+| SVG icon không hiển thị | `react-native-svg` chưa được link | `pod install`, thêm vào `extraNodeModules` |
+| `@/` import không resolve | Metro không hỗ trợ alias native | Dùng relative path trong runtime code |

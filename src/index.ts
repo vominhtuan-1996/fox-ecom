@@ -41,6 +41,11 @@ export * from './data';
 // ============================================================
 export { ProductCard } from './presentation/components';
 export { Cart as CartComponent } from './presentation/components';
+export * from './presentation/components/engine_dialog';
+export { LoadingAnimationWidget } from './presentation/components/LoadingAnimation';
+export { SvgIcon } from './presentation/components/SvgIcon';
+export * from './presentation/components/multi_select';
+export { Navigator } from './presentation/navigator/Navigator';
 
 // ============================================================
 // ============================================================

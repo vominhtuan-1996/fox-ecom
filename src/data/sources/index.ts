@@ -1,3 +1,5 @@
+// Deprecated: dùng src/data/network/ thay thế
+// File này chỉ giữ lại để tránh break import cũ
 export { HttpClient, httpClient } from './http_client';
 export type { HttpConfig, HttpRequest } from './http_client';
 export { ApiResponse } from './base_response';

@@ -5,3 +5,4 @@ export * from './types';
 export * from './validators';
 export * from './theme';
 export * from './routing';
+export * from './language';

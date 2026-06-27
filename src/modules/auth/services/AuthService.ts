@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthCredentials, AuthToken, AuthUser, AuthResponse, AuthSession, AuthExtra, AuthConfig } from '@/common/types/auth.types';
 import { envConfig } from '@/common/config/env.config';
 
@@ -219,35 +220,32 @@ export class AuthService {
   }
 
   private saveSession(): void {
-    if (typeof window !== 'undefined' && this.session) {
-      localStorage.setItem('fox_ecom_auth_session', JSON.stringify(this.session));
-      localStorage.setItem('fox_ecom_auth_extra', JSON.stringify(this.extra));
+    if (this.session) {
+      AsyncStorage.setItem('fox_ecom_auth_session', JSON.stringify(this.session)).catch(() => {});
+      AsyncStorage.setItem('fox_ecom_auth_extra', JSON.stringify(this.extra)).catch(() => {});
     }
   }
 
-  private loadSession(): void {
-    if (typeof window !== 'undefined') {
-      try {
-        const sessionStr = localStorage.getItem('fox_ecom_auth_session');
-        const extraStr = localStorage.getItem('fox_ecom_auth_extra');
-
-        if (sessionStr) {
-          this.session = JSON.parse(sessionStr);
-        }
-        if (extraStr) {
-          this.extra = JSON.parse(extraStr);
-        }
-      } catch (error) {
-        console.error('Failed to load auth session:', error);
-      }
+  async loadSessionAsync(): Promise<void> {
+    try {
+      const [sessionStr, extraStr] = await AsyncStorage.multiGet([
+        'fox_ecom_auth_session',
+        'fox_ecom_auth_extra',
+      ]);
+      if (sessionStr[1]) this.session = JSON.parse(sessionStr[1]);
+      if (extraStr[1]) this.extra = JSON.parse(extraStr[1]);
+    } catch (error) {
+      console.error('Failed to load auth session:', error);
     }
+  }
+
+  // ponytail: kept for ctor call-site compat, async load happens via loadSessionAsync
+  private loadSession(): void {
+    this.loadSessionAsync().catch(() => {});
   }
 
   private removeSession(): void {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('fox_ecom_auth_session');
-      localStorage.removeItem('fox_ecom_auth_extra');
-    }
+    AsyncStorage.multiRemove(['fox_ecom_auth_session', 'fox_ecom_auth_extra']).catch(() => {});
   }
 
   private notifyListeners(): void {

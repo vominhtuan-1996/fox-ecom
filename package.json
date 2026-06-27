@@ -27,7 +27,7 @@
   ],
   "author": "",
   "license": "MIT",
-  "react-native": "dist/index.js",
+  "react-native": "src/index.ts",
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-native": ">=0.72.0"
@@ -75,5 +75,7 @@
     "@storybook/react-native-ui-lite": "^10.4.7",
     "storybook": "^10.4.6",
     "react-dom": "^18.2.0"
-  }
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts"
 }

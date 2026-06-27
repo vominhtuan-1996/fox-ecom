@@ -1,3 +1,5 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 /**
  * CartService
  * Business logic for shopping cart
@@ -141,25 +143,18 @@ class CartServiceImpl {
    * Private: Save to storage
    */
   private saveToStorage(): void {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      localStorage.setItem('cart', JSON.stringify(this.cart));
-    }
+    AsyncStorage.setItem('cart', JSON.stringify(this.cart)).catch(() => {});
   }
 
   /**
    * Private: Load from storage
    */
   private loadFromStorage(): void {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      const stored = localStorage.getItem('cart');
+    AsyncStorage.getItem('cart').then(stored => {
       if (stored) {
-        try {
-          this.cart = JSON.parse(stored);
-        } catch (e) {
-          console.warn('Failed to load cart from storage');
-        }
+        try { this.cart = JSON.parse(stored); } catch { /* ignore */ }
       }
-    }
+    }).catch(() => {});
   }
 
   /**

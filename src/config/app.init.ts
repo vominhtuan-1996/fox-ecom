@@ -9,6 +9,7 @@ import { appConfig } from './app.config';
 import { envConfig } from '@/common/config/env.config';
 import { authService } from '@/modules/auth';
 import { setupDependencies } from '@/di/injection';
+import { ApiClient } from '@/data/network/api_client/ApiClient';
 
 export interface AppInitConfig {
   token?: string;
@@ -39,11 +40,19 @@ export async function initializeApp(overrideConfig?: AppInitConfig) {
     di.registerSingleton('envConfig', envConfig);
     console.log('✅ Environment config registered');
 
-    // 3. Setup core services
+    // 3. Init ApiClient singleton
+    ApiClient.instance.init({
+      baseUrl: finalConfig.apiBaseUrl,
+      timeout: finalConfig.apiTimeout,
+      retry: { maxRetries: 2, exponentialBackoff: true },
+    });
+    console.log('✅ ApiClient initialized');
+
+    // 4. Setup core services
     di.registerSingleton('authService', authService);
     console.log('✅ Auth service registered');
 
-    // 4. Initialize auth if token provided
+    // 5. Initialize auth if token provided
     if (overrideConfig?.token) {
       await authService.init({
         token: {
@@ -55,7 +64,7 @@ export async function initializeApp(overrideConfig?: AppInitConfig) {
       console.log('✅ Auth initialized');
     }
 
-    // 5. Setup all dependencies (repositories, usecases, etc)
+    // 6. Setup all dependencies (repositories, usecases, etc)
     setupDependencies();
     console.log('✅ All dependencies registered');
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
@@ -6,14 +6,79 @@ import {
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
+  Animated,
+  Dimensions,
   Alert,
 } from 'react-native';
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
+
+// Slide-in from right on mount, direction-aware
+function ScreenSlide({ children, direction }) {
+  const translateX = useRef(new Animated.Value(direction === 'back' ? -SCREEN_WIDTH : SCREEN_WIDTH)).current;
+  const opacity = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.parallel([
+      Animated.spring(translateX, {
+        toValue: 0,
+        damping: 20,
+        stiffness: 200,
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 150,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, []);
+
+  return (
+    <Animated.View style={[{ flex: 1 }, { transform: [{ translateX }], opacity }]}>
+      {children}
+    </Animated.View>
+  );
+}
 import { SvgIcon } from './SvgIcon';
+import { LoginScreen } from './LoginScreen';
+import { BottomSheetDemo } from './BottomSheetDemo';
+import { LoadingDemo } from './LoadingDemo';
+import { SDKComponents } from './SDKComponents';
+import { DialogEngineHost } from 'fox-ecom';
+import { AppNavigator } from '../src/presentation/app/AppNavigator';
+
+class ErrorBoundary extends React.Component {
+  state = { error: null };
+  static getDerivedStateFromError(e) { return { error: e }; }
+  render() {
+    if (this.state.error) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 24, backgroundColor: '#fff' }}>
+          <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'red', marginBottom: 12 }}>❌ Lỗi render</Text>
+          <Text style={{ fontSize: 13, color: '#333', textAlign: 'center' }}>{String(this.state.error)}</Text>
+        </View>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 console.log('🔥 Hot Reload: App reloaded at', new Date().toLocaleTimeString());
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState('menu');
+  const [direction, setDirection] = useState('forward');
+
+  const navigate = useCallback((screen) => {
+    setDirection('forward');
+    setCurrentScreen(screen);
+  }, []);
+
+  const goBack = useCallback(() => {
+    setDirection('back');
+    setCurrentScreen('menu');
+  }, []);
 
   const iconMap = {
     home: '🏠',
@@ -31,6 +96,8 @@ export default function App() {
   };
 
   const menuItems = [
+    { id: 'fox-eco', name: '🦊 Fox Eco App', icon: 'package', screen: 'fox-eco', highlight: true },
+    { id: '0', name: 'Login', icon: 'home', screen: 'login' },
     { id: '1', name: 'Home', icon: 'home', screen: 'home' },
     { id: '2', name: 'Dialog - Alert', icon: 'heart', screen: 'dialog-alert' },
     { id: '3', name: 'Dialog - Confirm', icon: 'confirm', screen: 'dialog-confirm' },
@@ -41,6 +108,9 @@ export default function App() {
     { id: '8', name: 'Cart Demo', icon: 'cart', screen: 'cart' },
     { id: '9', name: 'Products', icon: 'package', screen: 'products' },
     { id: '10', name: 'Settings', icon: 'settings', screen: 'settings' },
+    { id: '11', name: 'Bottom Sheet', icon: 'layers', screen: 'bottom-sheet' },
+    { id: '12', name: 'Loading & Layers', icon: 'layers', screen: 'loading' },
+    { id: '13', name: 'SDK Components', icon: 'package', screen: 'sdk-components' },
   ];
 
   const handleDialogAlert = () => {
@@ -70,7 +140,7 @@ export default function App() {
   };
 
   const handleDialogCustom = () => {
-    setCurrentScreen('dialog-custom');
+    navigate('dialog-custom');
   };
 
   const renderMenu = () => (
@@ -83,7 +153,7 @@ export default function App() {
         data={menuItems}
         renderItem={({ item }) => (
           <TouchableOpacity
-            style={styles.menuItem}
+            style={[styles.menuItem, item.highlight && styles.menuItemHighlight]}
             onPress={() => {
               if (item.screen === 'dialog-alert') {
                 handleDialogAlert();
@@ -92,15 +162,20 @@ export default function App() {
               } else if (item.screen === 'dialog-custom') {
                 handleDialogCustom();
               } else {
-                setCurrentScreen(item.screen);
+                navigate(item.screen);
               }
             }}
           >
             <View style={styles.menuItemContent}>
-              <SvgIcon name={item.icon} size={20} color="#1976d2" />
-              <Text style={styles.menuText}>{item.name}</Text>
+              <Text style={{ fontSize: 20, marginRight: 4 }}>{iconMap[item.icon] ?? '▸'}</Text>
+              <View style={{ flex: 1 }}>
+                <Text style={[styles.menuText, item.highlight && styles.menuTextHighlight]}>{item.name}</Text>
+                {item.highlight && (
+                  <Text style={styles.menuSubText}>Toàn bộ UI + logic 10 phases</Text>
+                )}
+              </View>
             </View>
-            <Text style={styles.arrow}>→</Text>
+            <Text style={[styles.arrow, item.highlight && { color: '#fff' }]}>→</Text>
           </TouchableOpacity>
         )}
         keyExtractor={(item) => item.id}
@@ -113,7 +188,7 @@ export default function App() {
     <SafeAreaView style={styles.screenContainer}>
       <TouchableOpacity
         style={styles.backButton}
-        onPress={() => setCurrentScreen('menu')}
+        onPress={goBack}
       >
         <Text style={styles.backText}>← Back</Text>
       </TouchableOpacity>
@@ -132,7 +207,7 @@ export default function App() {
     <SafeAreaView style={styles.screenContainer}>
       <TouchableOpacity
         style={styles.backButton}
-        onPress={() => setCurrentScreen('menu')}
+        onPress={goBack}
       >
         <Text style={styles.backText}>← Back</Text>
       </TouchableOpacity>
@@ -160,7 +235,7 @@ export default function App() {
         <View style={styles.customDialogFooter}>
           <TouchableOpacity
             style={[styles.customButton, styles.cancelButton]}
-            onPress={() => setCurrentScreen('menu')}
+            onPress={goBack}
           >
             <Text style={styles.cancelButtonText}>Dismiss</Text>
           </TouchableOpacity>
@@ -169,7 +244,7 @@ export default function App() {
             style={[styles.customButton, styles.acceptButton]}
             onPress={() => {
               Alert.alert('Success!', 'Offer applied to your cart! 🎉');
-              setCurrentScreen('menu');
+              goBack();
             }}
           >
             <Text style={styles.acceptButtonText}>Accept</Text>
@@ -179,13 +254,43 @@ export default function App() {
     </SafeAreaView>
   );
 
+  let content;
   if (currentScreen === 'menu') {
-    return renderMenu();
+    content = renderMenu();
   } else if (currentScreen === 'dialog-custom') {
-    return renderCustomDialog();
+    content = renderCustomDialog();
+  } else if (currentScreen === 'login') {
+    content = (
+      <LoginScreen
+        onBack={goBack}
+        onLoginSuccess={goBack}
+      />
+    );
+  } else if (currentScreen === 'bottom-sheet') {
+    content = <BottomSheetDemo onBack={goBack} />;
+  } else if (currentScreen === 'loading') {
+    content = <LoadingDemo onBack={goBack} />;
+  } else if (currentScreen === 'sdk-components') {
+    content = <SDKComponents onBack={goBack} />;
+  } else if (currentScreen === 'fox-eco') {
+    content = (
+      <ErrorBoundary>
+        <View style={{ flex: 1, backgroundColor: 'tomato' }}>
+          <AppNavigator />
+        </View>
+      </ErrorBoundary>
+    );
   } else {
-    return renderHome();
+    content = renderHome();
   }
+
+  return (
+    <DialogEngineHost>
+      <ScreenSlide key={currentScreen} direction={direction}>
+        {content}
+      </ScreenSlide>
+    </DialogEngineHost>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -229,6 +334,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 2,
   },
+  menuItemHighlight: {
+    backgroundColor: '#FF8500',
+    elevation: 6,
+    shadowOpacity: 0.25,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 3 },
+  },
   menuItemContent: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -239,6 +351,17 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#1f2937',
     marginLeft: 12,
+  },
+  menuTextHighlight: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: 17,
+  },
+  menuSubText: {
+    fontSize: 12,
+    color: 'rgba(255,255,255,0.8)',
+    marginLeft: 12,
+    marginTop: 2,
   },
   arrow: {
     fontSize: 18,

@@ -102,11 +102,11 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     flexDirection: 'row',
-    gap: spacing.md,
+    marginRight: spacing.md,
   },
   labelsContainer: {
     flexDirection: 'row',
-    gap: spacing.md,
+    marginRight: spacing.md,
   },
   button: {
     flex: 1,

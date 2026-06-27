@@ -11,7 +11,8 @@ target 'FoxEcomExample' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
   post_install do |installer|
     react_native_post_install(installer)

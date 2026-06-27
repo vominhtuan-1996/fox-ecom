@@ -211,14 +211,28 @@ interface CartProps {
 
 ## Import Paths
 
-### Absolute Imports (using tsconfig paths)
+### Absolute Imports (using `@/` alias)
+
+`@/` maps tới `src/` — được config trong **cả hai nơi**:
+
+| Nơi | Config |
+|-----|--------|
+| TypeScript compiler | `tsconfig.json` → `paths: { "@/*": ["src/*"] }` |
+| Metro bundler (runtime) | `example/metro.config.js` → `resolveRequest` map `@/` → `src/` |
+
+> ⚠️ **QUAN TRỌNG**: TypeScript (`tsconfig.json` paths) và Metro bundler là **hai hệ thống độc lập**.
+> Nếu chỉ config `tsconfig.json` mà không config `metro.config.js`, app sẽ **crash runtime** với lỗi:
+> `Unable to resolve module @/...`
+>
+> Khi thêm alias mới, phải update **cả hai** cùng lúc.
+
 ```typescript
-// ✅ Preferred
+// ✅ Dùng @/ alias — ngắn gọn, không bị vỡ khi move file
 import { Product } from '@/domain/entities';
 import { useCart } from '@/presentation/hooks';
-import { colors } from '@/presentation/styles';
+import { envConfig } from '@/common/config/env.config';
 
-// ❌ Avoid
+// ❌ Tránh relative path nhiều cấp — dễ sai khi move file
 import { Product } from '../../../domain/entities';
 ```
 

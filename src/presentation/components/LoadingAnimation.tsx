@@ -10,116 +10,79 @@ const FourRotatingDots: React.FC<FourRotatingDotsProps> = ({
   color = '#1976d2',
   size = 50,
 }) => {
-  const animatedValue = useRef(new Animated.Value(0)).current;
+  const rotation = useRef(new Animated.Value(0)).current;
+  // 4 independent scale values, each staggered 90° in phase
+  const scales = useRef([0, 1, 2, 3].map(() => new Animated.Value(1))).current;
 
   useEffect(() => {
+    // Continuous 360° rotation — 1200ms/cycle
     Animated.loop(
-      Animated.timing(animatedValue, {
+      Animated.timing(rotation, {
         toValue: 1,
-        duration: 2200,
+        duration: 1200,
         useNativeDriver: true,
       })
     ).start();
 
+    // Each dot pulses: big → small → big, staggered by 300ms
+    const CYCLE = 1200;
+    const pulseDot = (anim: Animated.Value, delay: number) =>
+      Animated.loop(
+        Animated.sequence([
+          Animated.delay(delay),
+          Animated.timing(anim, { toValue: 1.7, duration: CYCLE * 0.3, useNativeDriver: true }),
+          Animated.timing(anim, { toValue: 0.5, duration: CYCLE * 0.3, useNativeDriver: true }),
+          Animated.timing(anim, { toValue: 1.0, duration: CYCLE * 0.4 - delay % CYCLE, useNativeDriver: true }),
+        ])
+      );
+
+    const pulses = scales.map((anim, i) => pulseDot(anim, i * 300));
+    pulses.forEach(p => p.start());
+
     return () => {
-      animatedValue.removeAllListeners();
+      rotation.stopAnimation();
+      scales.forEach(s => s.stopAnimation());
     };
-  }, [animatedValue]);
+  }, []);
 
-  const dotMaxSize = size * 0.30;
-  const dotMinSize = size * 0.14;
-  const maxOffset = size * 0.35;
-
-  // Phase 1: Dots move to center (0-0.18)
-  const phase1Scale = animatedValue.interpolate({
-    inputRange: [0, 0.18],
-    outputRange: [1, 0.5],
-    extrapolate: 'clamp',
+  const spin = rotation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg'],
   });
 
-  // Phase 2: Dots expand and shrink (0.18-0.36)
-  const phase2Scale = animatedValue.interpolate({
-    inputRange: [0.18, 0.36],
-    outputRange: [0.5, 1.5],
-    extrapolate: 'clamp',
-  });
+  const dotSize = size * 0.22;
+  const orbit = size * 0.36;
 
-  // Phase 3: Rotation (0.36-0.60)
-  const rotation = animatedValue.interpolate({
-    inputRange: [0.36, 0.60],
-    outputRange: [0, Math.PI * 1.75],
-    extrapolate: 'clamp',
-  });
-
-  // Phase 4: Expand back (0.60-0.78)
-  const phase4Scale = animatedValue.interpolate({
-    inputRange: [0.60, 0.78],
-    outputRange: [1.5, 1],
-    extrapolate: 'clamp',
-  });
-
-  // Phase 5: Return to initial position (0.78-1.0)
-  const phase5Opacity = animatedValue.interpolate({
-    inputRange: [0.78, 1.0],
-    outputRange: [1, 1],
-    extrapolate: 'clamp',
-  });
-
-  const renderDot = (offsetX: number, offsetY: number, phaseScale: Animated.AnimatedInterpolation) => (
-    <Animated.View
-      style={[
-        styles.dot,
-        {
-          backgroundColor: color,
-          width: dotMinSize,
-          height: dotMinSize,
-          borderRadius: dotMinSize / 2,
-          transform: [
-            { translateX: offsetX },
-            { translateY: offsetY },
-            { scale: phaseScale },
-          ],
-        },
-      ]}
-    />
-  );
-
-  const getPhase = () => {
-    const val = animatedValue.__getValue();
-    if (val <= 0.18) return 'phase1';
-    if (val <= 0.36) return 'phase2';
-    if (val <= 0.60) return 'phase3';
-    if (val <= 0.78) return 'phase4';
-    return 'phase5';
-  };
-
-  const currentPhase = getPhase();
-  const scale =
-    currentPhase === 'phase1'
-      ? phase1Scale
-      : currentPhase === 'phase2'
-      ? phase2Scale
-      : currentPhase === 'phase4'
-      ? phase4Scale
-      : 1;
+  // Dot positions: top, right, bottom, left
+  const positions = [
+    { x: 0,      y: -orbit },
+    { x: orbit,  y: 0      },
+    { x: 0,      y: orbit  },
+    { x: -orbit, y: 0      },
+  ];
 
   return (
     <View style={[styles.container, { width: size, height: size }]}>
-      <Animated.View
-        style={[
-          styles.dotsContainer,
-          {
-            transform: [
-              { rotate: rotation },
-              { scale },
-            ],
-          },
-        ]}
-      >
-        {renderDot(-maxOffset, 0, scale)}
-        {renderDot(maxOffset, 0, scale)}
-        {renderDot(0, -maxOffset, scale)}
-        {renderDot(0, maxOffset, scale)}
+      <Animated.View style={[styles.dotsContainer, { transform: [{ rotate: spin }] }]}>
+        {positions.map((pos, i) => (
+          <Animated.View
+            key={i}
+            style={[
+              styles.dot,
+              {
+                backgroundColor: color,
+                width: dotSize,
+                height: dotSize,
+                borderRadius: dotSize / 2,
+                transform: [
+                  { translateX: pos.x },
+                  { translateY: pos.y },
+                  { scale: scales[i] },
+                ],
+              },
+            ]}
+          />
+        ))}
       </Animated.View>
     </View>
   );

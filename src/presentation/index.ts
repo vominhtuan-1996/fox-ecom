@@ -7,6 +7,9 @@
 // Components
 export * from './components';
 
+// Navigator
+export * from './navigator';
+
 // Hooks
 export * from './hooks';
 
