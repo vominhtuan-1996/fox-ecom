@@ -7,9 +7,6 @@ const src = (rel) => path.resolve(sdkRoot, 'src', rel);
 module.exports = {
   projectRoot,
   watchFolders: [sdkRoot],
-  projectAssetsDirs: [
-    path.join(projectRoot, 'node_modules/react-native/Libraries/LogBox/UI/LogBoxImages'),
-  ],
   resolver: {
     platforms: ['ios', 'android'],
     sourceExts: ['svg', 'ts', 'tsx', 'js', 'jsx', 'json'],
