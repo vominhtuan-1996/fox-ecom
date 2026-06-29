@@ -98,6 +98,28 @@ This directory contains 5 comprehensive guides covering all aspects of SDK devel
 
 ---
 
+### 6️⃣ [06_design_rules.md](06_design_rules.md) - Design Compliance & UI/UX Guidelines
+**What**: Design tokens, component specs, and UI/UX compliance rules  
+**Use when**: Building components or reviewing design implementation  
+**Covers**:
+- Color system tokens and usage (primary, semantic, neutral)
+- Typography scale and rules
+- Spacing & layout grid (4px base)
+- Border radius tokens
+- Button states and component design
+- Icon and asset guidelines
+- Responsive & safe area rules
+- Animation and transition rules
+- Accessibility standards (WCAG AA)
+- Testing & QA checklist for design compliance
+- Design system version tracking
+
+**Source**: [Fox-Eco-Design.md](Fox-Eco-Design.md) (design specification)
+
+👉 **Start here for UI component implementation**
+
+---
+
 ## 🎯 Quick Reference
 
 ### By Task
