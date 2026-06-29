@@ -24,8 +24,8 @@ module.exports = {
       '@/assets':                  src('assets'),
       '@/types':                   src('types'),
       '@/sdk':                     src('sdk'),
-      // Third-party — force example's copies
-      'fox-ecom':                  src(''),
+      // SDK from node_modules (npm package) — comment for dev mode
+      // 'fox-ecom':                  src(''),
       'react-native':              path.resolve(projectRoot, 'node_modules/react-native'),
       'react':                     path.resolve(projectRoot, 'node_modules/react'),
       '@react-native-async-storage/async-storage': path.resolve(projectRoot, 'node_modules/@react-native-async-storage/async-storage'),
