@@ -1,0 +1,16 @@
+diff --git a/node_modules/react-native/Libraries/Components/Switch/Switch.js b/node_modules/react-native/Libraries/Components/Switch/Switch.js
+index original..fixed 100644
+--- a/node_modules/react-native/Libraries/Components/Switch/Switch.js
++++ b/node_modules/react-native/Libraries/Components/Switch/Switch.js
+@@ -134,9 +134,7 @@ type SwitchRef = React.ElementRef<
+   typeof SwitchNativeComponent | typeof AndroidSwitchNativeComponent,
+ >;
+ 
+-const SwitchWithForwardedRef: component(
+-  ref: React.RefSetter<SwitchRef>,
+-  ...props: Props
+-) = React.forwardRef(function Switch(props, forwardedRef): React.Node {
++const SwitchWithForwardedRef = React.forwardRef(function Switch(props, forwardedRef): React.Node {
+   const {
+     disabled,
+     ios_backgroundColor,
