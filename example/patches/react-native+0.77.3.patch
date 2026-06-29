@@ -1,0 +1,10 @@
+diff --git a/node_modules/react-native/Libraries/Components/DrawerAndroid/DrawerLayoutAndroid.js b/node_modules/react-native/Libraries/Components/DrawerAndroid/DrawerLayoutAndroid.js
+index original..fixed 100644
+--- a/node_modules/react-native/Libraries/Components/DrawerAndroid/DrawerLayoutAndroid.js
++++ b/node_modules/react-native/Libraries/Components/DrawerAndroid/DrawerLayoutAndroid.js
+@@ -11,4 +11,4 @@
+ 'use strict';
+ 
+ module.exports =
+-  require('../UnimplementedViews/UnimplementedView') as $FlowFixMe;
++  (require('../UnimplementedViews/UnimplementedView'));
