@@ -59,13 +59,9 @@ export const ANIMATION_PRESETS = {
   },
 } as const;
 
-// Lottie animation files (if using)
-export const LOTTIE_ANIMATIONS = {
-  LOADING: require('./loading.json'),
-  SUCCESS: require('./success.json'),
-  ERROR: require('./error.json'),
-  EMPTY_STATE: require('./empty-state.json'),
-} as const;
+// Lottie animation files — not included in SDK package
+// Apps should provide their own Lottie JSON files
+export const LOTTIE_ANIMATIONS = {} as const;
 
 export type AnimationPresetKey = keyof typeof ANIMATION_PRESETS;
 export type LottieAnimationKey = keyof typeof LOTTIE_ANIMATIONS;
