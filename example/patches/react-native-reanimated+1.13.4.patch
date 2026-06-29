@@ -1,0 +1,30 @@
+diff --git a/node_modules/react-native-reanimated/android/build.gradle b/node_modules/react-native-reanimated/android/build.gradle
+index 90b206e..b2781f9 100644
+--- a/node_modules/react-native-reanimated/android/build.gradle
++++ b/node_modules/react-native-reanimated/android/build.gradle
+@@ -58,16 +58,17 @@ dependencies {
+ 
+ afterEvaluate { project ->
+ 
+-    task androidJavadoc(type: Javadoc) {
+-        source = android.sourceSets.main.java.srcDirs
+-        classpath += files(android.bootClasspath)
+-        classpath += files(project.getConfigurations().getByName('compile').asList())
+-        include '**/*.java'
+-    }
++    // Javadoc task disabled due to compatibility issues with newer Gradle versions
++    // task androidJavadoc(type: Javadoc) {
++    //     source = android.sourceSets.main.java.srcDirs
++    //     classpath += files(android.bootClasspath)
++    //     classpath += configurations.compileClasspath
++    //     include '**/*.java'
++    // }
+ 
+-    task androidJavadocJar(type: Jar, dependsOn: androidJavadoc) {
++    task androidJavadocJar(type: Jar) {
+         archiveClassifier = 'javadoc'
+-        from androidJavadoc.destinationDir
++        // from androidJavadoc.destinationDir
+     }
+ 
+     task androidSourcesJar(type: Jar) {

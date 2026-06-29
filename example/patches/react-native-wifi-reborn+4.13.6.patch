@@ -1,0 +1,446 @@
+diff --git a/node_modules/react-native-wifi-reborn/android/build.gradle b/node_modules/react-native-wifi-reborn/android/build.gradle
+index d27b03b..5c748f0 100644
+--- a/node_modules/react-native-wifi-reborn/android/build.gradle
++++ b/node_modules/react-native-wifi-reborn/android/build.gradle
+@@ -18,7 +18,7 @@ apply plugin: 'com.android.library'
+ android {
+     namespace = "com.reactlibrary.rnwifi"
+ 
+-    compileSdkVersion safeExtGet(compileSdkVersion, 31)
++    compileSdkVersion safeExtGet('compileSdkVersion', 35)
+ 
+     compileOptions {
+         sourceCompatibility JavaVersion.VERSION_1_8
+@@ -26,8 +26,8 @@ android {
+     }
+ 
+     defaultConfig {
+-        minSdkVersion safeExtGet(minSdkVersion, 21)
+-        targetSdkVersion safeExtGet(targetSdkVersion, 31)
++        minSdkVersion safeExtGet('minSdkVersion', 24)
++        targetSdkVersion safeExtGet('targetSdkVersion', 35)
+         versionCode 1
+         versionName '1.0'
+     }
+diff --git a/node_modules/react-native-wifi-reborn/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/AndroidManifest.xml b/node_modules/react-native-wifi-reborn/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/AndroidManifest.xml
+new file mode 100644
+index 0000000..c019e04
+--- /dev/null
++++ b/node_modules/react-native-wifi-reborn/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/AndroidManifest.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="com.reactlibrary.rnwifi" >
++
++    <uses-sdk android:minSdkVersion="24" />
++
++    <uses-permission android:name="android.permission.INTERNET" />
++    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
++    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
++    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
++    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
++
++</manifest>
+\ No newline at end of file
+diff --git a/node_modules/react-native-wifi-reborn/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/output-metadata.json b/node_modules/react-native-wifi-reborn/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/output-metadata.json
+new file mode 100644
+index 0000000..2f9aedb
+--- /dev/null
++++ b/node_modules/react-native-wifi-reborn/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/output-metadata.json
+@@ -0,0 +1,18 @@
++{
++  "version": 3,
++  "artifactType": {
++    "type": "AAPT_FRIENDLY_MERGED_MANIFESTS",
++    "kind": "Directory"
++  },
++  "applicationId": "com.reactlibrary.rnwifi",
++  "variantName": "debug",
++  "elements": [
++    {
++      "type": "SINGLE",
++      "filters": [],
++      "attributes": [],
++      "outputFile": "AndroidManifest.xml"
++    }
++  ],
++  "elementType": "File"
++}
+\ No newline at end of file
+diff --git a/node_modules/react-native-wifi-reborn/android/build/intermediates/manifest_merge_blame_file/debug/processDebugManifest/manifest-merger-blame-debug-report.txt b/node_modules/react-native-wifi-reborn/android/build/intermediates/manifest_merge_blame_file/debug/processDebugManifest/manifest-merger-blame-debug-report.txt
+new file mode 100644
+index 0000000..5e64e5d
+--- /dev/null
++++ b/node_modules/react-native-wifi-reborn/android/build/intermediates/manifest_merge_blame_file/debug/processDebugManifest/manifest-merger-blame-debug-report.txt
+@@ -0,0 +1,23 @@
++1<?xml version="1.0" encoding="utf-8"?>
++2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++3    package="com.reactlibrary.rnwifi" >
++4
++5    <uses-sdk android:minSdkVersion="24" />
++6
++7    <uses-permission android:name="android.permission.INTERNET" />
++7-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:2:5-67
++7-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:2:22-64
++8    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
++8-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:3:5-76
++8-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:3:22-73
++9    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
++9-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:4:5-76
++9-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:4:22-73
++10    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
++10-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:5:5-79
++10-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:5:22-76
++11    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
++11-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:6:5-78
++11-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:6:22-76
++12
++13</manifest>
+diff --git a/node_modules/react-native-wifi-reborn/android/build/intermediates/manifest_merge_blame_file/debugAndroidTest/processDebugAndroidTestManifest/manifest-merger-blame-debug-androidTest-report.txt b/node_modules/react-native-wifi-reborn/android/build/intermediates/manifest_merge_blame_file/debugAndroidTest/processDebugAndroidTestManifest/manifest-merger-blame-debug-androidTest-report.txt
+new file mode 100644
+index 0000000..2666e3f
+--- /dev/null
++++ b/node_modules/react-native-wifi-reborn/android/build/intermediates/manifest_merge_blame_file/debugAndroidTest/processDebugAndroidTestManifest/manifest-merger-blame-debug-androidTest-report.txt
+@@ -0,0 +1,155 @@
++1<?xml version="1.0" encoding="utf-8"?>
++2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++3    package="com.reactlibrary.rnwifi.test" >
++4
++5    <uses-sdk
++5-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest9743553134976230835.xml:5:5-74
++6        android:minSdkVersion="24"
++6-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest9743553134976230835.xml:5:15-41
++7        android:targetSdkVersion="35" />
++7-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest9743553134976230835.xml:5:42-71
++8
++9    <instrumentation
++9-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest9743553134976230835.xml:11:5-15:78
++10        android:name="android.test.InstrumentationTestRunner"
++10-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest9743553134976230835.xml:11:22-75
++11        android:functionalTest="false"
++11-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest9743553134976230835.xml:14:22-52
++12        android:handleProfiling="false"
++12-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest9743553134976230835.xml:13:22-53
++13        android:label="Tests for com.reactlibrary.rnwifi.test"
++13-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest9743553134976230835.xml:15:22-76
++14        android:targetPackage="com.reactlibrary.rnwifi.test" />
++14-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest9743553134976230835.xml:12:22-74
++15
++16    <uses-permission android:name="android.permission.INTERNET" />
++16-->[:react-native-wifi-reborn] /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:7:5-67
++16-->[:react-native-wifi-reborn] /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:7:22-64
++17    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
++17-->[:react-native-wifi-reborn] /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:5-76
++17-->[:react-native-wifi-reborn] /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:8:22-73
++18    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
++18-->[:react-native-wifi-reborn] /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:5-76
++18-->[:react-native-wifi-reborn] /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:9:22-73
++19    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
++19-->[:react-native-wifi-reborn] /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:10:5-79
++19-->[:react-native-wifi-reborn] /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:10:22-76
++20    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
++20-->[:react-native-wifi-reborn] /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:11:5-79
++20-->[:react-native-wifi-reborn] /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:11:22-76
++21    <!--
++22    This manifest file is used only by Gradle to configure debug-only capabilities
++23    for React Native Apps.
++24    -->
++25    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
++25-->[com.facebook.react:react-android:0.77.3] /Users/trungtran/.gradle/caches/8.10.2/transforms/cb434acf961a340a4c4bf07e40463ab8/transformed/jetified-react-android-0.77.3-debug/AndroidManifest.xml:16:5-78
++25-->[com.facebook.react:react-android:0.77.3] /Users/trungtran/.gradle/caches/8.10.2/transforms/cb434acf961a340a4c4bf07e40463ab8/transformed/jetified-react-android-0.77.3-debug/AndroidManifest.xml:16:22-75
++26    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
++26-->[io.github.thanosfisherman.wifiutils:wifiutils:1.6.6] /Users/trungtran/.gradle/caches/8.10.2/transforms/9187a156bf6dd7930850ab0e54ecc7f2/transformed/jetified-wifiutils-1.6.6/AndroidManifest.xml:9:5-79
++26-->[io.github.thanosfisherman.wifiutils:wifiutils:1.6.6] /Users/trungtran/.gradle/caches/8.10.2/transforms/9187a156bf6dd7930850ab0e54ecc7f2/transformed/jetified-wifiutils-1.6.6/AndroidManifest.xml:9:22-76
++27
++28    <permission
++28-->[androidx.core:core:1.13.1] /Users/trungtran/.gradle/caches/8.10.2/transforms/f57ebf078ab2075bd1a40283562f232b/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
++29        android:name="com.reactlibrary.rnwifi.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
++29-->[androidx.core:core:1.13.1] /Users/trungtran/.gradle/caches/8.10.2/transforms/f57ebf078ab2075bd1a40283562f232b/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
++30        android:protectionLevel="signature" />
++30-->[androidx.core:core:1.13.1] /Users/trungtran/.gradle/caches/8.10.2/transforms/f57ebf078ab2075bd1a40283562f232b/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
++31
++32    <uses-permission android:name="com.reactlibrary.rnwifi.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
++32-->[androidx.core:core:1.13.1] /Users/trungtran/.gradle/caches/8.10.2/transforms/f57ebf078ab2075bd1a40283562f232b/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
++32-->[androidx.core:core:1.13.1] /Users/trungtran/.gradle/caches/8.10.2/transforms/f57ebf078ab2075bd1a40283562f232b/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
++33
++34    <application
++34-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest9743553134976230835.xml:7:5-9:19
++35        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
++35-->[androidx.core:core:1.13.1] /Users/trungtran/.gradle/caches/8.10.2/transforms/f57ebf078ab2075bd1a40283562f232b/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
++36        android:debuggable="true"
++37        android:extractNativeLibs="false"
++38        android:label="@string/app_name" >
++38-->[io.github.thanosfisherman.wifiutils:wifiutils:1.6.6] /Users/trungtran/.gradle/caches/8.10.2/transforms/9187a156bf6dd7930850ab0e54ecc7f2/transformed/jetified-wifiutils-1.6.6/AndroidManifest.xml:15:18-50
++39        <uses-library android:name="android.test.runner" />
++39-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest9743553134976230835.xml:8:9-60
++39-->/Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest9743553134976230835.xml:8:23-57
++40
++41        <activity
++41-->[com.facebook.react:react-android:0.77.3] /Users/trungtran/.gradle/caches/8.10.2/transforms/cb434acf961a340a4c4bf07e40463ab8/transformed/jetified-react-android-0.77.3-debug/AndroidManifest.xml:19:9-21:40
++42            android:name="com.facebook.react.devsupport.DevSettingsActivity"
++42-->[com.facebook.react:react-android:0.77.3] /Users/trungtran/.gradle/caches/8.10.2/transforms/cb434acf961a340a4c4bf07e40463ab8/transformed/jetified-react-android-0.77.3-debug/AndroidManifest.xml:20:13-77
++43            android:exported="false" />
++43-->[com.facebook.react:react-android:0.77.3] /Users/trungtran/.gradle/caches/8.10.2/transforms/cb434acf961a340a4c4bf07e40463ab8/transformed/jetified-react-android-0.77.3-debug/AndroidManifest.xml:21:13-37
++44
++45        <provider
++45-->[androidx.emoji2:emoji2:1.2.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/a9f7e21ebf1703774516fe311ed8a818/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
++46            android:name="androidx.startup.InitializationProvider"
++46-->[androidx.emoji2:emoji2:1.2.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/a9f7e21ebf1703774516fe311ed8a818/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:25:13-67
++47            android:authorities="com.reactlibrary.rnwifi.test.androidx-startup"
++47-->[androidx.emoji2:emoji2:1.2.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/a9f7e21ebf1703774516fe311ed8a818/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:26:13-68
++48            android:exported="false" >
++48-->[androidx.emoji2:emoji2:1.2.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/a9f7e21ebf1703774516fe311ed8a818/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:27:13-37
++49            <meta-data
++49-->[androidx.emoji2:emoji2:1.2.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/a9f7e21ebf1703774516fe311ed8a818/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
++50                android:name="androidx.emoji2.text.EmojiCompatInitializer"
++50-->[androidx.emoji2:emoji2:1.2.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/a9f7e21ebf1703774516fe311ed8a818/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:30:17-75
++51                android:value="androidx.startup" />
++51-->[androidx.emoji2:emoji2:1.2.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/a9f7e21ebf1703774516fe311ed8a818/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:31:17-49
++52            <meta-data
++52-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/trungtran/.gradle/caches/8.10.2/transforms/52a59fe3f79acc6981a28747748bfd01/transformed/jetified-lifecycle-process-2.6.2/AndroidManifest.xml:29:13-31:52
++53                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
++53-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/trungtran/.gradle/caches/8.10.2/transforms/52a59fe3f79acc6981a28747748bfd01/transformed/jetified-lifecycle-process-2.6.2/AndroidManifest.xml:30:17-78
++54                android:value="androidx.startup" />
++54-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/trungtran/.gradle/caches/8.10.2/transforms/52a59fe3f79acc6981a28747748bfd01/transformed/jetified-lifecycle-process-2.6.2/AndroidManifest.xml:31:17-49
++55            <meta-data
++55-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/3fb89540ff079b3707fb3fa2ac604146/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
++56                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
++56-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/3fb89540ff079b3707fb3fa2ac604146/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
++57                android:value="androidx.startup" />
++57-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/3fb89540ff079b3707fb3fa2ac604146/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
++58        </provider>
++59
++60        <receiver
++60-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/3fb89540ff079b3707fb3fa2ac604146/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
++61            android:name="androidx.profileinstaller.ProfileInstallReceiver"
++61-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/3fb89540ff079b3707fb3fa2ac604146/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
++62            android:directBootAware="false"
++62-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/3fb89540ff079b3707fb3fa2ac604146/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
++63            android:enabled="true"
++63-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/3fb89540ff079b3707fb3fa2ac604146/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
++64            android:exported="true"
++64-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/3fb89540ff079b3707fb3fa2ac604146/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
++65            android:permission="android.permission.DUMP" >
++65-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/3fb89540ff079b3707fb3fa2ac604146/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
++66            <intent-filter>
++66-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/3fb89540ff079b3707fb3fa2ac604146/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
++67                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
++67-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/3fb89540ff079b3707fb3fa2ac604146/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
++67-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/3fb89540ff079b3707fb3fa2ac604146/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
++68            </intent-filter>
++69            <intent-filter>
++69-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/3fb89540ff079b3707fb3fa2ac604146/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
++70                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
++70-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/3fb89540ff079b3707fb3fa2ac604146/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
++70-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/3fb89540ff079b3707fb3fa2ac604146/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
++71            </intent-filter>
++72            <intent-filter>
++72-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/3fb89540ff079b3707fb3fa2ac604146/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
++73                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
++73-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/3fb89540ff079b3707fb3fa2ac604146/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
++73-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/3fb89540ff079b3707fb3fa2ac604146/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
++74            </intent-filter>
++75            <intent-filter>
++75-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/3fb89540ff079b3707fb3fa2ac604146/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
++76                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
++76-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/3fb89540ff079b3707fb3fa2ac604146/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
++76-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/trungtran/.gradle/caches/8.10.2/transforms/3fb89540ff079b3707fb3fa2ac604146/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
++77            </intent-filter>
++78        </receiver>
++79
++80        <meta-data
++80-->[com.facebook.soloader:soloader:0.12.1] /Users/trungtran/.gradle/caches/8.10.2/transforms/1bd76aaf284fd174b2ab4cdc4c70cd17/transformed/jetified-soloader-0.12.1/AndroidManifest.xml:12:9-14:37
++81            android:name="com.facebook.soloader.enabled"
++81-->[com.facebook.soloader:soloader:0.12.1] /Users/trungtran/.gradle/caches/8.10.2/transforms/1bd76aaf284fd174b2ab4cdc4c70cd17/transformed/jetified-soloader-0.12.1/AndroidManifest.xml:13:13-57
++82            android:value="false" />
++82-->[com.facebook.soloader:soloader:0.12.1] /Users/trungtran/.gradle/caches/8.10.2/transforms/1bd76aaf284fd174b2ab4cdc4c70cd17/transformed/jetified-soloader-0.12.1/AndroidManifest.xml:14:13-34
++83    </application>
++84
++85</manifest>
+diff --git a/node_modules/react-native-wifi-reborn/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml b/node_modules/react-native-wifi-reborn/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml
+new file mode 100644
+index 0000000..c019e04
+--- /dev/null
++++ b/node_modules/react-native-wifi-reborn/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="com.reactlibrary.rnwifi" >
++
++    <uses-sdk android:minSdkVersion="24" />
++
++    <uses-permission android:name="android.permission.INTERNET" />
++    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
++    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
++    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
++    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
++
++</manifest>
+\ No newline at end of file
+diff --git a/node_modules/react-native-wifi-reborn/android/build/intermediates/navigation_json/debug/extractDeepLinksDebug/navigation.json b/node_modules/react-native-wifi-reborn/android/build/intermediates/navigation_json/debug/extractDeepLinksDebug/navigation.json
+new file mode 100644
+index 0000000..0637a08
+--- /dev/null
++++ b/node_modules/react-native-wifi-reborn/android/build/intermediates/navigation_json/debug/extractDeepLinksDebug/navigation.json
+@@ -0,0 +1 @@
++[]
+\ No newline at end of file
+diff --git a/node_modules/react-native-wifi-reborn/android/build/intermediates/packaged_manifests/debugAndroidTest/processDebugAndroidTestManifest/AndroidManifest.xml b/node_modules/react-native-wifi-reborn/android/build/intermediates/packaged_manifests/debugAndroidTest/processDebugAndroidTestManifest/AndroidManifest.xml
+new file mode 100644
+index 0000000..4833e4f
+--- /dev/null
++++ b/node_modules/react-native-wifi-reborn/android/build/intermediates/packaged_manifests/debugAndroidTest/processDebugAndroidTestManifest/AndroidManifest.xml
+@@ -0,0 +1,85 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="com.reactlibrary.rnwifi.test" >
++
++    <uses-sdk
++        android:minSdkVersion="24"
++        android:targetSdkVersion="35" />
++
++    <instrumentation
++        android:name="android.test.InstrumentationTestRunner"
++        android:functionalTest="false"
++        android:handleProfiling="false"
++        android:label="Tests for com.reactlibrary.rnwifi.test"
++        android:targetPackage="com.reactlibrary.rnwifi.test" />
++
++    <uses-permission android:name="android.permission.INTERNET" />
++    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
++    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
++    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
++    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
++    <!--
++    This manifest file is used only by Gradle to configure debug-only capabilities
++    for React Native Apps.
++    -->
++    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
++    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
++
++    <permission
++        android:name="com.reactlibrary.rnwifi.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
++        android:protectionLevel="signature" />
++
++    <uses-permission android:name="com.reactlibrary.rnwifi.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
++
++    <application
++        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
++        android:debuggable="true"
++        android:extractNativeLibs="false"
++        android:label="@string/app_name" >
++        <uses-library android:name="android.test.runner" />
++
++        <activity
++            android:name="com.facebook.react.devsupport.DevSettingsActivity"
++            android:exported="false" />
++
++        <provider
++            android:name="androidx.startup.InitializationProvider"
++            android:authorities="com.reactlibrary.rnwifi.test.androidx-startup"
++            android:exported="false" >
++            <meta-data
++                android:name="androidx.emoji2.text.EmojiCompatInitializer"
++                android:value="androidx.startup" />
++            <meta-data
++                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
++                android:value="androidx.startup" />
++            <meta-data
++                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
++                android:value="androidx.startup" />
++        </provider>
++
++        <receiver
++            android:name="androidx.profileinstaller.ProfileInstallReceiver"
++            android:directBootAware="false"
++            android:enabled="true"
++            android:exported="true"
++            android:permission="android.permission.DUMP" >
++            <intent-filter>
++                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
++            </intent-filter>
++            <intent-filter>
++                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
++            </intent-filter>
++            <intent-filter>
++                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
++            </intent-filter>
++            <intent-filter>
++                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
++            </intent-filter>
++        </receiver>
++
++        <meta-data
++            android:name="com.facebook.soloader.enabled"
++            android:value="false" />
++    </application>
++
++</manifest>
+\ No newline at end of file
+diff --git a/node_modules/react-native-wifi-reborn/android/build/intermediates/packaged_manifests/debugAndroidTest/processDebugAndroidTestManifest/output-metadata.json b/node_modules/react-native-wifi-reborn/android/build/intermediates/packaged_manifests/debugAndroidTest/processDebugAndroidTestManifest/output-metadata.json
+new file mode 100644
+index 0000000..b9f3e50
+--- /dev/null
++++ b/node_modules/react-native-wifi-reborn/android/build/intermediates/packaged_manifests/debugAndroidTest/processDebugAndroidTestManifest/output-metadata.json
+@@ -0,0 +1,18 @@
++{
++  "version": 3,
++  "artifactType": {
++    "type": "PACKAGED_MANIFESTS",
++    "kind": "Directory"
++  },
++  "applicationId": "com.reactlibrary.rnwifi.test",
++  "variantName": "debugAndroidTest",
++  "elements": [
++    {
++      "type": "SINGLE",
++      "filters": [],
++      "attributes": [],
++      "outputFile": "AndroidManifest.xml"
++    }
++  ],
++  "elementType": "File"
++}
+\ No newline at end of file
+diff --git a/node_modules/react-native-wifi-reborn/android/build/outputs/logs/manifest-merger-debug-report.txt b/node_modules/react-native-wifi-reborn/android/build/outputs/logs/manifest-merger-debug-report.txt
+new file mode 100644
+index 0000000..30f38fd
+--- /dev/null
++++ b/node_modules/react-native-wifi-reborn/android/build/outputs/logs/manifest-merger-debug-report.txt
+@@ -0,0 +1,36 @@
++-- Merging decision tree log ---
++manifest
++ADDED from /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:1:1-7:12
++INJECTED from /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:1:1-7:12
++	package
++		INJECTED from /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml
++	xmlns:android
++		ADDED from /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:1:11-69
++uses-permission#android.permission.INTERNET
++ADDED from /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:2:5-67
++	android:name
++		ADDED from /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:2:22-64
++uses-permission#android.permission.CHANGE_WIFI_STATE
++ADDED from /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:3:5-76
++	android:name
++		ADDED from /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:3:22-73
++uses-permission#android.permission.ACCESS_WIFI_STATE
++ADDED from /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:4:5-76
++	android:name
++		ADDED from /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:4:22-73
++uses-permission#android.permission.CHANGE_NETWORK_STATE
++ADDED from /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:5:5-79
++	android:name
++		ADDED from /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:5:22-76
++uses-permission#android.permission.ACCESS_NETWORK_STATE
++ADDED from /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:6:5-78
++	android:name
++		ADDED from /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml:6:22-76
++uses-sdk
++INJECTED from /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
++INJECTED from /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml
++INJECTED from /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml
++	android:targetSdkVersion
++		INJECTED from /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml
++	android:minSdkVersion
++		INJECTED from /Users/trungtran/Work/HRIS/foxpro2/node_modules/react-native-wifi-reborn/android/src/main/AndroidManifest.xml
