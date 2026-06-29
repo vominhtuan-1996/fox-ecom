@@ -36,6 +36,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Quick reference**: See [docs/README.md](docs/README.md) for navigation by task.
 
+**Setup guides**:
+- 🍎 **iOS/Android development**: [docs/SETUP_IOS_ANDROID.md](docs/SETUP_IOS_ANDROID.md) ⭐ Start here for running on device
+- 📱 **Debug tools**: See [docs/03_tech.md](docs/03_tech.md#debug-trên-thiết-bị-thật) for VS Code launch configs and Hermes debugging
+
 ## Response Language - Vietnamese Only
 
 🇻🇳 **MANDATORY**: All responses must be in **Vietnamese (Tiếng Việt)**.
