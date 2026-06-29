@@ -5,8 +5,9 @@ import { NavigatorRef, ScreenProps } from '../navigator/types';
 import { AppBottomTabBar, TabKey } from '../components/shared/AppBottomTabBar';
 import { colors } from '../../common/theme';
 
-// Screens
-import { HomeScreen } from '../screens/home/HomeScreen';
+// HomeScreen V2 là .jsx (JS thuần) — @ts-ignore bỏ qua type check
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { HomeScreen } = require('../screens/home/HomeScreen.jsx');
 import { LeaderboardScreen } from '../screens/rank/LeaderboardScreen';
 import { RankScreen } from '../screens/rank/RankScreen';
 import { MyOrdersScreen } from '../screens/orders/MyOrdersScreen';
@@ -21,18 +22,19 @@ import { CURRENT_USER } from './currentUser';
 interface TabNavigatorProps {
   onGoCarry?: () => void;
   currentUserId?: string;
+  onGoNotifications?: () => void;
 }
 
-// ── Tab label + emoji icon ────────────────────────────────────────────────────
+// ── Tab order V2: Trang chủ / Hoạt động / Xếp hạng / Cá nhân ─────────────────
 const TAB_CONFIG: { key: TabKey; label: string; emoji: string }[] = [
   { key: 'home',     label: 'Trang chủ', emoji: '🏠' },
-  { key: 'rank',     label: 'Xếp hạng',  emoji: '📊' },
   { key: 'activity', label: 'Hoạt động', emoji: '📋' },
+  { key: 'rank',     label: 'Xếp hạng',  emoji: '📊' },
   { key: 'profile',  label: 'Cá nhân',   emoji: '👤' },
 ];
 
 // ── Stack cho từng tab ────────────────────────────────────────────────────────
-function HomeStack({ userId, onGoCarry }: { userId: string; onGoCarry?: () => void }) {
+function HomeStack({ userId, onGoCarry, onGoNotifications }: { userId: string; onGoCarry?: () => void; onGoNotifications?: () => void }) {
   const user = CURRENT_USER;
   return (
     <Navigator
@@ -42,7 +44,7 @@ function HomeStack({ userId, onGoCarry }: { userId: string; onGoCarry?: () => vo
         <HomeScreen
           userName={user.name}
           onGoCarry={onGoCarry}
-          onGoQrScan={onGoCarry} // ponytail: tạm redirect vào Carry flow để có QR scan
+          onGoNotifications={onGoNotifications}
         />
       )}
       hideHeader
@@ -136,6 +138,7 @@ function ProfileStack({ userId }: { userId: string }) {
 export const TabNavigator: React.FC<TabNavigatorProps> = ({
   onGoCarry,
   currentUserId = 'u1',
+  onGoNotifications,
 }) => {
   const [activeTab, setActiveTab] = React.useState<TabKey>('home');
 
@@ -150,7 +153,7 @@ export const TabNavigator: React.FC<TabNavigatorProps> = ({
   return (
     <View style={s.root}>
       <View style={s.content}>
-        {activeTab === 'home'     && <HomeStack     userId={currentUserId} onGoCarry={onGoCarry} />}
+        {activeTab === 'home'     && <HomeStack     userId={currentUserId} onGoCarry={onGoCarry} onGoNotifications={onGoNotifications} />}
         {activeTab === 'rank'     && <RankStack     userId={currentUserId} />}
         {activeTab === 'activity' && <ActivityStack userId={currentUserId} />}
         {activeTab === 'profile'  && <ProfileStack  userId={currentUserId} />}

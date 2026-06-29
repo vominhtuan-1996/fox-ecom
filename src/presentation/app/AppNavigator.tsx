@@ -1,44 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Modal } from 'react-native';
 import { TabNavigator } from './TabNavigator';
 import { CarryNavigator } from './CarryNavigator';
 import { OfflineBanner } from '../components/shared/OfflineBanner';
 import { useNetworkState } from '../hooks/useNetworkState';
-import { NotificationService } from '../../modules/notification/NotificationService';
 import { CURRENT_USER_ID } from './currentUser';
+// @ts-ignore
+import { NotificationsScreen } from '../screens/notifications/NotificationsScreen.jsx';
 
 export const AppNavigator: React.FC = () => {
-  const [isInCarry, setIsInCarry] = useState(false);
+  const [isInCarry, setIsInCarry]           = useState(false);
+  const [isInNotifs, setIsInNotifs]         = useState(false);
   const [deepLinkOrderId, setDeepLinkOrderId] = useState<string | null>(null);
   const isOnline = useNetworkState();
 
-  useEffect(() => {
-    const initial = NotificationService.getInitialNotification();
-    if (initial?.orderId) {
-      setIsInCarry(true);
-      setDeepLinkOrderId(initial.orderId);
-    }
-    const unsub = NotificationService.addListener((payload) => {
-      if (payload.orderId) {
-        setIsInCarry(true);
-        setDeepLinkOrderId(payload.orderId);
-      }
-    });
-    return unsub;
-  }, []);
+  function openOrder(orderId: string) {
+    setIsInNotifs(false);
+    setDeepLinkOrderId(orderId);
+    setIsInCarry(true);
+  }
 
   return (
     <View style={s.root}>
-      {/* Tab layer — luôn hiển thị */}
       <TabNavigator
         currentUserId={CURRENT_USER_ID}
         onGoCarry={() => setIsInCarry(true)}
+        onGoNotifications={() => setIsInNotifs(true)}
       />
 
-      {/* Offline banner */}
       <OfflineBanner visible={!isOnline} />
 
-      {/* Carry — dùng Modal để overlay fullscreen không cần absoluteFill */}
+      {/* Carry — fullscreen modal */}
       <Modal
         visible={isInCarry}
         animationType="slide"
@@ -51,10 +43,23 @@ export const AppNavigator: React.FC = () => {
           initialOrderId={deepLinkOrderId ?? undefined}
         />
       </Modal>
+
+      {/* Notifications — slide up modal */}
+      <Modal
+        visible={isInNotifs}
+        animationType="slide"
+        presentationStyle="pageSheet"
+        onRequestClose={() => setIsInNotifs(false)}
+      >
+        <NotificationsScreen
+          onBack={() => setIsInNotifs(false)}
+          onOpenOrder={openOrder}
+        />
+      </Modal>
     </View>
   );
 };
 
 const s = StyleSheet.create({
-  root: { flex: 1, backgroundColor: '#FAFAFB' },
+  root: { flex: 1, backgroundColor: '#CDEBD2' },
 });

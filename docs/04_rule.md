@@ -194,38 +194,42 @@ const usecase = new GetProductsUsecase(repo);
 
 ## Code Quality Rules
 
-### 7. TypeScript Strict Mode - Always
+### 7. Dùng React JS thuần — KHÔNG dùng TypeScript 🔴 CRITICAL
 
-**Rule**: Enable all TypeScript strict checks, no `any` types.
+**Rule**: Toàn bộ source code viết bằng **JavaScript thuần (ES6+)**, không dùng TypeScript.
 
-**Configuration** (`tsconfig.json`):
-```json
-{
-  "compilerOptions": {
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictPropertyInitialization": true
-  }
+- File extension: `.js` và `.jsx` — **không dùng `.ts` / `.tsx`**
+- Không cần `tsconfig.json`, không chạy `tsc`, không `type-check`
+- Không dùng type annotation, interface, generic, enum TypeScript
+- JSDoc comment (`/** @param */`) dùng để document nếu cần, không bắt buộc
+- PropTypes (`prop-types` package) dùng thay TypeScript nếu cần validate props ở runtime
+
+✅ **Đúng**:
+```js
+// OrderCard.jsx
+import React from 'react';
+import { View, Text } from 'react-native';
+
+export function OrderCard({ order, onPress }) {
+  return (
+    <View>
+      <Text>{order.itemDesc}</Text>
+    </View>
+  );
 }
 ```
 
-✅ **Good**:
-```typescript
-function calculatePrice(price: number, tax: number): number {
-  return price * (1 + tax);
+❌ **Sai — không dùng TypeScript**:
+```tsx
+// ❌ Không dùng .tsx, không dùng interface, type annotation
+interface OrderCardProps {
+  order: Order;
+  onPress: () => void;
 }
-
-const result: number = calculatePrice(100, 0.1);
+export const OrderCard: React.FC<OrderCardProps> = ({ order, onPress }) => { ... }
 ```
 
-❌ **Bad**:
-```typescript
-// ❌ Using any
-function calculate(price: any, tax: any): any {
-  return price * (1 + tax);
-}
-```
+**Khi AI sinh code**: luôn sinh `.js`/`.jsx`, không sinh `.ts`/`.tsx`, không thêm type annotation.
 
 ### 8. No Console Logs in Production Code
 
@@ -1120,7 +1124,8 @@ Gợi ý:
 | # | Rule | Layer | Severity |
 |---|------|-------|----------|
 | 1-6 | Architecture | All | 🔴 CRITICAL |
-| 7-10 | Code Quality | All | 🔴 CRITICAL |
+| 7 | Dùng JS thuần, không TypeScript | All | 🔴 CRITICAL |
+| 8-10 | Code Quality | All | 🔴 CRITICAL |
 | 11-14 | Testing | Domain/Data | 🟡 HIGH |
 | 15-20 | Modules & APIs | All | 🟡 HIGH |
 | 21 | Core HttpClient | Data | 🔴 CRITICAL |
@@ -1146,7 +1151,7 @@ Gợi ý:
 - [ ] Follows all must-follow rules (#1-6)
 - [ ] Has 80%+ test coverage
 - [ ] Passes `npm run lint`
-- [ ] Passes `npm run type-check`
+- [ ] File extension là `.js` / `.jsx` — không có `.ts` / `.tsx` (rule #7)
 - [ ] Passes `npm test`
 - [ ] Updated documentation
 - [ ] No console.logs or commented code
