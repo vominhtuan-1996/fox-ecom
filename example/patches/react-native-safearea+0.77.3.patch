@@ -1,0 +1,15 @@
+diff --git a/node_modules/react-native/Libraries/Components/SafeAreaView/SafeAreaView.js b/node_modules/react-native/Libraries/Components/SafeAreaView/SafeAreaView.js
+index original..fixed 100644
+--- a/node_modules/react-native/Libraries/Components/SafeAreaView/SafeAreaView.js
++++ b/node_modules/react-native/Libraries/Components/SafeAreaView/SafeAreaView.js
+@@ -23,9 +23,7 @@ import * as React from 'react';
+  * sensor housing area on iPhone X).
+  */
+-const exported: component(
+-  ref: React.RefSetter<React.ElementRef<typeof View>>,
+-  ...props: ViewProps
+-) = Platform.select({
++const exported = Platform.select({
+   ios: require('./RCTSafeAreaViewNativeComponent').default,
+   default: View,
+ });
