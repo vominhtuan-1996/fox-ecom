@@ -15,6 +15,11 @@ import ShoppingCartIcon from './shopping-cart.svg';
 import PackageIcon from './package.svg';
 import HeartIcon from './heart.svg';
 import SettingsIcon from './settings.svg';
+// V2 Design icons
+import BellIconV2 from './v2/bell.svg';
+import BadgeIcon from './v2/badge.svg';
+import TreeIcon from './v2/tree.svg';
+import LockIcon from './v2/lock.svg';
 
 export const ICONS = {
   HOME: HomeIcon,
@@ -29,6 +34,11 @@ export const ICONS = {
   PACKAGE: PackageIcon,
   HEART: HeartIcon,
   SETTINGS: SettingsIcon,
+  // V2 Design icons
+  BELL_V2: BellIconV2,
+  BADGE: BadgeIcon,
+  TREE: TreeIcon,
+  LOCK: LockIcon,
 } as const;
 
 export type IconKey = keyof typeof ICONS;

@@ -1,0 +1,16 @@
+diff --git a/node_modules/react-native/Libraries/Components/Button.js b/node_modules/react-native/Libraries/Components/Button.js
+index original..fixed 100644
+--- a/node_modules/react-native/Libraries/Components/Button.js
++++ b/node_modules/react-native/Libraries/Components/Button.js
+@@ -285,9 +285,7 @@ type ButtonProps = {...ViewProps, ...ActionSheetButtonProps};
+ 
+ type ButtonRef = React.ElementRef<typeof Touchable>;
+ 
+-const Button: component(
+-  ref: React.RefSetter<ButtonRef>,
+-  ...props: ButtonProps
+-) = React.forwardRef((props: ButtonProps, ref: React.RefSetter<ButtonRef>) => {
++const Button = React.forwardRef((props: ButtonProps, ref: React.RefSetter<ButtonRef>) => {
+   const {
+     accessibilityLabel,
+     accessibilityState,
