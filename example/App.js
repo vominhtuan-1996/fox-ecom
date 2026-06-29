@@ -9,7 +9,14 @@ import {
   Animated,
   Dimensions,
   Alert,
+  LogBox,
 } from 'react-native';
+
+// Suppress LogBox asset registry errors (RN internal LogBox images)
+LogBox.ignoreLogs([
+  /Unable to resolve module missing-asset-registry-path/,
+  /LogBox/,
+]);
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
