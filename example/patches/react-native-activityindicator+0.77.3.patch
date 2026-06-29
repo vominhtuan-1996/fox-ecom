@@ -1,0 +1,14 @@
+--- a/node_modules/react-native/Libraries/Components/ActivityIndicator/ActivityIndicator.js
++++ b/node_modules/react-native/Libraries/Components/ActivityIndicator/ActivityIndicator.js
+@@ -154,10 +154,7 @@ const ActivityIndicator: React.AbstractComponent<
+   );
+ };
+ 
+-const ActivityIndicatorWithRef: component(
+-  ref: React.RefSetter<HostComponent<empty>>,
+-  ...props: Props
+-) = React.forwardRef(ActivityIndicator);
++const ActivityIndicatorWithRef = React.forwardRef(ActivityIndicator);
+ 
+ export default (ActivityIndicatorWithRef: React.AbstractComponent<
+   Props,

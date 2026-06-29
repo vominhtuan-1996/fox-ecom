@@ -1,53 +1,37 @@
 const path = require('path');
+const { getDefaultConfig } = require('metro-config');
 
 const projectRoot = __dirname;
-const sdkRoot = path.resolve(projectRoot, '..');
-const src = (rel) => path.resolve(sdkRoot, 'src', rel);
+const rootDir = path.resolve(projectRoot, '..');
 
-module.exports = {
-  projectRoot,
-  watchFolders: [sdkRoot],
-  resolver: {
-    platforms: ['ios', 'android'],
-    sourceExts: ['svg', 'ts', 'tsx', 'js', 'jsx', 'json'],
-    assetExts: ['png', 'jpg', 'jpeg', 'gif', 'webp', 'ttf', 'otf', 'mp4', 'mp3', 'wav', 'pdf'],
-    extraNodeModules: {
-      // SDK alias @ → src/
-      '@':                         src(''),
-      '@/di':                      src('di'),
-      '@/common':                  src('common'),
-      '@/config':                  src('config'),
-      '@/data':                    src('data'),
-      '@/domain':                  src('domain'),
-      '@/modules':                 src('modules'),
-      '@/presentation':            src('presentation'),
-      '@/assets':                  src('assets'),
-      '@/types':                   src('types'),
-      '@/sdk':                     src('sdk'),
-      // SDK from node_modules (npm package) — comment for dev mode
-      // 'fox-ecom':                  src(''),
-      'react-native':              path.resolve(projectRoot, 'node_modules/react-native'),
-      'react':                     path.resolve(projectRoot, 'node_modules/react'),
-      '@react-native-async-storage/async-storage': path.resolve(projectRoot, 'node_modules/@react-native-async-storage/async-storage'),
-      'react-native-svg':          path.resolve(projectRoot, 'node_modules/react-native-svg'),
-    },
-    blacklistRE: new RegExp(
-      '(' +
-      path.resolve(sdkRoot, 'node_modules/react-native').replace(/\//g, '\\/') + '\\/.*' +
-      '|' +
-      path.resolve(sdkRoot, 'node_modules/react').replace(/\//g, '\\/') + '\\/.*' +
-      '|' +
-      'node_modules\\/react-native\\/Libraries\\/Animated\\/(__tests__|Example)' +
-      ')'
-    ),
-  },
-  transformer: {
-    babelTransformerPath: require.resolve('react-native-svg-transformer'),
-    getTransformOptions: async () => ({
-      transform: {
-        experimentalImportSupport: false,
-        inlineRequires: false,
+module.exports = (async () => {
+  const {
+    resolver: { sourceExts, assetExts },
+  } = await getDefaultConfig();
+
+  return {
+    projectRoot,
+    watchFolders: [rootDir],
+    resolver: {
+      platforms: ['ios', 'android'],
+      sourceExts: [...sourceExts, 'svg'],
+      assetExts: assetExts.filter(ext => ext !== 'svg'),
+      // SDK aliases for development (src/ not dist/)
+      extraNodeModules: {
+        '@': path.join(rootDir, 'src'),
+        '@/di': path.join(rootDir, 'src/di'),
+        '@/common': path.join(rootDir, 'src/common'),
+        '@/config': path.join(rootDir, 'src/config'),
+        '@/data': path.join(rootDir, 'src/data'),
+        '@/domain': path.join(rootDir, 'src/domain'),
+        '@/modules': path.join(rootDir, 'src/modules'),
+        '@/presentation': path.join(rootDir, 'src/presentation'),
+        '@/assets': path.join(rootDir, 'src/assets'),
+        '@/types': path.join(rootDir, 'src/types'),
       },
-    }),
-  },
-};
+    },
+    transformer: {
+      babelTransformerPath: require.resolve('metro-react-native-babel-transformer'),
+    },
+  };
+})();
