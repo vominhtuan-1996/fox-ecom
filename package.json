@@ -11,8 +11,9 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsc --skipLibCheck --forceConsistentCasingInFileNames false || true && node scripts/build-assets.js && node resolve-aliases.js && npm pack || true",
-    "build:dev": "tsc --sourceMap --skipLibCheck || true",
+    "gen:icons": "node scripts/generate-icons.js",
+    "build": "npm run gen:icons && tsc --skipLibCheck --forceConsistentCasingInFileNames false || true && node scripts/build-assets.js && node resolve-aliases.js && npm pack || true",
+    "build:dev": "npm run gen:icons && tsc --sourceMap --skipLibCheck || true",
     "clean": "rm -rf dist *.tgz",
     "lint": "eslint src __tests__ --ext .ts,.tsx",
     "lint:fix": "eslint src __tests__ --ext .ts,.tsx --fix",
