@@ -169,11 +169,10 @@ export const TabNavigator: React.FC<TabNavigatorProps> = ({
       {onGoBack && (
         <View style={s.header}>
           <TouchableOpacity style={s.backButton} onPress={onGoBack}>
-            <Text style={s.backIcon}>‹</Text>
-            <Text style={s.backText}>Back</Text>
+            <Text style={s.backArrow}>←</Text>
           </TouchableOpacity>
           <Text style={s.headerTitle}>Fox eCommerce</Text>
-          <View style={{ width: 60 }} />
+          <View style={{ width: 40 }} />
         </View>
       )}
 
@@ -211,22 +210,13 @@ const s = StyleSheet.create({
   },
 
   backButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 8,
-    paddingVertical: 6,
+    padding: 8,
   },
 
-  backIcon: {
-    fontSize: 28,
+  backArrow: {
+    fontSize: 24,
     color: colors.white,
-    marginRight: 4,
-  },
-
-  backText: {
-    fontSize: 16,
-    color: colors.white,
-    fontWeight: '600',
+    fontWeight: '300',
   },
 
   headerTitle: {
