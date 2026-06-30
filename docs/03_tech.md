@@ -13,7 +13,9 @@ Complete technology stack, dependencies, and development environment setup.
 | **React Native** | 0.77.3 | Framework (target production version) |
 | **React** | 18.3.1 | UI library (target production version) |
 | **Metro** | 0.66.2 | Bundler |
-| **JavaScript** | ES6+ | Ngôn ngữ duy nhất — **không dùng TypeScript** |
+| **Nguồn (Source)** | TypeScript (.ts, .tsx) | Viết code bằng TypeScript |
+| **Compiled Output** | JavaScript ES6+ | Biên dịch bằng tsc → dist/ (chỉ .js files) |
+| **Runtime** | JavaScript ES6+ | Chạy JavaScript thuần — **không TypeScript** |
 | **Babel** | 7.29.7 | Transpiler |
 | **Xcode** | 26.x | iOS build tool |
 | **CocoaPods** | 1.16.2 | iOS dependency manager |
@@ -28,7 +30,7 @@ Complete technology stack, dependencies, and development environment setup.
 |---------|---------|---------|
 | **React** | 18.3.1 (peer >=18.3.1) | UI library |
 | **React Native** | 0.77.3 (peer >=0.77.3) | Mobile framework |
-| **TypeScript** | ^5.0.0 | Type safety |
+| **TypeScript** | ^5.0.0 | Compile-time (dev-only, removed from build output) |
 | **react-native-svg** | ^15.15.5 | SVG rendering |
 | **react-native-reanimated** | ^4.5.0 | Animations |
 | **react-native-gesture-handler** | ^3.0.2 | Gesture system |
