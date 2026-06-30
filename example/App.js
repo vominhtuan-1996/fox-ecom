@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView, LogBox } from 'react-native';
-import { useAuth, useNavigation, useProducts, useCart } from 'fox-ecom';
+import { useAuth, useNavigation, useProducts, useCart, LauncherScreen } from 'fox-ecom';
 
 // Suppress RN internal LogBox Flow type errors
 LogBox.ignoreLogs([/SyntaxError.*LogBox/, /missing-asset-registry-path/]);
@@ -16,7 +16,11 @@ const MENU_ITEMS = [
 export function App() {
   const { user, logout } = useAuth();
   const { navigate } = useNavigation();
-  const [currentScreen, setCurrentScreen] = useState('menu');
+  const [currentScreen, setCurrentScreen] = useState('launcher');
+
+  const handleLauncherComplete = () => {
+    setCurrentScreen('menu');
+  };
 
   const handleMenuPress = (itemId) => {
     if (itemId === 'sdk') {
@@ -26,6 +30,10 @@ export function App() {
       navigate(itemId);
     }
   };
+
+  if (currentScreen === 'launcher') {
+    return <LauncherScreen onComplete={handleLauncherComplete} delay={2000} />;
+  }
 
   if (currentScreen === 'menu') {
     return (
