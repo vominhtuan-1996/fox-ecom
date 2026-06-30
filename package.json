@@ -11,7 +11,7 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsc --skipLibCheck --forceConsistentCasingInFileNames false || true && node resolve-aliases.js && npm pack || true",
+    "build": "tsc --skipLibCheck --forceConsistentCasingInFileNames false || true && cp -r src/assets/icons dist/assets/ 2>/dev/null || true && node resolve-aliases.js && npm pack || true",
     "build:dev": "tsc --sourceMap --skipLibCheck || true",
     "clean": "rm -rf dist *.tgz",
     "lint": "eslint src __tests__ --ext .ts,.tsx",
