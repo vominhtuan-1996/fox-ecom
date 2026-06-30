@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   View, Text, ScrollView, TouchableOpacity,
-  StyleSheet, Platform, StatusBar,
+  StyleSheet, Platform,
 } from 'react-native';
 import { colors, typography, spacing, borderRadius, shadows, layout } from '../../../common/theme';
 import { AppText } from '../../components/shared/AppText';
@@ -22,7 +22,6 @@ interface ProfileScreenProps {
   onHistory?: () => void;
 }
 
-const STATUS_H = Platform.OS === 'ios' ? 44 : (StatusBar.currentHeight ?? 24);
 
 const MENU_ITEMS: { icon: string; label: string; sub: string; key: string; disabled?: boolean }[] = [
   { icon: '📋', label: 'Lịch sử đơn',   sub: 'Xem toàn bộ đơn đã giao / chở / nhận', key: 'history' },
@@ -50,10 +49,9 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
 
   return (
     <View style={s.root}>
-      <StatusBar barStyle="dark-content" backgroundColor={colors.surface} />
 
       {/* Header */}
-      <View style={[s.header, { paddingTop: STATUS_H + spacing.sm }]}>
+      <View style={[s.header, { paddingTop: spacing.sm }]}>
         <AppText variant="s1">Cá nhân</AppText>
         <TouchableOpacity onPress={onEdit} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Text style={s.editBtn}>✏️</Text>

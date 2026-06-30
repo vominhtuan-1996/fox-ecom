@@ -49,6 +49,7 @@ function HomeStack({ userId, onGoCarry, onGoNotifications }: { userId: string; o
           onGoNotifications={onGoNotifications}
         />
       )}
+      hideHeader
       useSafeArea={false}
     />
   );
@@ -129,6 +130,7 @@ function ProfileStack({ userId }: { userId: string }) {
           />
         );
       }}
+      hideHeader
       useSafeArea={false}
     />
   );

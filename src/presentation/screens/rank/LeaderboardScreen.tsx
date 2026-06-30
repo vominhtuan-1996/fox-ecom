@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import {
   View, Text, FlatList, TouchableOpacity,
-  StyleSheet, Platform, StatusBar,
+  StyleSheet, Platform,
 } from 'react-native';
 import { colors, typography, spacing, borderRadius, shadows, layout } from '../../../common/theme';
 import { AppText } from '../../components/shared/AppText';
@@ -18,7 +18,6 @@ interface LeaderboardScreenProps {
   onOpenRank?: () => void;
 }
 
-const STATUS_H = Platform.OS === 'ios' ? 44 : (StatusBar.currentHeight ?? 24);
 
 // ── Hero CO₂ card ─────────────────────────────────────────────────────────────
 const HeroCard: React.FC<{ currentUser?: RankUser }> = ({ currentUser }) => {
@@ -127,7 +126,6 @@ export const LeaderboardScreen: React.FC<LeaderboardScreenProps> = ({
 
   return (
     <View style={s.root}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
 
       {/* Hero */}
       <View style={{ paddingTop: STATUS_H }}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   View, Text, FlatList, TouchableOpacity,
-  StyleSheet, Platform, StatusBar,
+  StyleSheet, Platform,
 } from 'react-native';
 import { colors, typography, spacing, borderRadius, shadows, layout } from '../../../common/theme';
 import { AppText } from '../../components/shared/AppText';
@@ -15,7 +15,6 @@ interface RankScreenProps {
   onBack?: () => void;
 }
 
-const STATUS_H = Platform.OS === 'ios' ? 44 : (StatusBar.currentHeight ?? 24);
 
 // ── Podium step ───────────────────────────────────────────────────────────────
 const PodiumStep: React.FC<{ user: RankUser; position: 1 | 2 | 3 }> = ({ user, position }) => {
@@ -98,10 +97,9 @@ export const RankScreen: React.FC<RankScreenProps> = ({ currentUserId = 'u1', on
 
   return (
     <View style={s.root}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
 
       {/* Header */}
-      <View style={[s.header, { paddingTop: STATUS_H + spacing.sm }]}>
+      <View style={[s.header, { paddingTop: spacing.sm }]}>
         {onBack && (
           <TouchableOpacity onPress={onBack} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
             <Text style={s.back}>‹</Text>
