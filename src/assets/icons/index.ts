@@ -1,31 +1,38 @@
 /**
- * SVG Icons
- * Reusable icon assets loaded as static resources
+ * Icon Map
+ * Maps icon names to emoji (working solution for now)
  *
- * Tech: Uses require() to load SVG files as static assets
- * Image component renders with tintColor for dynamic coloring
- * Works in both dev and production without needing SVG transformer
+ * TODO: Replace with proper SVG rendering once:
+ * - react-native-svg-transformer is installed
+ * - metro.config.js is configured to handle SVG files
+ * - SvgIcon component uses SVG transformer output
+ *
+ * SVG files are still in src/assets/icons/ and dist/assets/icons/
+ * Ready to be used when transformer is set up
  */
 
-export const ICONS = {
-  // Main icons
-  HOME: require('./home.svg'),
-  ALERT: require('./alert.svg'),
-  CONFIRM: require('./confirm.svg'),
-  DIALOG: require('./dialog.svg'),
-  INPUT: require('./input.svg'),
-  CUSTOM: require('./custom.svg'),
-  BELL: require('./bell.svg'),
-  LAYERS: require('./layers.svg'),
-  SHOPPING_CART: require('./shopping-cart.svg'),
-  PACKAGE: require('./package.svg'),
-  HEART: require('./heart.svg'),
-  SETTINGS: require('./settings.svg'),
+export const ICON_MAP = {
+  // Main icons (emoji mapping)
+  HOME: '🏠',
+  ALERT: '⚠️',
+  CONFIRM: '✅',
+  DIALOG: '💬',
+  INPUT: '📝',
+  CUSTOM: '👤',
+  BELL: '🔔',
+  LAYERS: '📚',
+  SHOPPING_CART: '🛒',
+  PACKAGE: '📦',
+  HEART: '❤️',
+  SETTINGS: '⚙️',
   // V2 Design icons
-  BELL_V2: require('./v2/bell.svg'),
-  BADGE: require('./v2/badge.svg'),
-  TREE: require('./v2/tree.svg'),
-  LOCK: require('./v2/lock.svg'),
+  BELL_V2: '🔔',
+  BADGE: '🏆',
+  TREE: '🌳',
+  LOCK: '🔒',
 } as const;
 
-export type IconKey = keyof typeof ICONS;
+export type IconKey = keyof typeof ICON_MAP;
+
+// Legacy export for compatibility
+export const ICONS = ICON_MAP;

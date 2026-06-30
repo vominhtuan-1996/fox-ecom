@@ -143,17 +143,23 @@ export const TabNavigator: React.FC<TabNavigatorProps> = ({
 }) => {
   const [activeTab, setActiveTab] = React.useState<TabKey>('home');
 
-  const tabs = TAB_CONFIG.map(({ key, label, icon: iconName }) => ({
-    key,
-    label,
-    icon: (active: boolean) => (
-      <SvgIcon
-        name={iconName}
-        size={24}
-        color={active ? colors.primary : colors.textTertiary}
-      />
-    ),
-  }));
+  const tabs = TAB_CONFIG.map(({ key, label, icon: iconName }) => {
+    console.log(`[TabNavigator] Creating tab: ${key}, icon: ${iconName}`);
+    return {
+      key,
+      label,
+      icon: (active: boolean) => {
+        console.log(`[TabNavigator] Rendering icon: ${iconName}, active: ${active}`);
+        return (
+          <SvgIcon
+            name={iconName}
+            size={24}
+            color={active ? colors.primary : colors.textTertiary}
+          />
+        );
+      },
+    };
+  });
 
   return (
     <View style={s.root}>

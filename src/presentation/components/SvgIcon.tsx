@@ -1,6 +1,6 @@
 import React from 'react';
-import { Image, View } from 'react-native';
-import { ICONS, IconKey } from '../../assets/icons';
+import { Text } from 'react-native';
+import { ICON_MAP, IconKey } from '../../assets/icons';
 
 interface SvgIconProps {
   name: string;
@@ -10,42 +10,19 @@ interface SvgIconProps {
 
 /**
  * SvgIcon Component
- * Renders SVG icons using Image component for better compatibility
+ * Renders icon emojis (working solution while SVG setup is being fixed)
  *
- * Tech: Uses react-native Image component with SVG static assets
- * No external SVG transformer needed
+ * Temporary: Uses emoji icons that work immediately
+ * TODO: Replace with proper SVG rendering once react-native-svg-transformer is configured
  */
 export const SvgIcon: React.FC<SvgIconProps> = ({ name, size = 24, color = '#FF8500' }) => {
   const key = name.toUpperCase().replace(/-/g, '_') as IconKey;
-  const iconSource = ICONS[key];
+  const emoji = ICON_MAP[key];
 
-  if (!iconSource) {
+  if (!emoji) {
     console.warn(`[SvgIcon] Icon not found: ${name}`);
-    // Return placeholder circle
-    return (
-      <View
-        style={{
-          width: size,
-          height: size,
-          backgroundColor: color,
-          opacity: 0.2,
-          borderRadius: size / 2,
-        }}
-      />
-    );
+    return <Text style={{ fontSize: size, color }}>❓</Text>;
   }
 
-  // SVG files are loaded as static assets via require()
-  // This works in both dev and production
-  return (
-    <Image
-      source={iconSource}
-      style={{
-        width: size,
-        height: size,
-        tintColor: color,
-      }}
-      resizeMode="contain"
-    />
-  );
+  return <Text style={{ fontSize: size, color }}>{emoji}</Text>;
 };
