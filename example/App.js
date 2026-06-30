@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView, LogBox } from 'react-native';
-import { useNavigation, FoxEcomSDK } from 'fox-ecom';
+import { useNavigation, FoxEcomSDK, SvgIcon } from 'fox-ecom';
 
 // Suppress RN internal LogBox Flow type errors
 LogBox.ignoreLogs([/SyntaxError.*LogBox/, /missing-asset-registry-path/]);
 
 const MENU_ITEMS = [
-  { id: 'home', title: 'Home', icon: '🏠', color: '#FF6B6B' },
-  { id: 'products', title: 'Products', icon: '📦', color: '#4ECDC4' },
-  { id: 'cart', title: 'Cart', icon: '🛒', color: '#45B7D1' },
-  { id: 'profile', title: 'Profile', icon: '👤', color: '#96CEB4' },
-  { id: 'fox-ecom-sdk', title: 'Fox SDK', icon: '🦊', color: '#FFEAA7' },
+  { id: 'home', title: 'Home', icon: 'home', color: '#FF6B6B' },
+  { id: 'products', title: 'Products', icon: 'package', color: '#4ECDC4' },
+  { id: 'cart', title: 'Cart', icon: 'shopping-cart', color: '#45B7D1' },
+  { id: 'profile', title: 'Profile', icon: 'custom', color: '#96CEB4' },
+  { id: 'fox-ecom-sdk', title: 'Fox SDK', icon: 'layers', color: '#FFEAA7' },
 ];
 
 export function App() {
@@ -56,7 +56,7 @@ export function App() {
               onPress={() => handleMenuPress(item.id)}
               activeOpacity={0.8}
             >
-              <Text style={styles.icon}>{item.icon}</Text>
+              <SvgIcon name={item.icon} size={48} color="#FFFFFF" />
               <Text style={styles.menuTitle}>{item.title}</Text>
             </TouchableOpacity>
           ))}
