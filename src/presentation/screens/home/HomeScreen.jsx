@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import {
   View, Text, TouchableOpacity, ScrollView, StyleSheet,
-  Platform, StatusBar,
+  Platform,
 } from 'react-native';
 import { colors, typography, spacing, layout } from '../../../common/theme';
 import { AppAvatar } from '../../components/shared/AppAvatar';
 import { Co2ImpactCard } from './Co2ImpactCard.jsx';
 import { FeatureGrid } from './FeatureGrid.jsx';
 import { NotificationService } from '../../../modules/notification/NotificationService';
-
-const STATUS_H = Platform.OS === 'ios' ? 44 : (StatusBar.currentHeight ?? 24);
 
 export function HomeScreen({ userName = 'Nguyễn Văn A', onGoCarry, onGoNotifications }) {
   const [unreadCount, setUnreadCount] = useState(0);
@@ -54,10 +52,8 @@ export function HomeScreen({ userName = 'Nguyễn Văn A', onGoCarry, onGoNotifi
   return (
     <View style={s.root}>
       {/* StatusBar dark vì nền xanh lá sáng */}
-      <StatusBar barStyle="dark-content" backgroundColor="#CDEBD2" />
-
       {/* Header xanh lá */}
-      <View style={[s.header, { paddingTop: STATUS_H + spacing.md }]}>
+      <View style={[s.header, { paddingTop: spacing.md }]}>
         <View style={s.headerRow}>
           <View>
             <Text style={s.greeting}>Xin chào 👋</Text>

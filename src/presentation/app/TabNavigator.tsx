@@ -64,6 +64,7 @@ function RankStack({ userId }: { userId: string }) {
           return <LeaderboardScreen currentUserId={userId} onOpenRank={() => sp.push('podium')} />;
         return <RankScreen currentUserId={userId} onBack={sp.pop} />;
       }}
+      hideHeader
       useSafeArea={false}
     />
   );
@@ -101,6 +102,7 @@ function ActivityStack({ userId }: { userId: string }) {
           />
         );
       }}
+      hideHeader
       useSafeArea={false}
     />
   );
