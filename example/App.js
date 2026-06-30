@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView, LogBox } from 'react-native';
-import { useNavigation, LauncherScreen } from 'fox-ecom';
+import { useNavigation, FoxEcomSDK } from 'fox-ecom';
 
 // Suppress RN internal LogBox Flow type errors
 LogBox.ignoreLogs([/SyntaxError.*LogBox/, /missing-asset-registry-path/]);
@@ -16,6 +16,7 @@ const MENU_ITEMS = [
 export function App() {
   const { navigate } = useNavigation();
   const [currentScreen, setCurrentScreen] = useState('launcher');
+  const [sdkConfig, setSdkConfig] = useState(null);
 
   const handleLauncherComplete = () => {
     setCurrentScreen('menu');
@@ -23,8 +24,14 @@ export function App() {
 
   const handleMenuPress = (itemId) => {
     if (itemId === 'sdk') {
-      // Navigate to SDK - show launcher then home
-      navigate('launcher');
+      // Show FoxEcomSDK with initialization
+      setSdkConfig({
+        token: 'demo-token-12345',
+        environment: 'staging',
+        baseUrl: 'https://apis-stag.fpt.vn',
+        timeout: 5000,
+      });
+      setCurrentScreen('sdk');
     } else {
       // Navigate to other SDK screens
       navigate(itemId);
@@ -32,7 +39,28 @@ export function App() {
   };
 
   if (currentScreen === 'launcher') {
-    return <LauncherScreen onComplete={handleLauncherComplete} delay={2000} />;
+    return (
+      <FoxEcomSDK
+        token="demo-token"
+        environment="staging"
+        baseUrl="https://apis-stag.fpt.vn"
+        delay={2000}
+        onComplete={handleLauncherComplete}
+      />
+    );
+  }
+
+  if (currentScreen === 'sdk' && sdkConfig) {
+    return (
+      <FoxEcomSDK
+        {...sdkConfig}
+        delay={2000}
+        onComplete={() => {
+          setCurrentScreen('menu');
+          setSdkConfig(null);
+        }}
+      />
+    );
   }
 
   if (currentScreen === 'menu') {
