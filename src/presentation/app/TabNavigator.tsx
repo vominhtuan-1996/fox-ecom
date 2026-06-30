@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { View, StyleSheet, Platform, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, Platform, TouchableOpacity, Text, SafeAreaView } from 'react-native';
 import { Navigator } from '../navigator/Navigator';
 import { NavigatorRef, ScreenProps } from '../navigator/types';
 import { AppBottomTabBar, TabKey } from '../components/shared/AppBottomTabBar';
@@ -50,7 +50,7 @@ function HomeStack({ userId, onGoCarry, onGoNotifications }: { userId: string; o
         />
       )}
       hideHeader
-      useSafeArea={false}
+      useSafeArea={true}
     />
   );
 }
@@ -165,15 +165,17 @@ export const TabNavigator: React.FC<TabNavigatorProps> = ({
 
   return (
     <View style={s.root}>
-      {/* Header with back button */}
+      {/* Header with back button - wrapped in SafeAreaView to avoid status bar */}
       {onGoBack && (
-        <View style={s.header}>
-          <TouchableOpacity style={s.backButton} onPress={onGoBack}>
-            <Text style={s.backArrow}>←</Text>
-          </TouchableOpacity>
-          <Text style={s.headerTitle}>Fox eCommerce</Text>
-          <View style={{ width: 40 }} />
-        </View>
+        <SafeAreaView style={s.safeHeader}>
+          <View style={s.header}>
+            <TouchableOpacity style={s.backButton} onPress={onGoBack}>
+              <Text style={s.backArrow}>←</Text>
+            </TouchableOpacity>
+            <Text style={s.headerTitle}>Fox eCommerce</Text>
+            <View style={{ width: 40 }} />
+          </View>
+        </SafeAreaView>
       )}
 
       <View style={s.content}>
@@ -199,6 +201,10 @@ const HEADER_H = 56;
 const s = StyleSheet.create({
   root:    { flex: 1, backgroundColor: colors.background },
 
+  safeHeader: {
+    backgroundColor: colors.primary,
+  },
+
   header: {
     height: HEADER_H,
     backgroundColor: colors.primary,
@@ -206,7 +212,6 @@ const s = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 12,
-    paddingTop: Platform.OS === 'ios' ? 8 : 4,
   },
 
   backButton: {
