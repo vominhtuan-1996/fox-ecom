@@ -5,48 +5,112 @@ import { useAuth, useNavigation, useProducts, useCart } from 'fox-ecom';
 // Suppress RN internal LogBox Flow type errors
 LogBox.ignoreLogs([/SyntaxError.*LogBox/, /missing-asset-registry-path/]);
 
+const MENU_ITEMS = [
+  { id: 'home', title: 'Home', icon: '🏠', color: '#FF6B6B' },
+  { id: 'products', title: 'Products', icon: '📦', color: '#4ECDC4' },
+  { id: 'cart', title: 'Cart', icon: '🛒', color: '#45B7D1' },
+  { id: 'profile', title: 'Profile', icon: '👤', color: '#96CEB4' },
+  { id: 'sdk', title: 'Fox SDK', icon: '🦊', color: '#FFEAA7' },
+];
+
 export function App() {
   const { user, isAuthenticated, logout } = useAuth();
   const { navigate } = useNavigation();
-  const [currentScreen, setCurrentScreen] = useState('home');
+  const [currentScreen, setCurrentScreen] = useState('menu');
 
-  const handleNavigate = (screen) => {
-    setCurrentScreen(screen);
-    navigate(screen);
+  const handleMenuPress = (itemId) => {
+    if (itemId === 'sdk') {
+      setCurrentScreen('sdk-info');
+    } else {
+      setCurrentScreen(itemId);
+      navigate(itemId);
+    }
   };
 
   if (!isAuthenticated) {
-    return <LoginScreen onLoginSuccess={() => setCurrentScreen('home')} />;
+    return <LoginScreen onLoginSuccess={() => setCurrentScreen('menu')} />;
+  }
+
+  if (currentScreen === 'menu') {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Fox eCommerce</Text>
+          <Text style={styles.subtitle}>Welcome, {user?.name || 'User'}!</Text>
+        </View>
+
+        <ScrollView style={styles.gridContainer}>
+          <View style={styles.grid}>
+            {MENU_ITEMS.map((item) => (
+              <TouchableOpacity
+                key={item.id}
+                style={[styles.menuItem, { backgroundColor: item.color }]}
+                onPress={() => handleMenuPress(item.id)}
+                activeOpacity={0.8}
+              >
+                <Text style={styles.icon}>{item.icon}</Text>
+                <Text style={styles.menuTitle}>{item.title}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
+
+        <TouchableOpacity style={styles.logoutBtn} onPress={logout}>
+          <Text style={styles.logoutText}>Logout</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    );
+  }
+
+  if (currentScreen === 'sdk-info') {
+    return (
+      <SafeAreaView style={styles.container}>
+        <TouchableOpacity
+          style={styles.backBtn}
+          onPress={() => setCurrentScreen('menu')}
+        >
+          <Text style={styles.backText}>← Back</Text>
+        </TouchableOpacity>
+
+        <ScrollView style={styles.content}>
+          <View style={styles.sdkInfo}>
+            <Text style={styles.sdkTitle}>🦊 Fox eCommerce SDK</Text>
+            <Text style={styles.sdkVersion}>v0.1.0</Text>
+
+            <View style={styles.sdkSection}>
+              <Text style={styles.sectionTitle}>Features:</Text>
+              <Text style={styles.featureText}>✓ Authentication</Text>
+              <Text style={styles.featureText}>✓ Product Management</Text>
+              <Text style={styles.featureText}>✓ Shopping Cart</Text>
+              <Text style={styles.featureText}>✓ Navigation</Text>
+            </View>
+
+            <View style={styles.sdkSection}>
+              <Text style={styles.sectionTitle}>Status:</Text>
+              <Text style={styles.statusText}>✅ Production Ready</Text>
+            </View>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    );
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Fox eCommerce SDK</Text>
-        <Text style={styles.subtitle}>Welcome, {user?.name || 'User'}!</Text>
-      </View>
-
-      <View style={styles.tabs}>
-        {['home', 'products', 'cart', 'profile'].map((tab) => (
-          <TouchableOpacity
-            key={tab}
-            style={[styles.tab, currentScreen === tab && styles.tabActive]}
-            onPress={() => handleNavigate(tab)}
-          >
-            <Text style={[styles.tabText, currentScreen === tab && styles.tabTextActive]}>
-              {tab.charAt(0).toUpperCase() + tab.slice(1)}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+    <SafeAreaView style={styles.container}>
+      <TouchableOpacity
+        style={styles.backBtn}
+        onPress={() => setCurrentScreen('menu')}
+      >
+        <Text style={styles.backText}>← Back</Text>
+      </TouchableOpacity>
 
       <ScrollView style={styles.content}>
-        {currentScreen === 'home' && <HomeContent onNavigate={handleNavigate} />}
+        {currentScreen === 'home' && <HomeContent onNavigate={() => handleMenuPress('products')} />}
         {currentScreen === 'products' && <ProductsContent />}
         {currentScreen === 'cart' && <CartContent />}
         {currentScreen === 'profile' && <ProfileContent onLogout={logout} />}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -151,14 +215,52 @@ function LoginScreen({ onLoginSuccess }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f5f5f5' },
-  header: { backgroundColor: '#007AFF', paddingTop: 40, paddingHorizontal: 20, paddingBottom: 20 },
+  header: { backgroundColor: '#007AFF', paddingTop: 20, paddingHorizontal: 20, paddingBottom: 20 },
   title: { fontSize: 28, fontWeight: 'bold', color: '#fff' },
   subtitle: { fontSize: 16, color: '#e0e0e0', marginTop: 5 },
-  tabs: { flexDirection: 'row', backgroundColor: '#fff', borderBottomWidth: 1, borderBottomColor: '#e0e0e0' },
-  tab: { flex: 1, paddingVertical: 12, alignItems: 'center' },
-  tabActive: { borderBottomWidth: 3, borderBottomColor: '#007AFF' },
-  tabText: { fontSize: 12, color: '#666', fontWeight: '500' },
-  tabTextActive: { color: '#007AFF', fontWeight: '700' },
+
+  // Grid Menu Styles
+  gridContainer: { flex: 1, padding: 16 },
+  grid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' },
+  menuItem: {
+    width: '48%',
+    aspectRatio: 1,
+    borderRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  icon: { fontSize: 48, marginBottom: 8 },
+  menuTitle: { fontSize: 16, fontWeight: '600', color: '#fff', textAlign: 'center' },
+
+  // Button Styles
+  backBtn: { paddingHorizontal: 16, paddingVertical: 12 },
+  backText: { fontSize: 16, color: '#007AFF', fontWeight: '600' },
+  logoutBtn: {
+    backgroundColor: '#ff3b30',
+    paddingVertical: 12,
+    marginHorizontal: 16,
+    marginBottom: 16,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  logoutText: { color: '#fff', fontWeight: '700', fontSize: 16 },
+
+  // SDK Info Styles
+  sdkInfo: { backgroundColor: '#fff', borderRadius: 12, padding: 20, marginTop: 20 },
+  sdkTitle: { fontSize: 28, fontWeight: '700', color: '#333', marginBottom: 4, textAlign: 'center' },
+  sdkVersion: { fontSize: 16, color: '#666', textAlign: 'center', marginBottom: 20 },
+  sdkSection: { marginVertical: 16, paddingVertical: 12, borderTopWidth: 1, borderTopColor: '#e0e0e0' },
+  sectionTitle: { fontSize: 18, fontWeight: '700', color: '#333', marginBottom: 8 },
+  featureText: { fontSize: 14, color: '#666', marginVertical: 6 },
+  statusText: { fontSize: 14, color: '#34C759', fontWeight: '600' },
+
+  // Content & Screen Styles
   content: { flex: 1, padding: 16 },
   screen: { backgroundColor: '#fff', borderRadius: 12, padding: 16, marginBottom: 20 },
   screenTitle: { fontSize: 24, fontWeight: 'bold', marginBottom: 16, color: '#333' },
@@ -171,6 +273,8 @@ const styles = StyleSheet.create({
   buttonDisabled: { opacity: 0.6 },
   buttonText: { color: '#fff', fontWeight: '700', fontSize: 16 },
   label: { fontSize: 14, color: '#333', marginVertical: 8 },
+
+  // Login Styles
   loginContainer: { flex: 1, justifyContent: 'center', paddingHorizontal: 20, backgroundColor: '#f5f5f5' },
   loginTitle: { fontSize: 32, fontWeight: 'bold', marginBottom: 30, color: '#333', textAlign: 'center' },
 });
