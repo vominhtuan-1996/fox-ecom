@@ -10,7 +10,7 @@ const MENU_ITEMS = [
   { id: 'products', title: 'Products', icon: '📦', color: '#4ECDC4' },
   { id: 'cart', title: 'Cart', icon: '🛒', color: '#45B7D1' },
   { id: 'profile', title: 'Profile', icon: '👤', color: '#96CEB4' },
-  { id: 'foxecomsdk', title: 'Fox SDK', icon: '🦊', color: '#FFEAA7' },
+  { id: 'fox-ecom-sdk', title: 'Fox SDK', icon: '🦊', color: '#FFEAA7' },
 ];
 
 export function App() {

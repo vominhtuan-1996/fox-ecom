@@ -327,3 +327,40 @@ if (discountPercent < 0 || discountPercent > 100) {
 | **Variables** | camelCase | `productName`, `cartTotal` |
 | **Functions** | camelCase | `calculateDiscount()` |
 | **Classes** | PascalCase | `Product`, `ServiceLocator` |
+| **Routes** | kebab-case | `fox-ecom-sdk`, `product-detail` |
+
+## Routing Naming Convention
+
+### Route Names
+- Use **kebab-case** (xx-xx format) for all route names
+- Descriptive, not abbreviated
+- Represent the screen or feature
+
+```typescript
+// ✅ Correct
+{
+  name: 'product-detail',
+  path: '/product-detail',
+  title: 'Product Detail'
+}
+
+{
+  name: 'fox-ecom-sdk',
+  path: '/fox-ecom-sdk',
+  title: 'Fox eCommerce SDK'
+}
+
+// ❌ Wrong
+{
+  name: 'productDetail',    // camelCase - should be kebab-case
+  name: 'prodDetail',       // abbreviated - should be descriptive
+  name: 'PRODUCT_DETAIL'    // UPPER_SNAKE_CASE - should be kebab-case
+}
+```
+
+### Route Rules
+1. **Format**: Always use kebab-case (xx-xx)
+2. **Descriptive**: Full names, no abbreviations
+3. **Consistency**: Match between `name` and `path` fields
+4. **Scope**: Route name = feature/screen scope
+5. **SDK Routes**: SDK-specific routes should include context (e.g., `fox-ecom-sdk`)

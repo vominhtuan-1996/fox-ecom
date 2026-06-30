@@ -107,9 +107,9 @@ export class Routing {
     } as RouteDef,
 
     // SDK initialization route
-    foxecomsdk: {
-      name: 'foxecomsdk',
-      path: '/foxecomsdk',
+    'fox-ecom-sdk': {
+      name: 'fox-ecom-sdk',
+      path: '/fox-ecom-sdk',
       title: 'Fox eCommerce SDK',
       description: 'SDK initialization and app workflow',
     } as RouteDef,
