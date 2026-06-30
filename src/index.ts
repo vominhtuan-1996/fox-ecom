@@ -16,8 +16,8 @@
 // CONFIG & INITIALIZATION
 // ============================================================
 export { appConfig } from './config/app.config';
-export { initializeApp, resetApp } from './config/app.init';
-export type { AppInitConfig } from './config/app.init';
+// Note: initializeApp/resetApp are app-level, not exported from package
+// Apps should provide their own initialization logic
 export { FoxComAuthen } from './FoxComAuthen';
 export type { FoxComAuthenConfig } from './FoxComAuthen';
 

@@ -14,12 +14,7 @@ if (ErrorUtils) {
 
 const { AppRegistry } = require('react-native');
 
-let envConfig;
-try {
-  envConfig = require('../src/common/config/env.config').envConfig;
-} catch(e) {
-  console.error('🔴 envConfig load failed:', e.message);
-}
+// App-level config (not from SDK package)
 
 // PMS API base URL — đổi 'staging' | 'production' để switch env
 const ENV = 'staging'; // ponytail: hardcoded, đổi khi cần CI/CD env var

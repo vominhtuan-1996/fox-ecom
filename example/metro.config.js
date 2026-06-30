@@ -11,24 +11,11 @@ module.exports = (async () => {
 
   return {
     projectRoot,
-    watchFolders: [rootDir],
+    // Don't watch root dir - use fox-ecom from node_modules only
     resolver: {
       platforms: ['ios', 'android'],
       sourceExts: [...sourceExts, 'svg'],
       assetExts: assetExts.filter(ext => ext !== 'svg'),
-      // SDK aliases for development (src/ not dist/)
-      extraNodeModules: {
-        '@': path.join(rootDir, 'src'),
-        '@/di': path.join(rootDir, 'src/di'),
-        '@/common': path.join(rootDir, 'src/common'),
-        '@/config': path.join(rootDir, 'src/config'),
-        '@/data': path.join(rootDir, 'src/data'),
-        '@/domain': path.join(rootDir, 'src/domain'),
-        '@/modules': path.join(rootDir, 'src/modules'),
-        '@/presentation': path.join(rootDir, 'src/presentation'),
-        '@/assets': path.join(rootDir, 'src/assets'),
-        '@/types': path.join(rootDir, 'src/types'),
-      },
     },
     transformer: {
       babelTransformerPath: require.resolve('metro-react-native-babel-transformer'),
