@@ -27,7 +27,7 @@ export function HomeScreen({ userName = 'Nguyễn Văn A', onGoCarry, onGoNotifi
   const features = [
     {
       key: 'carry',
-      icon: '📦',
+      icon: 'package',
       title: 'Giao hàng',
       subtitle: 'Gửi & nhận hàng tiện đường',
       active: true,
@@ -35,7 +35,7 @@ export function HomeScreen({ userName = 'Nguyễn Văn A', onGoCarry, onGoNotifi
     },
     {
       key: 'kids',
-      icon: '👦',
+      icon: 'custom',
       title: 'Đón con',
       subtitle: 'Nhờ đồng nghiệp đón con hộ',
       active: false,
@@ -43,7 +43,7 @@ export function HomeScreen({ userName = 'Nguyễn Văn A', onGoCarry, onGoNotifi
     },
     {
       key: 'commute',
-      icon: '🚗',
+      icon: 'shopping-cart',
       title: 'Đi làm chung',
       subtitle: 'Carpool cùng đồng nghiệp',
       active: false,

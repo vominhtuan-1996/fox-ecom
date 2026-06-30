@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { colors, typography, spacing, borderRadius } from '../../../common/theme';
+import { SvgIcon } from '../../components/SvgIcon';
 
 /**
  * FeatureGrid V2 — glassmorphism cho inactive, gradient cam cho active.
+ * Uses SvgIcon for proper icon rendering
  */
 export function FeatureGrid({ features, style }) {
   return (
@@ -18,11 +20,17 @@ export function FeatureGrid({ features, style }) {
           {/* Lock icon cho inactive */}
           {f.locked && (
             <View style={s.lockWrap}>
-              <Text style={s.lockIcon}>🔒</Text>
+              <SvgIcon name="lock" size={14} color="#2a5a3a" />
             </View>
           )}
 
-          <Text style={s.icon}>{f.icon}</Text>
+          <View style={s.iconWrap}>
+            <SvgIcon
+              name={f.icon}
+              size={28}
+              color={f.active ? colors.white : '#2a5a3a'}
+            />
+          </View>
           <Text style={[s.title, f.active ? s.titleActive : s.titleGlass]}>
             {f.title}
           </Text>
@@ -74,9 +82,8 @@ const s = StyleSheet.create({
   },
 
   lockWrap: { position: 'absolute', top: spacing.sm, right: spacing.sm },
-  lockIcon: { fontSize: 14 },
 
-  icon: { fontSize: 28, marginBottom: spacing.sm },
+  iconWrap: { marginBottom: spacing.sm },
 
   title:        { ...typography.s2, marginBottom: 4 },
   titleActive:  { color: colors.white },
