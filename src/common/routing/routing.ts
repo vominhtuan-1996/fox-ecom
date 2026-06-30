@@ -106,6 +106,14 @@ export class Routing {
       description: 'Settings screen',
     } as RouteDef,
 
+    // SDK initialization route
+    foxecomsdk: {
+      name: 'foxecomsdk',
+      path: '/foxecomsdk',
+      title: 'Fox eCommerce SDK',
+      description: 'SDK initialization and app workflow',
+    } as RouteDef,
+
     // Add more routes as needed
   };
 
