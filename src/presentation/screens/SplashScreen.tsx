@@ -7,6 +7,11 @@ interface SplashScreenProps {
   config?: SplashConfig;
   delay?: number;
   showLoader?: boolean;
+  // Direct params (alternative to config)
+  token?: string;
+  environment?: 'development' | 'staging' | 'production';
+  baseUrl?: string;
+  timeout?: number;
 }
 
 export const SplashScreen: React.FC<SplashScreenProps> = ({
@@ -14,6 +19,10 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
   config,
   delay = 3000,
   showLoader = true,
+  token,
+  environment,
+  baseUrl,
+  timeout,
 }) => {
   const [status, setStatus] = useState<string>('Initializing...');
   const [isComplete, setIsComplete] = useState(false);
@@ -22,9 +31,18 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
     const initializeSplash = async () => {
       try {
         setStatus('Verifying token...');
-        
-        // Initialize with config
-        const result = await splashModule.initialize(config || {});
+
+        // Merge direct params with config (direct params take precedence)
+        const finalConfig: SplashConfig = {
+          ...config,
+          token: token || config?.token,
+          environment: environment || config?.environment,
+          baseUrl: baseUrl || config?.baseUrl,
+          timeout: timeout || config?.timeout,
+        };
+
+        // Initialize with merged config
+        const result = await splashModule.initialize(finalConfig);
 
         if (result.success) {
           setStatus('Services initialized');
@@ -43,7 +61,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
     };
 
     initializeSplash();
-  }, [config, delay, onComplete]);
+  }, [config, delay, onComplete, token, environment, baseUrl, timeout]);
 
   return (
     <SafeAreaView style={styles.container}>
