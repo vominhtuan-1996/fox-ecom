@@ -19,17 +19,12 @@ const { AppRegistry } = require('react-native');
 // PMS API base URL — đổi 'staging' | 'production' để switch env
 const ENV = 'staging'; // ponytail: hardcoded, đổi khi cần CI/CD env var
 
-const API_URLS = {
-  development: 'https://apis-dev.fpt.vn',
-  staging: 'https://apis-stag.fpt.vn',
-  production: 'https://apis.fpt.vn',
-};
-
-if (envConfig) {
-  envConfig.set('apiBaseUrl', API_URLS[ENV]);
-  envConfig.set('apiTimeout', 15000);
-  envConfig.set('environment', ENV);
-}
+// API configuration — consumed app manages its own config
+// const API_URLS = {
+//   development: 'https://apis-dev.fpt.vn',
+//   staging: 'https://apis-stag.fpt.vn',
+//   production: 'https://apis.fpt.vn',
+// };
 
 console.log('🚀 Initializing Fox eCommerce Example App...');
 

@@ -1,10 +1,351 @@
+diff --git a/node_modules/react-native/Libraries/Components/ActivityIndicator/ActivityIndicator.js b/node_modules/react-native/Libraries/Components/ActivityIndicator/ActivityIndicator.js
+index 2855cf4..14a205f 100644
+--- a/node_modules/react-native/Libraries/Components/ActivityIndicator/ActivityIndicator.js
++++ b/node_modules/react-native/Libraries/Components/ActivityIndicator/ActivityIndicator.js
+@@ -153,10 +153,7 @@ const ActivityIndicator = (
+ ```
+ */
+ 
+-const ActivityIndicatorWithRef: component(
+-  ref: React.RefSetter<HostComponent<empty>>,
+-  ...props: Props
+-) = React.forwardRef(ActivityIndicator);
++const ActivityIndicatorWithRef = React.forwardRef(ActivityIndicator);
+ ActivityIndicatorWithRef.displayName = 'ActivityIndicator';
+ 
+ const styles = StyleSheet.create({
+diff --git a/node_modules/react-native/Libraries/Components/Button.js b/node_modules/react-native/Libraries/Components/Button.js
+index 1b5c0b6..7b99220 100644
+--- a/node_modules/react-native/Libraries/Components/Button.js
++++ b/node_modules/react-native/Libraries/Components/Button.js
+@@ -285,10 +285,7 @@ const Touchable: typeof TouchableNativeFeedback | typeof TouchableOpacity =
+ 
+ type ButtonRef = React.ElementRef<typeof Touchable>;
+ 
+-const Button: component(
+-  ref: React.RefSetter<ButtonRef>,
+-  ...props: ButtonProps
+-) = React.forwardRef((props: ButtonProps, ref: React.RefSetter<ButtonRef>) => {
++const Button = React.forwardRef((props: ButtonProps, ref: React.RefSetter<ButtonRef>) => {
+   const {
+     accessibilityLabel,
+     accessibilityState,
 diff --git a/node_modules/react-native/Libraries/Components/DrawerAndroid/DrawerLayoutAndroid.js b/node_modules/react-native/Libraries/Components/DrawerAndroid/DrawerLayoutAndroid.js
-index original..fixed 100644
+index 66f0e06..2394cb9 100644
 --- a/node_modules/react-native/Libraries/Components/DrawerAndroid/DrawerLayoutAndroid.js
 +++ b/node_modules/react-native/Libraries/Components/DrawerAndroid/DrawerLayoutAndroid.js
-@@ -11,4 +11,4 @@
+@@ -10,5 +10,4 @@
+ 
  'use strict';
  
- module.exports =
+-module.exports =
 -  require('../UnimplementedViews/UnimplementedView') as $FlowFixMe;
-+  (require('../UnimplementedViews/UnimplementedView'));
++module.exports = (require('../UnimplementedViews/UnimplementedView'));
+diff --git a/node_modules/react-native/Libraries/Components/ProgressBarAndroid/ProgressBarAndroid.android.js b/node_modules/react-native/Libraries/Components/ProgressBarAndroid/ProgressBarAndroid.android.js
+index ca5c4fb..05ee707 100644
+--- a/node_modules/react-native/Libraries/Components/ProgressBarAndroid/ProgressBarAndroid.android.js
++++ b/node_modules/react-native/Libraries/Components/ProgressBarAndroid/ProgressBarAndroid.android.js
+@@ -78,12 +78,7 @@ export type ProgressBarAndroidProps = $ReadOnly<{|
+  * },
+  * ```
+  */
+-const ProgressBarAndroidWithForwardedRef: component(
+-  ref: React.RefSetter<
+-    React.ElementRef<typeof ProgressBarAndroidNativeComponent>,
+-  >,
+-  ...props: ProgressBarAndroidProps
+-) = React.forwardRef(function ProgressBarAndroid(
++const ProgressBarAndroidWithForwardedRef = React.forwardRef(function ProgressBarAndroid(
+   {
+     // $FlowFixMe[incompatible-type]
+     styleAttr = 'Normal',
+diff --git a/node_modules/react-native/Libraries/Components/SafeAreaView/SafeAreaView.js b/node_modules/react-native/Libraries/Components/SafeAreaView/SafeAreaView.js
+index e3da1d7..05efb32 100644
+--- a/node_modules/react-native/Libraries/Components/SafeAreaView/SafeAreaView.js
++++ b/node_modules/react-native/Libraries/Components/SafeAreaView/SafeAreaView.js
+@@ -23,10 +23,7 @@ import * as React from 'react';
+  * limitation of the screen, such as rounded corners or camera notches (aka
+  * sensor housing area on iPhone X).
+  */
+-const exported: component(
+-  ref: React.RefSetter<React.ElementRef<typeof View>>,
+-  ...props: ViewProps
+-) = Platform.select({
++const exported = Platform.select({
+   ios: require('./RCTSafeAreaViewNativeComponent').default,
+   default: View,
+ });
+diff --git a/node_modules/react-native/Libraries/Components/ScrollView/ScrollView.js b/node_modules/react-native/Libraries/Components/ScrollView/ScrollView.js
+index f2dbf26..02657ad 100644
+--- a/node_modules/react-native/Libraries/Components/ScrollView/ScrollView.js
++++ b/node_modules/react-native/Libraries/Components/ScrollView/ScrollView.js
+@@ -1896,10 +1896,7 @@ function createRefForwarder<TNativeInstance, TPublicInstance>(
+ // NOTE: This wrapper component is necessary because `ScrollView` is a class
+ // component and we need to map `ref` to a differently named prop. This can be
+ // removed when `ScrollView` is a functional component.
+-const Wrapper: component(
+-  ref: React.RefSetter<PublicScrollViewInstance>,
+-  ...props: Props
+-) = React.forwardRef(function Wrapper(
++const Wrapper = React.forwardRef(function Wrapper(
+   props: Props,
+   ref: ?React.RefSetter<PublicScrollViewInstance>,
+ ): React.Node {
+diff --git a/node_modules/react-native/Libraries/Components/ScrollView/ScrollViewStickyHeader.js b/node_modules/react-native/Libraries/Components/ScrollView/ScrollViewStickyHeader.js
+index 1615f3f..b2cc8b9 100644
+--- a/node_modules/react-native/Libraries/Components/ScrollView/ScrollViewStickyHeader.js
++++ b/node_modules/react-native/Libraries/Components/ScrollView/ScrollViewStickyHeader.js
+@@ -38,10 +38,7 @@ type Instance = {
+   ...
+ };
+ 
+-const ScrollViewStickyHeaderWithForwardedRef: component(
+-  ref: React.RefSetter<Instance>,
+-  ...props: Props
+-) = React.forwardRef(function ScrollViewStickyHeader(props, forwardedRef) {
++const ScrollViewStickyHeaderWithForwardedRef = React.forwardRef(function ScrollViewStickyHeader(props, forwardedRef) {
+   const {
+     inverted,
+     scrollViewHeight,
+diff --git a/node_modules/react-native/Libraries/Components/Switch/Switch.js b/node_modules/react-native/Libraries/Components/Switch/Switch.js
+index b1aa238..1759c35 100644
+--- a/node_modules/react-native/Libraries/Components/Switch/Switch.js
++++ b/node_modules/react-native/Libraries/Components/Switch/Switch.js
+@@ -134,10 +134,7 @@ type SwitchRef = React.ElementRef<
+   typeof SwitchNativeComponent | typeof AndroidSwitchNativeComponent,
+ >;
+ 
+-const SwitchWithForwardedRef: component(
+-  ref: React.RefSetter<SwitchRef>,
+-  ...props: Props
+-) = React.forwardRef(function Switch(props, forwardedRef): React.Node {
++const SwitchWithForwardedRef = React.forwardRef(function Switch(props, forwardedRef): React.Node {
+   const {
+     disabled,
+     ios_backgroundColor,
+diff --git a/node_modules/react-native/Libraries/Components/TextInput/TextInput.js b/node_modules/react-native/Libraries/Components/TextInput/TextInput.js
+index dcf1123..ccdfd39 100644
+--- a/node_modules/react-native/Libraries/Components/TextInput/TextInput.js
++++ b/node_modules/react-native/Libraries/Components/TextInput/TextInput.js
+@@ -1795,11 +1795,7 @@ const autoCompleteWebToTextContentTypeMap = {
+   username: 'username',
+ };
+ 
+-const ExportedForwardRef: component(
+-  ref: React.RefSetter<TextInputInstance>,
+-  ...props: React.ElementConfig<typeof InternalTextInput>
+-  // $FlowFixMe[incompatible-call]
+-) = React.forwardRef(function TextInput(
++const ExportedForwardRef = React.forwardRef(function TextInput(
+   {
+     allowFontScaling = true,
+     rejectResponderTermination = true,
+diff --git a/node_modules/react-native/Libraries/Components/Touchable/BoundingDimensions.js b/node_modules/react-native/Libraries/Components/Touchable/BoundingDimensions.js
+index 6bad672..152681e 100644
+--- a/node_modules/react-native/Libraries/Components/Touchable/BoundingDimensions.js
++++ b/node_modules/react-native/Libraries/Components/Touchable/BoundingDimensions.js
+@@ -48,6 +48,6 @@ BoundingDimensions.getPooledFromElement = function (
+   );
+ };
+ 
+-PooledClass.addPoolingTo(BoundingDimensions as $FlowFixMe, twoArgumentPooler);
++PooledClass.addPoolingTo(BoundingDimensions, twoArgumentPooler);
+ 
+ module.exports = BoundingDimensions;
+diff --git a/node_modules/react-native/Libraries/Components/Touchable/Position.js b/node_modules/react-native/Libraries/Components/Touchable/Position.js
+index 06d9e89..4968833 100644
+--- a/node_modules/react-native/Libraries/Components/Touchable/Position.js
++++ b/node_modules/react-native/Libraries/Components/Touchable/Position.js
+@@ -35,6 +35,6 @@ Position.prototype.destructor = function () {
+   this.top = null;
+ };
+ 
+-PooledClass.addPoolingTo(Position as $FlowFixMe, twoArgumentPooler);
++PooledClass.addPoolingTo(Position, twoArgumentPooler);
+ 
+ module.exports = Position;
+diff --git a/node_modules/react-native/Libraries/Components/Touchable/TouchableHighlight.js b/node_modules/react-native/Libraries/Components/Touchable/TouchableHighlight.js
+index e0aad9c..ae66582 100644
+--- a/node_modules/react-native/Libraries/Components/Touchable/TouchableHighlight.js
++++ b/node_modules/react-native/Libraries/Components/Touchable/TouchableHighlight.js
+@@ -381,10 +381,7 @@ class TouchableHighlight extends React.Component<Props, State> {
+   }
+ }
+ 
+-const Touchable: component(
+-  ref: React.RefSetter<React.ElementRef<typeof View>>,
+-  ...props: $ReadOnly<$Diff<Props, {|+hostRef: mixed|}>>
+-) = React.forwardRef((props, hostRef) => (
++const Touchable = React.forwardRef((props, hostRef) => (
+   <TouchableHighlight {...props} hostRef={hostRef} />
+ ));
+ 
+diff --git a/node_modules/react-native/Libraries/Components/Touchable/TouchableOpacity.js b/node_modules/react-native/Libraries/Components/Touchable/TouchableOpacity.js
+index ef9b257..bb7c9a1 100644
+--- a/node_modules/react-native/Libraries/Components/Touchable/TouchableOpacity.js
++++ b/node_modules/react-native/Libraries/Components/Touchable/TouchableOpacity.js
+@@ -327,10 +327,7 @@ class TouchableOpacity extends React.Component<Props, State> {
+   }
+ }
+ 
+-const Touchable: component(
+-  ref: React.RefSetter<React.ElementRef<typeof Animated.View>>,
+-  ...props: Props
+-) = React.forwardRef((props, ref) => (
++const Touchable = React.forwardRef((props, ref) => (
+   <TouchableOpacity {...props} hostRef={ref} />
+ ));
+ 
+diff --git a/node_modules/react-native/Libraries/Components/View/View.js b/node_modules/react-native/Libraries/Components/View/View.js
+index f1522cf..3d273be 100644
+--- a/node_modules/react-native/Libraries/Components/View/View.js
++++ b/node_modules/react-native/Libraries/Components/View/View.js
+@@ -23,10 +23,7 @@ export type Props = ViewProps;
+  *
+  * @see https://reactnative.dev/docs/view
+  */
+-const View: component(
+-  ref: React.RefSetter<React.ElementRef<typeof ViewNativeComponent>>,
+-  ...props: ViewProps
+-) = React.forwardRef(
++const View = React.forwardRef(
+   (
+     {
+       accessibilityElementsHidden,
+diff --git a/node_modules/react-native/Libraries/Debugging/DebuggingOverlay.js b/node_modules/react-native/Libraries/Debugging/DebuggingOverlay.js
+index 3d0c52a..59ef0bc 100644
+--- a/node_modules/react-native/Libraries/Debugging/DebuggingOverlay.js
++++ b/node_modules/react-native/Libraries/Debugging/DebuggingOverlay.js
+@@ -102,9 +102,6 @@ const styles = StyleSheet.create({
+   },
+ });
+ 
+-const DebuggingOverlayWithForwardedRef: component(
+-  ref: React.RefSetter<DebuggingOverlayHandle>,
+-  ...props: {}
+-) = React.forwardRef(DebuggingOverlay);
++const DebuggingOverlayWithForwardedRef = React.forwardRef(DebuggingOverlay);
+ 
+ export default DebuggingOverlayWithForwardedRef;
+diff --git a/node_modules/react-native/Libraries/Lists/SectionListModern.js b/node_modules/react-native/Libraries/Lists/SectionListModern.js
+index 788eead..6e90b86 100644
+--- a/node_modules/react-native/Libraries/Lists/SectionListModern.js
++++ b/node_modules/react-native/Libraries/Lists/SectionListModern.js
+@@ -172,10 +172,7 @@ export type Props<SectionT: SectionBase<any>> = $ReadOnly<{|
+  *   Alternatively, you can provide a custom `keyExtractor` prop.
+  *
+  */
+-const SectionList: component(
+-  ref?: React.RefSetter<any>,
+-  ...Props<SectionBase<any>>
+-) = forwardRef<Props<SectionBase<any>>, any>((props, ref) => {
++const SectionList = forwardRef<Props<SectionBase<any>>, any>((props, ref) => {
+   const propsWithDefaults = {
+     stickySectionHeadersEnabled: Platform.OS === 'ios',
+     ...props,
+diff --git a/node_modules/react-native/Libraries/LogBox/UI/LogBoxInspectorHeader.js b/node_modules/react-native/Libraries/LogBox/UI/LogBoxInspectorHeader.js
+index 35a60c7..7c7efea 100644
+--- a/node_modules/react-native/Libraries/LogBox/UI/LogBoxInspectorHeader.js
++++ b/node_modules/react-native/Libraries/LogBox/UI/LogBoxInspectorHeader.js
+@@ -56,7 +56,7 @@ export default function LogBoxInspectorHeader(props: Props): React.Node {
+         <LogBoxInspectorHeaderButton
+           disabled={props.total <= 1}
+           level={props.level}
+-          image={require('./LogBoxImages/chevron-left.png')}
++          image={{}}
+           onPress={() => props.onSelectIndex(prevIndex)}
+         />
+         <View style={styles.title}>
+@@ -65,7 +65,7 @@ export default function LogBoxInspectorHeader(props: Props): React.Node {
+         <LogBoxInspectorHeaderButton
+           disabled={props.total <= 1}
+           level={props.level}
+-          image={require('./LogBoxImages/chevron-right.png')}
++          image={{}}
+           onPress={() => props.onSelectIndex(nextIndex)}
+         />
+       </View>
+diff --git a/node_modules/react-native/Libraries/LogBox/UI/LogBoxInspectorSourceMapStatus.js b/node_modules/react-native/Libraries/LogBox/UI/LogBoxInspectorSourceMapStatus.js
+index f54d001..bab6994 100644
+--- a/node_modules/react-native/Libraries/LogBox/UI/LogBoxInspectorSourceMapStatus.js
++++ b/node_modules/react-native/Libraries/LogBox/UI/LogBoxInspectorSourceMapStatus.js
+@@ -72,11 +72,11 @@ function LogBoxInspectorSourceMapStatus(props: Props): React.Node {
+   let color;
+   switch (props.status) {
+     case 'FAILED':
+-      image = require('./LogBoxImages/alert-triangle.png');
++      image = 
+       color = LogBoxStyle.getErrorColor(1);
+       break;
+     case 'PENDING':
+-      image = require('./LogBoxImages/loader.png');
++      image = 
+       color = LogBoxStyle.getWarningColor(1);
+       break;
+   }
+diff --git a/node_modules/react-native/Libraries/LogBox/UI/LogBoxNotificationDismissButton.js b/node_modules/react-native/Libraries/LogBox/UI/LogBoxNotificationDismissButton.js
+index 01ff238..8ddec8d 100644
+--- a/node_modules/react-native/Libraries/LogBox/UI/LogBoxNotificationDismissButton.js
++++ b/node_modules/react-native/Libraries/LogBox/UI/LogBoxNotificationDismissButton.js
+@@ -34,7 +34,7 @@ export default function LogBoxNotificationDismissButton(props: {
+         onPress={props.onPress}
+         style={styles.press}>
+         <Image
+-          source={require('./LogBoxImages/close.png')}
++          source={{uri: 'dismiss'}}
+           style={styles.image}
+         />
+       </LogBoxButton>
+diff --git a/node_modules/react-native/Libraries/ReactNative/AppContainer.js b/node_modules/react-native/Libraries/ReactNative/AppContainer.js
+index afea7ca..669eb63 100644
+--- a/node_modules/react-native/Libraries/ReactNative/AppContainer.js
++++ b/node_modules/react-native/Libraries/ReactNative/AppContainer.js
+@@ -24,7 +24,7 @@ export type Props = $ReadOnly<{|
+   internal_excludeInspector?: boolean,
+ |}>;
+ 
+-const AppContainer: component(...Props) = __DEV__
++const AppContainer = __DEV__
+   ? require('./AppContainer-dev').default
+   : require('./AppContainer-prod').default;
+ 
+diff --git a/node_modules/react-native/Libraries/Text/Text.js b/node_modules/react-native/Libraries/Text/Text.js
+index e327b65..c31fa26 100644
+--- a/node_modules/react-native/Libraries/Text/Text.js
++++ b/node_modules/react-native/Libraries/Text/Text.js
+@@ -33,10 +33,7 @@ type TextForwardRef = React.ElementRef<
+  *
+  * @see https://reactnative.dev/docs/text
+  */
+-const Text: component(
+-  ref: React.RefSetter<TextForwardRef>,
+-  ...props: TextProps
+-) = React.forwardRef(
++const Text = React.forwardRef(
+   (
+     {
+       accessible,
+@@ -475,10 +472,7 @@ type NativePressableTextProps = $ReadOnly<{
+  * This logic is split out from the main Text component to enable the more
+  * expensive pressability logic to be only initialized when needed.
+  */
+-const NativePressableVirtualText: component(
+-  ref: React.RefSetter<TextForwardRef>,
+-  ...props: NativePressableTextProps
+-) = React.forwardRef(({textProps, textPressabilityProps}, forwardedRef) => {
++const NativePressableVirtualText = React.forwardRef(({textProps, textPressabilityProps}, forwardedRef) => {
+   const [isHighlighted, eventHandlersForText] = useTextPressability(
+     textPressabilityProps,
+   );
+@@ -500,10 +494,7 @@ const NativePressableVirtualText: component(
+  * This logic is split out from the main Text component to enable the more
+  * expensive pressability logic to be only initialized when needed.
+  */
+-const NativePressableText: component(
+-  ref: React.RefSetter<TextForwardRef>,
+-  ...props: NativePressableTextProps
+-) = React.forwardRef(({textProps, textPressabilityProps}, forwardedRef) => {
++const NativePressableText = React.forwardRef(({textProps, textPressabilityProps}, forwardedRef) => {
+   const [isHighlighted, eventHandlersForText] = useTextPressability(
+     textPressabilityProps,
+   );
