@@ -14,6 +14,7 @@ interface FoxEcomSDKProps {
   baseUrl?: string;
   timeout?: number;
   demoMode?: boolean; // Skip API verification, always succeed
+  onBack?: () => void; // Callback when user wants to go back to root
 }
 
 export const FoxEcomSDK: React.FC<FoxEcomSDKProps> = ({
@@ -25,6 +26,7 @@ export const FoxEcomSDK: React.FC<FoxEcomSDKProps> = ({
   baseUrl,
   timeout,
   demoMode,
+  onBack,
 }) => {
   const [status, setStatus] = useState<string>('Initializing...');
   const [isComplete, setIsComplete] = useState(false);
@@ -69,7 +71,7 @@ export const FoxEcomSDK: React.FC<FoxEcomSDKProps> = ({
 
   // After initialization success, show TabNavigator
   if (initSuccess) {
-    return <TabNavigator />;
+    return <TabNavigator onGoBack={onBack} />;
   }
 
   // During initialization, show splash screen

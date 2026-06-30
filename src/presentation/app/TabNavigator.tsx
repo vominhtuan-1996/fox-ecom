@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet, Platform, TouchableOpacity, Text } from 'react-native';
 import { Navigator } from '../navigator/Navigator';
 import { NavigatorRef, ScreenProps } from '../navigator/types';
 import { AppBottomTabBar, TabKey } from '../components/shared/AppBottomTabBar';
@@ -24,6 +24,7 @@ interface TabNavigatorProps {
   onGoCarry?: () => void;
   currentUserId?: string;
   onGoNotifications?: () => void;
+  onGoBack?: () => void;
 }
 
 // ── Tab order V2: Trang chủ / Hoạt động / Xếp hạng / Cá nhân ─────────────────
@@ -140,6 +141,7 @@ export const TabNavigator: React.FC<TabNavigatorProps> = ({
   onGoCarry,
   currentUserId = 'u1',
   onGoNotifications,
+  onGoBack,
 }) => {
   const [activeTab, setActiveTab] = React.useState<TabKey>('home');
 
@@ -163,6 +165,18 @@ export const TabNavigator: React.FC<TabNavigatorProps> = ({
 
   return (
     <View style={s.root}>
+      {/* Header with back button */}
+      {onGoBack && (
+        <View style={s.header}>
+          <TouchableOpacity style={s.backButton} onPress={onGoBack}>
+            <Text style={s.backIcon}>‹</Text>
+            <Text style={s.backText}>Back</Text>
+          </TouchableOpacity>
+          <Text style={s.headerTitle}>Fox eCommerce</Text>
+          <View style={{ width: 60 }} />
+        </View>
+      )}
+
       <View style={s.content}>
         {activeTab === 'home'     && <HomeStack     userId={currentUserId} onGoCarry={onGoCarry} onGoNotifications={onGoNotifications} />}
         {activeTab === 'rank'     && <RankStack     userId={currentUserId} />}
@@ -181,9 +195,46 @@ export const TabNavigator: React.FC<TabNavigatorProps> = ({
 };
 
 const TAB_BAR_H = 62 + (Platform.OS === 'ios' ? 20 : 0);
+const HEADER_H = 56;
 
 const s = StyleSheet.create({
   root:    { flex: 1, backgroundColor: colors.background },
+
+  header: {
+    height: HEADER_H,
+    backgroundColor: colors.primary,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 12,
+    paddingTop: Platform.OS === 'ios' ? 8 : 4,
+  },
+
+  backButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+  },
+
+  backIcon: {
+    fontSize: 28,
+    color: colors.white,
+    marginRight: 4,
+  },
+
+  backText: {
+    fontSize: 16,
+    color: colors.white,
+    fontWeight: '600',
+  },
+
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: colors.white,
+  },
+
   content: { flex: 1, paddingBottom: TAB_BAR_H },
   tabBar:  { position: 'absolute', bottom: 0, left: 0, right: 0 },
 });

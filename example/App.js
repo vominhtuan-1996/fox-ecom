@@ -35,6 +35,7 @@ export function App() {
         environment="staging"
         delay={2000}
         demoMode={true}
+        onBack={() => setCurrentRoute('menu')}
       />
     );
   }
