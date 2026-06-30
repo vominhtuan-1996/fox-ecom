@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
-import { useAuth } from 'fox-ecom/modules/auth';
-import { useNavigation } from 'fox-ecom/modules/navigation';
-import { useProducts } from 'fox-ecom/modules/products';
-import { useCart } from 'fox-ecom/modules/cart';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView, LogBox } from 'react-native';
+import { useAuth, useNavigation, useProducts, useCart } from 'fox-ecom';
+
+// Suppress RN internal LogBox Flow type errors
+LogBox.ignoreLogs([/SyntaxError.*LogBox/, /missing-asset-registry-path/]);
 
 export function App() {
   const { user, isAuthenticated, logout } = useAuth();
