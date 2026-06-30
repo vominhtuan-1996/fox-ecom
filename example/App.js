@@ -28,13 +28,11 @@ export function App() {
 
   // Show FoxEcomSDK when route is 'fox-ecom-sdk'
   // FoxEcomSDK is self-contained: init screen → TabNavigator
-  // (no callback needed)
   if (currentRoute === 'fox-ecom-sdk') {
     return (
       <FoxEcomSDK
         token="demo-token"
         environment="staging"
-        baseUrl="https://apis-stag.fpt.vn"
         delay={2000}
         demoMode={true}
       />
