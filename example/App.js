@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView, LogBox } from 'react-native';
-import { useAuth, useNavigation, useProducts, useCart, LauncherScreen } from 'fox-ecom';
+import { useAuth, useNavigation, useProducts, useCart, LauncherScreen, HomeScreen } from 'fox-ecom';
 
 // Suppress RN internal LogBox Flow type errors
 LogBox.ignoreLogs([/SyntaxError.*LogBox/, /missing-asset-registry-path/]);
@@ -128,7 +128,7 @@ export function App() {
       </TouchableOpacity>
 
       <ScrollView style={styles.content}>
-        {currentScreen === 'home' && <HomeContent onNavigate={() => handleMenuPress('products')} />}
+        {currentScreen === 'home' && <HomeScreen userName={user?.name || 'User'} />}
         {currentScreen === 'products' && <ProductsContent />}
         {currentScreen === 'cart' && <CartContent />}
         {currentScreen === 'profile' && <ProfileContent onLogout={logout} />}

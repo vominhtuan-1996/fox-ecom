@@ -47,6 +47,7 @@ export { SvgIcon } from './presentation/components/SvgIcon';
 export * from './presentation/components/multi_select';
 export { Navigator } from './presentation/navigator/Navigator';
 export { LauncherScreen } from './presentation/screens/LauncherScreen';
+export { HomeScreen } from './presentation/screens/home/HomeScreen';
 
 // ============================================================
 // ============================================================
