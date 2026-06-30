@@ -15,12 +15,8 @@ const MENU_ITEMS = [
 
 export function App() {
   const { navigate } = useNavigation();
-  const [currentScreen, setCurrentScreen] = useState('launcher');
+  const [currentScreen, setCurrentScreen] = useState('menu');
   const [sdkConfig, setSdkConfig] = useState(null);
-
-  const handleLauncherComplete = () => {
-    setCurrentScreen('menu');
-  };
 
   const handleMenuPress = (itemId) => {
     if (itemId === 'sdk') {
@@ -37,18 +33,6 @@ export function App() {
       navigate(itemId);
     }
   };
-
-  if (currentScreen === 'launcher') {
-    return (
-      <FoxEcomSDK
-        token="demo-token"
-        environment="staging"
-        baseUrl="https://apis-stag.fpt.vn"
-        delay={2000}
-        onComplete={handleLauncherComplete}
-      />
-    );
-  }
 
   if (currentScreen === 'sdk' && sdkConfig) {
     return (
