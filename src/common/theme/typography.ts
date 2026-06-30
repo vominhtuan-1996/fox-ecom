@@ -18,15 +18,42 @@ export const fontWeight = {
   black:    '900' as const,
 } as const;
 
-// ── Type scale (FoxPro specimen) ──────────────────────────────────
+// ── Type scale — Fox-Eco Design System v1.0 ───────────────────────
+// Source: Fox-Eco-Design.md § 3.2 Type Scale
 export const typography = {
-  // Headings
-  h1: { fontSize: 32, lineHeight: 38, fontWeight: fontWeight.heavy    } as TextStyle,
-  h2: { fontSize: 30, lineHeight: 36, fontWeight: fontWeight.heavy    } as TextStyle,
-  h3: { fontSize: 26, lineHeight: 32, fontWeight: fontWeight.heavy    } as TextStyle,
-  h4: { fontSize: 22, lineHeight: 28, fontWeight: fontWeight.bold     } as TextStyle,
-  h5: { fontSize: 18, lineHeight: 24, fontWeight: fontWeight.semibold } as TextStyle,
+  // ── Fox-Eco-Design Standard Scale ─────────────────────────────────
+  // Display: 28px / 700 / 36px — Heading màn hình chính
+  display: { fontSize: 28, lineHeight: 36, fontWeight: fontWeight.bold } as TextStyle,
 
+  // Heading 1: 24px / 700 / 32px — Section title
+  h1: { fontSize: 24, lineHeight: 32, fontWeight: fontWeight.bold } as TextStyle,
+  'heading-1': { fontSize: 24, lineHeight: 32, fontWeight: fontWeight.bold } as TextStyle,
+
+  // Heading 2: 20px / 600 / 28px — Card title, modal title
+  h2: { fontSize: 20, lineHeight: 28, fontWeight: fontWeight.semibold } as TextStyle,
+  'heading-2': { fontSize: 20, lineHeight: 28, fontWeight: fontWeight.semibold } as TextStyle,
+
+  // Heading 3: 18px / 600 / 24px — Sub-heading
+  h3: { fontSize: 18, lineHeight: 24, fontWeight: fontWeight.semibold } as TextStyle,
+  'heading-3': { fontSize: 18, lineHeight: 24, fontWeight: fontWeight.semibold } as TextStyle,
+
+  // Body Large: 16px / 400 / 24px — Body text chính
+  'body-large': { fontSize: 16, lineHeight: 24, fontWeight: fontWeight.regular } as TextStyle,
+
+  // Body: 14px / 400 / 20px — Text thông thường
+  body: { fontSize: 14, lineHeight: 20, fontWeight: fontWeight.regular } as TextStyle,
+
+  // Body Medium: 14px / 500 / 20px — Label, caption quan trọng
+  'body-medium': { fontSize: 14, lineHeight: 20, fontWeight: fontWeight.medium } as TextStyle,
+  bodyMedium: { fontSize: 14, lineHeight: 20, fontWeight: fontWeight.medium } as TextStyle,
+
+  // Caption: 12px / 400 / 16px — Meta info, timestamp
+  caption: { fontSize: 12, lineHeight: 16, fontWeight: fontWeight.regular } as TextStyle,
+
+  // Overline: 11px / 600 / 16px — Label nhỏ uppercase
+  overline: { fontSize: 11, lineHeight: 16, fontWeight: fontWeight.semibold } as TextStyle,
+
+  // ── Legacy compat aliases (FoxPro + old system) ──────────────────
   // Subtitles
   s1: { fontSize: 20, lineHeight: 28, fontWeight: fontWeight.semibold } as TextStyle,
   s2: { fontSize: 16, lineHeight: 22, fontWeight: fontWeight.semibold } as TextStyle,
@@ -45,15 +72,15 @@ export const typography = {
   tiny:   { fontSize: 10, lineHeight: 12, fontWeight: fontWeight.regular } as TextStyle,
   button: { fontSize: 16, lineHeight: 16, fontWeight: fontWeight.bold    } as TextStyle,
 
-  // Legacy compat aliases (map cũ → mới)
-  display:       { fontSize: 36, lineHeight: 44, fontWeight: fontWeight.heavy   } as TextStyle,
-  body:          { fontSize: 16, lineHeight: 24, fontWeight: fontWeight.regular } as TextStyle,
-  bodyMedium:    { fontSize: 16, lineHeight: 24, fontWeight: fontWeight.medium  } as TextStyle,
+  // Old body sizes
   bodySm:        { fontSize: 14, lineHeight: 18, fontWeight: fontWeight.regular } as TextStyle,
   bodySmMedium:  { fontSize: 14, lineHeight: 18, fontWeight: fontWeight.medium  } as TextStyle,
-  caption:       { fontSize: 12, lineHeight: 16, fontWeight: fontWeight.regular } as TextStyle,
   captionMedium: { fontSize: 12, lineHeight: 16, fontWeight: fontWeight.medium  } as TextStyle,
   labelSm:       { fontSize: 10, lineHeight: 12, fontWeight: fontWeight.medium  } as TextStyle,
+
+  // Old heading sizes (FoxPro compat)
+  h4: { fontSize: 22, lineHeight: 28, fontWeight: fontWeight.bold     } as TextStyle,
+  h5: { fontSize: 18, lineHeight: 24, fontWeight: fontWeight.semibold } as TextStyle,
 } as const;
 
 // Legacy exports
@@ -66,4 +93,5 @@ export const lineHeight = {
   tight: 1.2, normal: 1.5, relaxed: 1.75, loose: 2,
 } as const;
 
+// Union type for all available typography keys
 export type TypographyKey = keyof typeof typography;
