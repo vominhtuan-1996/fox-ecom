@@ -202,16 +202,12 @@ const s = StyleSheet.create({
   },
 
   backButton: {
-    backgroundColor: colors.white,
-    borderRadius: spacing.sm,
     padding: spacing.sm,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 
   backArrow: {
-    fontSize: 24,
-    color: colors.primary,
+    fontSize: 28,
+    color: colors.white,
     fontWeight: '300',
   },
 
