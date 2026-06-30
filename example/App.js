@@ -17,14 +17,24 @@ export function App() {
   const { user, logout } = useAuth();
   const { navigate } = useNavigation();
   const [currentScreen, setCurrentScreen] = useState('launcher');
+  const [launcherTarget, setLauncherTarget] = useState(null);
 
   const handleLauncherComplete = () => {
-    setCurrentScreen('menu');
+    if (launcherTarget) {
+      // Navigate to target after launcher completes
+      navigate(launcherTarget);
+      setLauncherTarget(null);
+      setCurrentScreen(launcherTarget);
+    } else {
+      setCurrentScreen('menu');
+    }
   };
 
   const handleMenuPress = (itemId) => {
     if (itemId === 'sdk') {
-      setCurrentScreen('sdk-info');
+      // Show launcher then navigate to home
+      setLauncherTarget('home');
+      setCurrentScreen('sdk-launcher');
     } else {
       setCurrentScreen(itemId);
       navigate(itemId);
@@ -33,6 +43,15 @@ export function App() {
 
   if (currentScreen === 'launcher') {
     return <LauncherScreen onComplete={handleLauncherComplete} delay={2000} />;
+  }
+
+  if (currentScreen === 'sdk-launcher') {
+    return (
+      <LauncherScreen
+        onComplete={handleLauncherComplete}
+        delay={2000}
+      />
+    );
   }
 
   if (currentScreen === 'menu') {
