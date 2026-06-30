@@ -20,7 +20,7 @@ interface RankScreenProps {
 const PodiumStep: React.FC<{ user: RankUser; position: 1 | 2 | 3 }> = ({ user, position }) => {
   const heights   = { 1: 110, 2: 80, 3: 64 };
   const avatarSizes: ('lg' | 'md')[] = ['lg', 'md', 'md'];
-  const podColors = { 1: '#FFD700', 2: '#C0C0C0', 3: '#CD7F32' };
+  const podColors = { 1: colors.warning, 2: colors.gray200, 3: colors.gray100 };
   const medals    = { 1: '👑', 2: '🥈', 3: '🥉' };
   const isFirst   = position === 1;
 
@@ -33,7 +33,7 @@ const PodiumStep: React.FC<{ user: RankUser; position: 1 | 2 | 3 }> = ({ user, p
       <Text style={po.co2}>🌿 {user.co2Kg.toFixed(1)} kg</Text>
 
       {/* Pedestal */}
-      <View style={[po.pedestal, { height: heights[position], backgroundColor: podColors[position] + (isFirst ? 'FF' : 'CC') }]}>
+      <View style={[po.pedestal, { height: heights[position], backgroundColor: podColors[position] + (isFirst ? 'FF' : '99') }]}>
         <Text style={po.pedestalNum}>{position}</Text>
       </View>
     </View>
@@ -43,12 +43,12 @@ const PodiumStep: React.FC<{ user: RankUser; position: 1 | 2 | 3 }> = ({ user, p
 const po = StyleSheet.create({
   wrap:      { alignItems: 'center', flex: 1, justifyContent: 'flex-end' },
   wrapFirst: { marginBottom: 0 },
-  medal:     { fontSize: 22, marginBottom: 4 },
+  medal:     { ...typography.h2, marginBottom: spacing.xs, textAlign: 'center' },
   avatar:    { marginBottom: spacing.xs },
-  name:      { ...typography.c1, color: colors.text, fontWeight: '700', marginBottom: 2, textAlign: 'center' } as object,
-  co2:       { ...typography.tiny, color: colors.green, marginBottom: spacing.xs } as object,
-  pedestal:  { width: '100%', alignItems: 'center', justifyContent: 'center', borderTopLeftRadius: 8, borderTopRightRadius: 8 },
-  pedestalNum: { ...typography.h4, color: colors.white, fontWeight: '900' } as object,
+  name:      { ...typography.c1, color: colors.text, fontWeight: '700', marginBottom: spacing.xs, textAlign: 'center' } as object,
+  co2:       { ...typography.caption, color: colors.success, marginBottom: spacing.xs } as object,
+  pedestal:  { width: '100%', alignItems: 'center', justifyContent: 'center', borderTopLeftRadius: borderRadius.sm, borderTopRightRadius: borderRadius.sm },
+  pedestalNum: { ...typography.h3, color: colors.white, fontWeight: '900' } as object,
 });
 
 // ── Rest list row ─────────────────────────────────────────────────────────────
@@ -68,16 +68,16 @@ const RestRow: React.FC<{ user: RankUser; rank: number; isMe: boolean }> = ({ us
 );
 
 const rr = StyleSheet.create({
-  row:    { flexDirection: 'row', alignItems: 'center', paddingVertical: spacing.md, paddingHorizontal: spacing.lg, borderBottomWidth: 1, borderBottomColor: colors.borderSubtle, backgroundColor: colors.surface },
+  row:    { flexDirection: 'row', alignItems: 'center', paddingVertical: spacing.md, paddingHorizontal: spacing.lg, borderBottomWidth: 1, borderBottomColor: colors.borderLightest, backgroundColor: colors.surface },
   rowMe:  { backgroundColor: colors.surfacePeach },
-  rank:   { width: 32, ...typography.c1, color: colors.textSecondary, fontWeight: '700' } as object,
+  rank:   { width: spacing.lg + spacing.sm, ...typography.c1, color: colors.textSecondary, fontWeight: '700', textAlign: 'center' } as object,
   info:   { flex: 1, marginLeft: spacing.md },
-  name:   { ...typography.p2, color: colors.text } as object,
+  name:   { ...typography.body, color: colors.text } as object,
   nameMe: { color: colors.primary, fontWeight: '700' },
-  dept:   { ...typography.c2, color: colors.textSecondary } as object,
+  dept:   { ...typography.caption, color: colors.textSecondary } as object,
   right:  { alignItems: 'flex-end' },
-  co2:    { ...typography.c1, color: colors.green, fontWeight: '700' } as object,
-  pts:    { ...typography.c2, color: colors.textSecondary } as object,
+  co2:    { ...typography.c1, color: colors.success, fontWeight: '700' } as object,
+  pts:    { ...typography.caption, color: colors.textSecondary } as object,
 });
 
 // ── Main ──────────────────────────────────────────────────────────────────────
@@ -99,14 +99,14 @@ export const RankScreen: React.FC<RankScreenProps> = ({ currentUserId = 'u1', on
     <View style={s.root}>
 
       {/* Header */}
-      <View style={[s.header, { paddingTop: spacing.sm }]}>
+      <View style={s.header}>
         {onBack && (
-          <TouchableOpacity onPress={onBack} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+          <TouchableOpacity onPress={onBack} hitSlop={{ top: spacing.md, bottom: spacing.md, left: spacing.md, right: spacing.md }}>
             <Text style={s.back}>‹</Text>
           </TouchableOpacity>
         )}
-        <AppText variant="s1" color="white" style={s.title}>Bảng vinh danh 🏆</AppText>
-        <View style={{ width: 32 }} />
+        <AppText variant="h1" color="textInverse" style={s.title}>Bảng vinh danh 🏆</AppText>
+        <View style={{ width: spacing.lg + spacing.sm }} />
       </View>
 
       <FlatList
@@ -160,15 +160,15 @@ const s = StyleSheet.create({
 
   header: {
     flexDirection: 'row', alignItems: 'center',
-    paddingHorizontal: spacing.lg, paddingBottom: spacing.md,
+    paddingHorizontal: spacing.lg, paddingBottom: spacing.md, paddingTop: spacing.md,
     backgroundColor: colors.primary,
   },
-  back:  { ...typography.h3, color: colors.white, lineHeight: 28, marginRight: spacing.md } as object,
+  back:  { ...typography.h3, color: colors.textInverse, marginRight: spacing.md } as object,
   title: { flex: 1 },
 
   podiumSection: {
     backgroundColor: colors.primary,
-    paddingBottom: 0, paddingHorizontal: spacing.xl, paddingTop: spacing.md,
+    paddingBottom: spacing.sm, paddingHorizontal: spacing.lg, paddingTop: spacing.md,
   },
   podiumRow: { flexDirection: 'row', alignItems: 'flex-end', height: 220 },
 
@@ -178,11 +178,11 @@ const s = StyleSheet.create({
     flexDirection: 'row', alignItems: 'center',
     paddingHorizontal: spacing.lg, paddingVertical: spacing.md,
     backgroundColor: colors.surface,
-    borderTopWidth: 1, borderTopColor: colors.border,
-    paddingBottom: spacing.md + (Platform.OS === 'ios' ? 20 : 0),
+    borderTopWidth: 1, borderTopColor: colors.borderLight,
+    paddingBottom: spacing.md + (Platform.OS === 'ios' ? spacing.lg : 0),
     ...(shadows.bar as object),
   },
-  myRankLabel: { ...typography.c2, color: colors.textSecondary, marginRight: spacing.sm } as object,
-  myRankNum:   { ...typography.s2, color: colors.text, marginRight: spacing.sm } as object,
-  myRankCo2:   { ...typography.c1, color: colors.green, flex: 1 } as object,
+  myRankLabel: { ...typography.caption, color: colors.textSecondary, marginRight: spacing.sm } as object,
+  myRankNum:   { ...typography.h2, color: colors.text, marginRight: spacing.sm } as object,
+  myRankCo2:   { ...typography.c1, color: colors.success, flex: 1 } as object,
 });
