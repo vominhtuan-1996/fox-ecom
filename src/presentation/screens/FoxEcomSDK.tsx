@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, ActivityIndicator } from 'react-native';
 import { splashModule, type SplashConfig } from '../../modules/splash/SplashModule';
+import { TabNavigator } from '../app/TabNavigator';
 
 interface FoxEcomSDKProps {
   onComplete?: () => void;
@@ -26,6 +27,7 @@ export const FoxEcomSDK: React.FC<FoxEcomSDKProps> = ({
 }) => {
   const [status, setStatus] = useState<string>('Initializing...');
   const [isComplete, setIsComplete] = useState(false);
+  const [initSuccess, setInitSuccess] = useState(false);
 
   useEffect(() => {
     const initializeSplash = async () => {
@@ -46,10 +48,11 @@ export const FoxEcomSDK: React.FC<FoxEcomSDKProps> = ({
 
         if (result.success) {
           setStatus('Services initialized');
-          
+
           // Wait for delay before completing
           setTimeout(() => {
             setIsComplete(true);
+            setInitSuccess(true);
             onComplete?.();
           }, delay);
         } else {
@@ -63,6 +66,12 @@ export const FoxEcomSDK: React.FC<FoxEcomSDKProps> = ({
     initializeSplash();
   }, [config, delay, onComplete, token, environment, baseUrl, timeout]);
 
+  // After initialization success, show TabNavigator
+  if (initSuccess) {
+    return <TabNavigator />;
+  }
+
+  // During initialization, show splash screen
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>

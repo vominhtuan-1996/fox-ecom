@@ -48,6 +48,7 @@ export * from './presentation/components/multi_select';
 export { Navigator } from './presentation/navigator/Navigator';
 export { HomeScreen } from './presentation/screens/home/HomeScreen';
 export { FoxEcomSDK } from './presentation/screens/FoxEcomSDK';
+export { TabNavigator } from './presentation/app/TabNavigator';
 
 // ============================================================
 // ============================================================
