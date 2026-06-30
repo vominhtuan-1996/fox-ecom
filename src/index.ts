@@ -48,7 +48,7 @@ export * from './presentation/components/multi_select';
 export { Navigator } from './presentation/navigator/Navigator';
 export { LauncherScreen } from './presentation/screens/LauncherScreen';
 export { HomeScreen } from './presentation/screens/home/HomeScreen';
-export { SplashScreen } from './presentation/screens/SplashScreen';
+export { FoxEcomSDK } from './presentation/screens/FoxEcomSDK';
 
 // ============================================================
 // ============================================================

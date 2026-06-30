@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, ActivityIndicator } from 'react-native';
 import { splashModule, type SplashConfig } from '../../modules/splash/SplashModule';
 
-interface SplashScreenProps {
+interface FoxEcomSDKProps {
   onComplete?: () => void;
   config?: SplashConfig;
   delay?: number;
@@ -14,7 +14,7 @@ interface SplashScreenProps {
   timeout?: number;
 }
 
-export const SplashScreen: React.FC<SplashScreenProps> = ({
+export const FoxEcomSDK: React.FC<FoxEcomSDKProps> = ({
   onComplete,
   config,
   delay = 3000,
