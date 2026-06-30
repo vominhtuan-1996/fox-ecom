@@ -3,7 +3,7 @@ import { View, StyleSheet, Platform, TouchableOpacity, Text, SafeAreaView } from
 import { Navigator } from '../navigator/Navigator';
 import { NavigatorRef, ScreenProps } from '../navigator/types';
 import { AppBottomTabBar, TabKey } from '../components/shared/AppBottomTabBar';
-import { colors } from '../../common/theme';
+import { colors, spacing } from '../../common/theme';
 import { SvgIcon } from '../components/SvgIcon';
 
 // HomeScreen V2 là .jsx (JS thuần) — @ts-ignore bỏ qua type check
@@ -197,15 +197,20 @@ const s = StyleSheet.create({
   root:    { flex: 1, backgroundColor: colors.background },
 
   safeHeader: {
-    paddingHorizontal: 12,
+    backgroundColor: colors.primary,
+    paddingHorizontal: spacing.md,
   },
 
   backButton: {
-    padding: 8,
+    backgroundColor: colors.white,
+    borderRadius: spacing.sm,
+    padding: spacing.sm,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   backArrow: {
-    fontSize: 28,
+    fontSize: 24,
     color: colors.primary,
     fontWeight: '300',
   },
