@@ -50,7 +50,7 @@ function HomeStack({ userId, onGoCarry, onGoNotifications }: { userId: string; o
         />
       )}
       hideHeader
-      useSafeArea={true}
+      useSafeArea={false}
     />
   );
 }
@@ -165,16 +165,12 @@ export const TabNavigator: React.FC<TabNavigatorProps> = ({
 
   return (
     <View style={s.root}>
-      {/* Header with back button - wrapped in SafeAreaView to avoid status bar */}
+      {/* Back button - wrapped in SafeAreaView to avoid status bar */}
       {onGoBack && (
         <SafeAreaView style={s.safeHeader}>
-          <View style={s.header}>
-            <TouchableOpacity style={s.backButton} onPress={onGoBack}>
-              <Text style={s.backArrow}>←</Text>
-            </TouchableOpacity>
-            <Text style={s.headerTitle}>Fox eCommerce</Text>
-            <View style={{ width: 40 }} />
-          </View>
+          <TouchableOpacity style={s.backButton} onPress={onGoBack}>
+            <Text style={s.backArrow}>←</Text>
+          </TouchableOpacity>
         </SafeAreaView>
       )}
 
@@ -196,21 +192,11 @@ export const TabNavigator: React.FC<TabNavigatorProps> = ({
 };
 
 const TAB_BAR_H = 62 + (Platform.OS === 'ios' ? 20 : 0);
-const HEADER_H = 56;
 
 const s = StyleSheet.create({
   root:    { flex: 1, backgroundColor: colors.background },
 
   safeHeader: {
-    backgroundColor: colors.primary,
-  },
-
-  header: {
-    height: HEADER_H,
-    backgroundColor: colors.primary,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     paddingHorizontal: 12,
   },
 
@@ -219,15 +205,9 @@ const s = StyleSheet.create({
   },
 
   backArrow: {
-    fontSize: 24,
-    color: colors.white,
+    fontSize: 28,
+    color: colors.primary,
     fontWeight: '300',
-  },
-
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: colors.white,
   },
 
   content: { flex: 1, paddingBottom: TAB_BAR_H },
