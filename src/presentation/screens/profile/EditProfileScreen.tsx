@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   View, Text, TouchableOpacity, ScrollView,
-  StyleSheet, Platform, StatusBar,
+  StyleSheet, Platform,
 } from 'react-native';
 import { colors, typography, spacing, borderRadius, layout } from '../../../common/theme';
 import { AppText } from '../../components/shared/AppText';
@@ -22,7 +22,6 @@ interface EditProfileScreenProps {
   onSaved?: () => void;
 }
 
-const STATUS_H = Platform.OS === 'ios' ? 44 : (StatusBar.currentHeight ?? 24);
 
 export const EditProfileScreen: React.FC<EditProfileScreenProps> = ({
   userId = 'u1',
@@ -43,9 +42,8 @@ export const EditProfileScreen: React.FC<EditProfileScreenProps> = ({
 
   return (
     <View style={s.root}>
-      <StatusBar barStyle="dark-content" backgroundColor={colors.surface} />
 
-      <View style={[s.header, { paddingTop: STATUS_H + spacing.sm }]}>
+      <View style={[s.header, { paddingTop: spacing.sm }]}>
         <TouchableOpacity onPress={onBack} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Text style={s.back}>‹</Text>
         </TouchableOpacity>

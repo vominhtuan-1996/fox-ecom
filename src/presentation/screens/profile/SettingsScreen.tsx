@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   View, Text, TouchableOpacity, Switch,
-  StyleSheet, Platform, StatusBar, ScrollView,
+  StyleSheet, Platform, ScrollView,
 } from 'react-native';
 import { colors, typography, spacing, borderRadius } from '../../../common/theme';
 import { AppText } from '../../components/shared/AppText';
@@ -13,7 +13,6 @@ interface SettingsScreenProps {
   appVersion?: string;
 }
 
-const STATUS_H = Platform.OS === 'ios' ? 44 : (StatusBar.currentHeight ?? 24);
 
 interface ToggleSetting { label: string; sub: string; key: string }
 
@@ -36,9 +35,8 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
 
   return (
     <View style={s.root}>
-      <StatusBar barStyle="dark-content" backgroundColor={colors.surface} />
 
-      <View style={[s.header, { paddingTop: STATUS_H + spacing.sm }]}>
+      <View style={[s.header, { paddingTop: spacing.sm }]}>
         <TouchableOpacity onPress={onBack} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Text style={s.back}>‹</Text>
         </TouchableOpacity>
