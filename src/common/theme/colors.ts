@@ -1,68 +1,59 @@
-// FoxPro Design System — Color tokens
-// Source: Fox Pro - Design System.fig (FPT Telecom · UXUI Team)
+// Fox-Eco Design System — Color tokens
+// Source: Fox-Eco-Design.md (29/06/2026, v1.0)
+// Design System: FTel Carry — Mobile & Web
 
 export const colors = {
-  // ── Brand ────────────────────────────────────────────────────
-  primary:       '#FF8500',   // Flush Orange — brand primary
-  primaryLight:  '#FFA800',   // gradient start
-  primaryDark:   '#E67600',
-  secondary:     '#5933EB',   // Royal Blue — brand secondary
-  secondaryLight:'#6E4BFF',   // gradient start
-  secondaryDark: '#2E008E',   // gradient end
+  // ── PRIMARY COLORS (Brand: Orange) ────────────────────────────
+  primary:         '#FF8500',   // primary-500: CTA chính, logo bg, brand
+  primaryLight:    '#FFA800',   // primary-600: hover/pressed state
+  primaryLightest: '#FFF1E6',   // primary-100: background highlight
+  primaryDark:     '#FF8A00',   // primary-400: icon active, link visited
 
-  // ── Accent ───────────────────────────────────────────────────
-  green:         '#0BD78C',   // Harlequin — success / CO₂
-  blue:          '#16ADFF',   // Dodger Blue — info / link
-  focusBlue:     '#284EEB',   // input focus ring
+  // ── SECONDARY / ACCENT COLORS (Blue) ──────────────────────────
+  secondary:       '#284EEB',   // accent-500: secondary CTA, link
+  secondaryActive: '#5933EB',   // accent-600: active state accent
+  secondaryLight:  '#6E4BFF',   // accent-400: badge, highlight
+  secondaryDark:   '#2E008E',   // accent-deep: text accent on light bg
 
-  // ── Semantic ─────────────────────────────────────────────────
-  success:       '#0BD78C',
-  warning:       '#FF8500',
-  error:         '#F43F4A',   // Red Orange
-  info:          '#16ADFF',
+  // ── SEMANTIC COLORS ───────────────────────────────────────────
+  success:         '#0BD78C',   // success-500: delivered, completed
+  info:            '#16ADFF',   // info-500: tracking active, info notification
+  error:           '#F43F4A',   // error-500: error, warning, cancel order
+  warning:         '#FFC24D',   // warning-500: soft alert, timeout coming
 
-  // ── Neutrals (light → dark) ───────────────────────────────────
-  white:         '#FFFFFF',
-  athensGray:    '#FAFAFB',   // app background
-  mist:          '#F6F6F6',   // header / hairline
-  fill:          '#ECEDEF',   // dividers / section fill
-  iron:          '#CFD2D7',   // borders
-  grayChateau:   '#A0A4AF',   // muted text / icon
-  paleSky:       '#666D7C',   // secondary text
-  oxfordBlue:    '#3C4459',   // strong text
-  bigStone:      '#111C36',   // primary text
-  black:         '#000000',
+  // ── TEXT / TYPOGRAPHY ─────────────────────────────────────────
+  text:            '#111C36',   // text-900: primary text, heading
+  textStrong:      '#3C4459',   // text-700: secondary text, subtitle
+  textSecondary:   '#666D7C',   // text-500: label, caption, placeholder
+  textTertiary:    '#A0A4AF',   // text-300: placeholder, disabled text
+  textInverse:     '#FFFFFF',   // white text on dark bg
 
-  // ── Surfaces ─────────────────────────────────────────────────
-  background:    '#FAFAFB',
-  surface:       '#FFFFFF',
-  surfaceSubtle: '#F6F6F6',
-  surfacePeach:  '#FFF1E6',   // tinted-orange highlight
+  // ── BORDER & DIVIDER ──────────────────────────────────────────
+  border:          '#CFD2D7',   // border-300: default border
+  borderLight:     '#E7E9EE',   // border-200: light divider
+  borderLightest:  '#ECEDEF',   // border-100: subtle separator
+  borderStrong:    '#A0A4AF',   // strong border
 
-  // ── Text aliases ─────────────────────────────────────────────
-  text:          '#111C36',
-  textSecondary: '#666D7C',
-  textTertiary:  '#A0A4AF',
-  textStrong:    '#3C4459',
-  textInverse:   '#FFFFFF',
-  textLink:      '#16ADFF',
+  // ── SURFACES & BACKGROUNDS ────────────────────────────────────
+  background:      '#faf9f5',   // app background (warm off-white)
+  surface:         '#FFFFFF',   // card/modal background
+  surfaceLight:    '#FAFAFB',   // surface-100: lighter surface
+  surfaceLighter:  '#F6F6F6',   // surface-200: card background
+  surfacePeach:    '#FFF1E6',   // tinted-orange highlight
 
-  // ── Border aliases ────────────────────────────────────────────
-  border:        '#CFD2D7',
-  borderSubtle:  '#F6F6F6',
-  borderStrong:  '#A0A4AF',
-
-  // ── Legacy aliases (compat cũ, xóa dần) ──────────────────────
-  gray50:  '#FAFAFB',
-  gray100: '#F6F6F6',
-  gray200: '#ECEDEF',
-  gray300: '#CFD2D7',
-  gray400: '#A0A4AF',
-  gray500: '#666D7C',
-  gray600: '#3C4459',
-  gray700: '#3C4459',
-  gray800: '#111C36',
-  gray900: '#111C36',
+  // ── NEUTRALS / GRAYSCALE (Legacy) ──────────────────────────────
+  white:           '#FFFFFF',
+  black:           '#000000',
+  gray50:          '#FAFAFB',   // lightest
+  gray100:         '#F6F6F6',
+  gray200:         '#ECEDEF',
+  gray300:         '#CFD2D7',
+  gray400:         '#A0A4AF',
+  gray500:         '#666D7C',
+  gray600:         '#3C4459',
+  gray700:         '#3C4459',
+  gray800:         '#111C36',   // darkest
+  gray900:         '#111C36',
 } as const;
 
 export type ColorKey = keyof typeof colors;
