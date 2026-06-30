@@ -48,6 +48,7 @@ export * from './presentation/components/multi_select';
 export { Navigator } from './presentation/navigator/Navigator';
 export { LauncherScreen } from './presentation/screens/LauncherScreen';
 export { HomeScreen } from './presentation/screens/home/HomeScreen';
+export { SplashScreen } from './presentation/screens/SplashScreen';
 
 // ============================================================
 // ============================================================
@@ -64,6 +65,7 @@ export { useAuth, authService } from './modules/auth';
 export { useNavigation, sdkRouter } from './modules/navigation';
 export { useProducts, productService } from './modules/products';
 export { useCart, cartService } from './modules/cart';
+export { splashModule, type SplashConfig, type SplashResult } from './modules/splash';
 
 // ============================================================
 // DI CONTAINER (Dependency Injection)
