@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView, LogBox } from 'react-native';
-import { useNavigation, FoxEcomSDK } from 'fox-ecom';
+import { useNavigation } from 'fox-ecom';
 
 // Suppress RN internal LogBox Flow type errors
 LogBox.ignoreLogs([/SyntaxError.*LogBox/, /missing-asset-registry-path/]);
@@ -10,69 +10,40 @@ const MENU_ITEMS = [
   { id: 'products', title: 'Products', icon: '📦', color: '#4ECDC4' },
   { id: 'cart', title: 'Cart', icon: '🛒', color: '#45B7D1' },
   { id: 'profile', title: 'Profile', icon: '👤', color: '#96CEB4' },
-  { id: 'sdk', title: 'Fox SDK', icon: '🦊', color: '#FFEAA7' },
+  { id: 'foxecomsdk', title: 'Fox SDK', icon: '🦊', color: '#FFEAA7' },
 ];
 
 export function App() {
   const { navigate } = useNavigation();
-  const [currentScreen, setCurrentScreen] = useState('menu');
-  const [sdkConfig, setSdkConfig] = useState(null);
 
   const handleMenuPress = (itemId) => {
-    if (itemId === 'sdk') {
-      // Show FoxEcomSDK with initialization
-      setSdkConfig({
-        token: 'demo-token-12345',
-        environment: 'staging',
-        baseUrl: 'https://apis-stag.fpt.vn',
-        timeout: 5000,
-      });
-      setCurrentScreen('sdk');
-    } else {
-      // Navigate to other SDK screens
-      navigate(itemId);
-    }
+    navigate(itemId);
   };
 
-  if (currentScreen === 'sdk' && sdkConfig) {
-    return (
-      <FoxEcomSDK
-        {...sdkConfig}
-        delay={2000}
-        onComplete={() => {
-          setCurrentScreen('menu');
-          setSdkConfig(null);
-        }}
-      />
-    );
-  }
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>Fox eCommerce</Text>
+        <Text style={styles.subtitle}>Example App Menu</Text>
+      </View>
 
-  if (currentScreen === 'menu') {
-    return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.title}>Fox eCommerce</Text>
-          <Text style={styles.subtitle}>Example App Menu</Text>
+      <ScrollView style={styles.gridContainer}>
+        <View style={styles.grid}>
+          {MENU_ITEMS.map((item) => (
+            <TouchableOpacity
+              key={item.id}
+              style={[styles.menuItem, { backgroundColor: item.color }]}
+              onPress={() => handleMenuPress(item.id)}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.icon}>{item.icon}</Text>
+              <Text style={styles.menuTitle}>{item.title}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
-
-        <ScrollView style={styles.gridContainer}>
-          <View style={styles.grid}>
-            {MENU_ITEMS.map((item) => (
-              <TouchableOpacity
-                key={item.id}
-                style={[styles.menuItem, { backgroundColor: item.color }]}
-                onPress={() => handleMenuPress(item.id)}
-                activeOpacity={0.8}
-              >
-                <Text style={styles.icon}>{item.icon}</Text>
-                <Text style={styles.menuTitle}>{item.title}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    );
-  }
+      </ScrollView>
+    </SafeAreaView>
+  );
 }
 
 
