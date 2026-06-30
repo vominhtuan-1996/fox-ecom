@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, View } from 'react-native';
+import { Image, View, Text } from 'react-native';
 import { ICONS, IconKey } from '../../assets/icons';
 
 interface SvgIconProps {
@@ -20,8 +20,13 @@ export const SvgIcon: React.FC<SvgIconProps> = ({ name, size = 24, color = '#000
   // Handle both React component (dev) and require() result (production)
   if (typeof iconSource === 'function') {
     // It's a React component (from Metro's SVG transformer in dev)
+    // Wrap in Text to provide color context for stroke="currentColor"
     const Icon = iconSource as React.ComponentType<any>;
-    return <Icon width={size} height={size} color={color} fill={color} />;
+    return (
+      <Text style={{ color, width: size, height: size, lineHeight: size }}>
+        <Icon width={size} height={size} color={color} stroke={color} fill={color} />
+      </Text>
+    );
   }
 
   if (typeof iconSource === 'number') {
@@ -42,7 +47,7 @@ export const SvgIcon: React.FC<SvgIconProps> = ({ name, size = 24, color = '#000
         width: size,
         height: size,
         backgroundColor: color,
-        opacity: 0.5,
+        opacity: 0.3,
         borderRadius: size / 2,
       }}
     />
