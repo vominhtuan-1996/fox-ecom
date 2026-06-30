@@ -49,7 +49,6 @@ function HomeStack({ userId, onGoCarry, onGoNotifications }: { userId: string; o
           onGoNotifications={onGoNotifications}
         />
       )}
-      hideHeader
       useSafeArea={false}
     />
   );
@@ -65,7 +64,6 @@ function RankStack({ userId }: { userId: string }) {
           return <LeaderboardScreen currentUserId={userId} onOpenRank={() => sp.push('podium')} />;
         return <RankScreen currentUserId={userId} onBack={sp.pop} />;
       }}
-      hideHeader
       useSafeArea={false}
     />
   );
@@ -103,7 +101,6 @@ function ActivityStack({ userId }: { userId: string }) {
           />
         );
       }}
-      hideHeader
       useSafeArea={false}
     />
   );
@@ -130,7 +127,6 @@ function ProfileStack({ userId }: { userId: string }) {
           />
         );
       }}
-      hideHeader
       useSafeArea={false}
     />
   );
