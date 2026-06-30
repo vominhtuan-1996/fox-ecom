@@ -14,6 +14,7 @@ interface FoxEcomSDKProps {
   environment?: 'development' | 'staging' | 'production';
   baseUrl?: string;
   timeout?: number;
+  demoMode?: boolean; // Skip API verification, always succeed
 }
 
 export const FoxEcomSDK: React.FC<FoxEcomSDKProps> = ({
@@ -25,6 +26,7 @@ export const FoxEcomSDK: React.FC<FoxEcomSDKProps> = ({
   environment,
   baseUrl,
   timeout,
+  demoMode,
 }) => {
   const [status, setStatus] = useState<string>('Initializing...');
   const [isComplete, setIsComplete] = useState(false);
@@ -42,6 +44,7 @@ export const FoxEcomSDK: React.FC<FoxEcomSDKProps> = ({
           environment: environment || config?.environment,
           baseUrl: baseUrl || config?.baseUrl,
           timeout: timeout || config?.timeout,
+          demoMode: demoMode ?? config?.demoMode ?? false,
         };
 
         // Initialize with merged config
@@ -65,7 +68,7 @@ export const FoxEcomSDK: React.FC<FoxEcomSDKProps> = ({
     };
 
     initializeSplash();
-  }, [config, delay, onComplete, token, environment, baseUrl, timeout]);
+  }, [config, delay, onComplete, token, environment, baseUrl, timeout, demoMode]);
 
   // After initialization success, show TabNavigator
   if (initSuccess) {

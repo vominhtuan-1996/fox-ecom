@@ -8,6 +8,7 @@ interface SplashConfig {
   environment?: 'development' | 'staging' | 'production';
   token?: string;
   timeout?: number;
+  demoMode?: boolean; // Skip API verification, mock success
 }
 
 interface SplashResult {
@@ -22,6 +23,7 @@ class SplashModuleImpl {
   private environment: 'development' | 'staging' | 'production' = 'staging';
   private token: string = '';
   private timeout: number = 5000;
+  private demoMode: boolean = false;
 
   /**
    * Initialize splash module with config
@@ -32,6 +34,11 @@ class SplashModuleImpl {
       this.baseUrl = config.baseUrl || this.getDefaultBaseUrl();
       this.environment = config.environment || 'staging';
       this.timeout = config.timeout || 5000;
+      this.demoMode = config.demoMode ?? false;
+
+      if (this.demoMode) {
+        console.log('[Splash] 🎪 Demo mode enabled - skipping API verification');
+      }
 
       // Verify token
       if (config.token) {
@@ -63,11 +70,25 @@ class SplashModuleImpl {
 
   /**
    * Verify token validity
+   * In demo mode, always returns true
    */
   private async verifyToken(token: string): Promise<boolean> {
     return new Promise((resolve) => {
       setTimeout(() => {
+        // In demo mode, token verification always succeeds
+        if (this.demoMode) {
+          console.log('[Splash] ✅ Token verified (demo mode)');
+          resolve(true);
+          return;
+        }
+
+        // Normal mode: validate token length
         const isValid = token.length > 10;
+        if (isValid) {
+          console.log('[Splash] ✅ Token verified');
+        } else {
+          console.log('[Splash] ❌ Token invalid');
+        }
         resolve(isValid);
       }, 500);
     });
@@ -138,6 +159,7 @@ class SplashModuleImpl {
     this.token = '';
     this.baseUrl = '';
     this.environment = 'staging';
+    this.demoMode = false;
   }
 }
 
