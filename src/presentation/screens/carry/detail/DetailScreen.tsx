@@ -176,7 +176,7 @@ export const DetailScreen: React.FC<DetailScreenProps> = ({
 const s = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.background },
 
-  header:      { backgroundColor: colors.surface, paddingHorizontal: spacing.lg, paddingBottom: spacing.md, borderBottomWidth: 1, borderBottomColor: colors.borderSubtle },
+  header:      { backgroundColor: colors.surface, paddingHorizontal: spacing.lg, paddingBottom: spacing.md, borderBottomWidth: 1, borderBottomColor: colors.borderLight },
   headerRow:   { flexDirection: 'row', alignItems: 'center' },
   back:        { ...typography.h3, color: colors.text, lineHeight: 28, marginRight: spacing.md } as object,
   headerCenter:{ flex: 1 },
@@ -203,5 +203,5 @@ const s = StyleSheet.create({
   co2Row:    { flexDirection: 'row' },
   co2Item:   { flex: 1, alignItems: 'center' },
 
-  actionWrap: { backgroundColor: colors.surface, borderTopWidth: 1, borderTopColor: colors.borderSubtle },
+  actionWrap: { backgroundColor: colors.surface, borderTopWidth: 1, borderTopColor: colors.borderLight },
 });
