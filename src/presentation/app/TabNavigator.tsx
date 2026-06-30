@@ -1,9 +1,10 @@
 import React, { useRef } from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import { Navigator } from '../navigator/Navigator';
 import { NavigatorRef, ScreenProps } from '../navigator/types';
 import { AppBottomTabBar, TabKey } from '../components/shared/AppBottomTabBar';
 import { colors } from '../../common/theme';
+import { SvgIcon } from '../components/SvgIcon';
 
 // HomeScreen V2 là .jsx (JS thuần) — @ts-ignore bỏ qua type check
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -26,11 +27,11 @@ interface TabNavigatorProps {
 }
 
 // ── Tab order V2: Trang chủ / Hoạt động / Xếp hạng / Cá nhân ─────────────────
-const TAB_CONFIG: { key: TabKey; label: string; emoji: string }[] = [
-  { key: 'home',     label: 'Trang chủ', emoji: '🏠' },
-  { key: 'activity', label: 'Hoạt động', emoji: '📋' },
-  { key: 'rank',     label: 'Xếp hạng',  emoji: '📊' },
-  { key: 'profile',  label: 'Cá nhân',   emoji: '👤' },
+const TAB_CONFIG: { key: TabKey; label: string; icon: string }[] = [
+  { key: 'home',     label: 'Trang chủ', icon: 'home' },
+  { key: 'activity', label: 'Hoạt động', icon: 'layers' },
+  { key: 'rank',     label: 'Xếp hạng',  icon: 'heart' },
+  { key: 'profile',  label: 'Cá nhân',   icon: 'custom' },
 ];
 
 // ── Stack cho từng tab ────────────────────────────────────────────────────────
@@ -142,11 +143,15 @@ export const TabNavigator: React.FC<TabNavigatorProps> = ({
 }) => {
   const [activeTab, setActiveTab] = React.useState<TabKey>('home');
 
-  const tabs = TAB_CONFIG.map(({ key, label, emoji }) => ({
+  const tabs = TAB_CONFIG.map(({ key, label, icon: iconName }) => ({
     key,
     label,
     icon: (active: boolean) => (
-      <Text style={{ fontSize: 20, opacity: active ? 1 : 0.5 }}>{emoji}</Text>
+      <SvgIcon
+        name={iconName}
+        size={24}
+        color={active ? colors.primary : colors.textTertiary}
+      />
     ),
   }));
 
