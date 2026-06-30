@@ -7,6 +7,7 @@
 import { Routing, ScreenRegistry } from './index';
 import { sdkRouter } from '@/modules/navigation';
 import { ScreenComponent } from './screen-registry';
+import { FoxEcomSDK } from '@/presentation/screens/FoxEcomSDK';
 
 /**
  * Setup routing for the app
@@ -16,8 +17,12 @@ export async function setupAppRouting(screenComponents: Record<string, ScreenCom
   try {
     console.log('🗺️ Setting up app routing...');
 
-    // 1. Register screens
-    ScreenRegistry.registerMultiple(screenComponents as any);
+    // 1. Register screens (include FoxEcomSDK by default)
+    const screensWithSDK = {
+      ...screenComponents,
+      'fox-ecom-sdk': FoxEcomSDK,
+    };
+    ScreenRegistry.registerMultiple(screensWithSDK as any);
     console.log(`✅ Registered ${ScreenRegistry.count()} screens`);
 
     // 2. Build routes with components

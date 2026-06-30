@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView, LogBox } from 'react-native';
-import { useNavigation } from 'fox-ecom';
+import { useNavigation, FoxEcomSDK } from 'fox-ecom';
 
 // Suppress RN internal LogBox Flow type errors
 LogBox.ignoreLogs([/SyntaxError.*LogBox/, /missing-asset-registry-path/]);
@@ -15,11 +15,31 @@ const MENU_ITEMS = [
 
 export function App() {
   const { navigate } = useNavigation();
+  const [currentRoute, setCurrentRoute] = useState('menu');
 
   const handleMenuPress = (itemId) => {
-    navigate(itemId);
+    if (itemId === 'fox-ecom-sdk') {
+      setCurrentRoute('fox-ecom-sdk');
+    } else {
+      setCurrentRoute(itemId);
+      navigate(itemId);
+    }
   };
 
+  // Show FoxEcomSDK when route is 'fox-ecom-sdk'
+  if (currentRoute === 'fox-ecom-sdk') {
+    return (
+      <FoxEcomSDK
+        token="demo-token"
+        environment="staging"
+        baseUrl="https://apis-stag.fpt.vn"
+        delay={2000}
+        onComplete={() => setCurrentRoute('menu')}
+      />
+    );
+  }
+
+  // Show menu by default
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
