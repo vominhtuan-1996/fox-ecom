@@ -5,7 +5,6 @@ import { TabNavigator } from '../app/TabNavigator';
 import { colors } from '../../common/theme';
 
 interface FoxEcomSDKProps {
-  onComplete?: () => void;
   config?: SplashConfig;
   delay?: number;
   showLoader?: boolean;
@@ -18,7 +17,6 @@ interface FoxEcomSDKProps {
 }
 
 export const FoxEcomSDK: React.FC<FoxEcomSDKProps> = ({
-  onComplete,
   config,
   delay = 3000,
   showLoader = true,
@@ -57,7 +55,6 @@ export const FoxEcomSDK: React.FC<FoxEcomSDKProps> = ({
           setTimeout(() => {
             setIsComplete(true);
             setInitSuccess(true);
-            onComplete?.();
           }, delay);
         } else {
           setStatus(`Error: ${result.error}`);
@@ -68,7 +65,7 @@ export const FoxEcomSDK: React.FC<FoxEcomSDKProps> = ({
     };
 
     initializeSplash();
-  }, [config, delay, onComplete, token, environment, baseUrl, timeout, demoMode]);
+  }, [config, delay, token, environment, baseUrl, timeout, demoMode]);
 
   // After initialization success, show TabNavigator
   if (initSuccess) {
