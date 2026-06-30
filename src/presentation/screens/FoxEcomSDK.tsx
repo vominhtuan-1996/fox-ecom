@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, ActivityIndicator } from 'react-native';
 import { splashModule, type SplashConfig } from '../../modules/splash/SplashModule';
 import { TabNavigator } from '../app/TabNavigator';
+import { colors } from '../../common/theme';
 
 interface FoxEcomSDKProps {
   onComplete?: () => void;
@@ -80,7 +81,7 @@ export const FoxEcomSDK: React.FC<FoxEcomSDKProps> = ({
         <Text style={styles.subtitle}>E-Commerce SDK</Text>
 
         <View style={styles.initContainer}>
-          {showLoader && <ActivityIndicator size="large" color="#007AFF" />}
+          {showLoader && <ActivityIndicator size="large" color={colors.textInverse} />}
           <Text style={styles.status}>{status}</Text>
         </View>
 
@@ -95,7 +96,7 @@ export const FoxEcomSDK: React.FC<FoxEcomSDKProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#007AFF',
+    backgroundColor: colors.secondary,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -111,12 +112,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 48,
     fontWeight: '700',
-    color: '#fff',
+    color: colors.textInverse,
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 18,
-    color: '#e0e0e0',
+    color: colors.textTertiary,
     marginBottom: 50,
   },
   initContainer: {
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
   },
   status: {
     fontSize: 14,
-    color: '#fff',
+    color: colors.textInverse,
     marginTop: 16,
     fontWeight: '500',
   },
@@ -135,6 +136,6 @@ const styles = StyleSheet.create({
   },
   version: {
     fontSize: 12,
-    color: '#e0e0e0',
+    color: colors.textTertiary,
   },
 });
